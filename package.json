@@ -1,0 +1,9 @@
+{
+  "name": "ecowaste-atu",
+  "version": "1.0.0",
+  "description": "Цифровая система учёта пищевых отходов университетского комплекса АО «АТУ» (MVP, Трек 1)",
+  "main": "server.js",
+  "scripts": { "start": "node server.js", "reset": "node server.js --reset", "build:demo": "node build-demo.js" },
+  "engines": { "node": ">=18" },
+  "license": "MIT"
+}

@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: ecowaste-atu
+    runtime: node
+    plan: free
+    buildCommand: echo "no build needed"
+    startCommand: node server.js
+    envVars:
+      - key: TZ
+        value: Asia/Almaty
