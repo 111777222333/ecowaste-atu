@@ -586,6 +586,7 @@ table.t th { background: rgba(240, 246, 242, .9); }
 
   const ROLES = ['resp', 'reviewer', 'admin', 'mgmt', 'student'];
   const EDITABLE = ['draft', 'returned'];
+  const SEED_VERSION = 4; // при изменении демо-данных браузеры пересоздают их автоматически
 
   // ---------- утилиты ----------
   const pad = n => String(n).padStart(2, '0');
@@ -628,7 +629,7 @@ table.t th { background: rgba(240, 246, 242, .9); }
   // =====================================================================
   function buildSeed(hashPw, today) {
     const db = { orgs: [], users: [], wasteTypes: [], methods: [], reports: [], entries: [], history: [], dishes: [], dishLogs: [],
-      containers: [], containerEvents: [], offers: [], sessions: {}, seq: 1, rev: 1, settings: { anomalyPct: 30, dueDay: 5 } };
+      containers: [], containerEvents: [], offers: [], sessions: {}, seq: 1, rev: 1, seedVersion: SEED_VERSION, settings: { anomalyPct: 30, dueDay: 5 } };
     const id = () => db.seq++;
     const r = rng(20261112);
     const M = {};
@@ -805,7 +806,7 @@ table.t th { background: rgba(240, 246, 242, .9); }
           if (t.every && (Number(date.slice(8)) + ti) % t.every !== 0) return;
           let q;
           if (t.tag === 'plate') q = soldTotal * (od.key === 'canella' ? 0.012 : 0.042) * (0.85 + r() * 0.3) * (date >= '2026-10-15' && od.key === 'isk' ? 0.85 : 1);
-          if (t.tag === 'plate' && od.key === 'isk' && date >= lwStart && date < weekStart(todayStr)) q *= 1.35; // всплеск для демо отклонений
+          if (t.tag === 'plate' && od.key === 'isk' && date >= lwStart && date < weekStart(todayStr)) q *= 0.9; // всплеск для демо отклонений
           else if (t.tag === 'coffee') q = t.base * f * (0.8 + r() * 0.4);
           else q = t.base * f * (0.75 + r() * 0.5);
           push(t, date, q, { reason: t.tag === 'plate' ? 'plate' : 'tech' });
@@ -853,7 +854,7 @@ table.t th { background: rgba(240, 246, 242, .9); }
     const { load, save, hashPw, verifyPw, genToken } = opts;
     const nowFn = opts.now || (() => new Date());
     let db = load();
-    if (!db || !db.containers) { db = buildSeed(hashPw, nowFn()); save(db); }
+    if (!db || db.seedVersion !== SEED_VERSION) { db = buildSeed(hashPw, nowFn()); save(db); }
 
     const today = () => ymd(nowFn());
     const stamp = () => { const d = nowFn(); return ymd(d) + 'T' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds()); };
@@ -958,7 +959,7 @@ table.t th { background: rgba(240, 246, 242, .9); }
       const lastEmptied = db.containerEvents.filter(x => x.containerId === c.id && x.type === 'emptied').slice(-1)[0];
       const fill = c.capacityKg ? Math.min(100, Math.round(curKg / c.capacityKg * 100)) : 0;
       return Object.assign({}, c, { orgName: (org(c.orgId) || {}).name, typeName: t.name, unit: t.unit, currentKg: round(curKg, 1), fillPct: fill,
-        status: !c.active ? 'inactive' : fill >= 100 ? 'full' : (lastEmptied && lastEmptied.at === c.emptiedAt && curKg === 0 ? 'emptied' : 'active'),
+        status: !c.active ? 'inactive' : fill >= 95 ? 'full' : (lastEmptied && lastEmptied.at === c.emptiedAt && curKg === 0 ? 'emptied' : 'active'),
         currentCost: Math.round(cur.reduce((s, e) => s + costOf(e), 0)), currentCo2: round(cur.reduce((s, e) => s + co2Of(e), 0), 1),
         totalKg: round(ents.reduce((s, e) => s + kgEq(e), 0), 1), totalCost: Math.round(ents.reduce((s, e) => s + costOf(e), 0)), totalCo2: round(ents.reduce((s, e) => s + co2Of(e), 0), 1),
         logs: ents.length, lastAt: ents.length ? ents[ents.length - 1].created : null });
@@ -978,13 +979,13 @@ table.t th { background: rgba(240, 246, 242, .9); }
         if (!total) return;
         const byTag = {};
         oe.forEach(e => { const t = wt(e.wasteTypeId); const m = meth(e.methodId); const k = t.tag; if (!byTag[k]) byTag[k] = { kg: 0, landfill: 0, cost: 0 }; byTag[k].kg += kgEq(e); byTag[k].cost += costOf(e); if (m.kind === 'landfill') byTag[k].landfill += kgEq(e); });
-        const perYear = kg => round(kg / 3 * 12 / 1000, 2);
+        const perYear = kg => String(round(kg / 3 * 12 / 1000, 2)).replace('.', ',');
         const orgLandfill = oe.filter(e => wt(e.wasteTypeId).organic && meth(e.methodId).kind === 'landfill').reduce((s, e) => s + kgEq(e), 0);
         const save = orgLandfill / 1000 * (700.21 - avgOrg);
         if (orgLandfill / total > 0.4 && save / 3 * 12 > 200) out.push({ impact: save * 5, orgId: oid, orgName: o.name, level: 'high', title: 'Органика уходит на полигон',
           text: `${Math.round(orgLandfill / total * 100)}% массы — органика, вывозимая как ТБО. Компост/биогаз сократит выбросы примерно на ${perYear(save)} т CO₂-экв. в год.` });
         if (byTag.unsold && byTag.unsold.kg / total > 0.12) out.push({ impact: byTag.unsold.cost / 100, orgId: oid, orgName: o.name, level: 'high', title: 'Нереализованная продукция',
-          text: `${Math.round(byTag.unsold.kg / total * 100)}% отходов — непроданные блюда (≈ ${Math.round(byTag.unsold.cost / 3 * 12 / 1e6 * 10) / 10} млн ₸/год, примерно). Готовьте по прогнозу спроса и выставляйте остатки в «Акции» со скидкой.` });
+          text: `${Math.round(byTag.unsold.kg / total * 100)}% отходов — непроданные блюда (≈ ${String(Math.round(byTag.unsold.cost / 3 * 12 / 1e6 * 10) / 10).replace('.', ',')} млн ₸/год, примерно). Готовьте по прогнозу спроса и выставляйте остатки в «Акции» со скидкой.` });
         if (byTag.plate && byTag.plate.kg / total > 0.25) out.push({ impact: byTag.plate.kg * 0.5, orgId: oid, orgName: o.name, level: 'mid', title: 'Высокие остатки с тарелок',
           text: `Отходы из зала — ${Math.round(byTag.plate.kg / total * 100)}%. Помогут «половинные» порции гарниров и опрос о непопулярных блюдах.` });
         if (byTag.oil && byTag.oil.landfill > 0) out.push({ impact: byTag.oil.landfill, orgId: oid, orgName: o.name, level: 'mid', title: 'Масло — в контейнер ТБО',
@@ -3795,7 +3796,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=QR;else root.QR=QR
       <div class="fc-grid">${F.rows.map(r => `<div class="fc"><span>${esc(r.name)}</span><b>${r.recommend}</b><small>порций приготовить</small>${r.savePortions ? `<em>−${r.savePortions} к обычному выпуску</em>` : '<em class="ok">как обычно</em>'}</div>`).join('')}</div>
       ${save ? `<div class="small" style="margin-top:8px">Если готовить по прогнозу: ≈ <b>${money(save)}</b> меньше потерь за день (примерно).</div>` : ''}</div>`;
   }
-  const fillBar = p => `<div class="fill"><i style="width:${p}%;background:${p >= 100 ? 'var(--bad)' : p >= 75 ? 'var(--s4)' : 'var(--s3)'}"></i><span>${p}%</span></div>`;
+  const fillBar = p => `<div class="fill"><i style="width:${p}%;background:${p >= 95 ? 'var(--bad)' : p >= 75 ? 'var(--s4)' : 'var(--s3)'}"></i><span>${p}%</span></div>`;
 
   // ================= QR-КОРОБКИ =================
   const BOX_ST = { active: ['Активна', 'submitted'], full: ['Полная', 'returned'], emptied: ['Освобождена', 'accepted'], inactive: ['Отключена', 'draft'] };
