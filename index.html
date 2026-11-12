@@ -217,6 +217,152 @@ dialog .dh { padding: 16px 18px 0; } dialog .db { padding: 12px 18px; } dialog .
   .chips { grid-template-columns: 1fr 1fr; }
   .g4, .g3 { grid-template-columns: 1fr 1fr; }
 }
+
+/* ======================= ИННОВАЦИИ: новые компоненты и анимации ======================= */
+main { animation: fadeUp .35s ease both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.lift { transition: transform .18s ease, box-shadow .18s ease; }
+.lift:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(15, 60, 40, .10); }
+.card, .kpi { transition: transform .18s ease, box-shadow .18s ease; }
+.approx { font-size: 10.5px; font-weight: 700; color: var(--warn); background: var(--warn-soft); padding: 1px 6px; border-radius: 99px; margin-left: 4px; white-space: nowrap; }
+.live { font-size: 11px; font-weight: 800; color: #c0392b; letter-spacing: .04em; vertical-align: middle; animation: blink 1.6s ease-in-out infinite; }
+@keyframes blink { 50% { opacity: .35; } }
+.center { text-align: center; }
+.g3x { display: grid; gap: 14px; grid-template-columns: 1fr 2fr; margin-bottom: 0; }
+.g3x > .card { margin-bottom: 14px; }
+.span-all { grid-column: 1 / -1; }
+.filters-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; padding: 10px 12px; }
+.seg { display: inline-flex; background: #eef0ea; border-radius: 10px; padding: 3px; gap: 2px; }
+.seg button { border: 0; background: transparent; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--ink-2); }
+.seg button.on { background: #fff; color: var(--brand); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+
+/* скелетон */
+.sk { position: relative; overflow: hidden; min-height: 96px; }
+.sk i { display: block; height: 12px; border-radius: 6px; background: #e9ece6; margin: 10px 0; width: 70%; }
+.sk i:nth-child(2) { width: 45%; height: 22px; } .sk i:nth-child(3) { width: 85%; }
+.sk::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,.65), transparent); transform: translateX(-100%); animation: shimmer 1.2s infinite; }
+@keyframes shimmer { to { transform: translateX(100%); } }
+
+/* рост графиков */
+.chart .grow { transform-box: fill-box; transform-origin: bottom; animation: growY .7s cubic-bezier(.2,.8,.2,1) both; animation-delay: var(--d, 0s); }
+@keyframes growY { from { transform: scaleY(0); } }
+.chart .growx { transform-box: fill-box; transform-origin: left; animation: growX .7s cubic-bezier(.2,.8,.2,1) both; animation-delay: var(--d, 0s); }
+@keyframes growX { from { transform: scaleX(0); } }
+.chart .draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.1s ease forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+/* кольцо прогресса */
+.ring { position: relative; width: 150px; height: 150px; margin: 6px auto 10px; }
+.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring-bg { fill: none; stroke: #e6ebe4; stroke-width: 10; }
+.ring-fg { fill: none; stroke-width: 10; stroke-linecap: round; transition: stroke-dashoffset 1.2s cubic-bezier(.2,.8,.2,1); }
+.ring-t { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.ring-t b { font-size: 26px; letter-spacing: -.02em; }
+.ring-t span { font-size: 11.5px; color: var(--ink-3); max-width: 100px; text-align: center; line-height: 1.2; }
+
+/* лес */
+.forest { width: 100%; height: auto; display: block; margin: 8px 0; }
+.forest .tree { animation: sprout .6s cubic-bezier(.3,1.4,.5,1) both; animation-delay: var(--d); }
+@keyframes sprout { from { transform: scale(0); opacity: 0; } }
+
+/* прогноз */
+.forecast { border-left: 4px solid var(--s1); }
+.fc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; margin-top: 10px; }
+.fc { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; display: flex; flex-direction: column; gap: 1px; }
+.fc span { font-size: 12.5px; color: var(--ink-2); } .fc b { font-size: 24px; } .fc small { font-size: 11px; color: var(--ink-3); }
+.fc em { font-style: normal; font-size: 11.5px; color: var(--ok); font-weight: 700; } .fc em.ok { color: var(--ink-3); font-weight: 500; }
+
+/* лента */
+.feed-i { padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 13.5px; }
+.feed-i:last-child { border-bottom: 0; }
+.feed-i.new { animation: flash 2.2s ease; border-radius: 8px; }
+@keyframes flash { 0% { background: #d6f5e3; } 100% { background: transparent; } }
+
+/* коробки */
+.fill { position: relative; height: 16px; background: #eef0ea; border-radius: 99px; overflow: hidden; min-width: 90px; }
+.fill i { display: block; height: 100%; border-radius: 99px; transition: width .9s cubic-bezier(.2,.8,.2,1); }
+.fill span { position: absolute; inset: 0; font-size: 10.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; color: #23302a; }
+.box-hero { display: flex; gap: 18px; align-items: center; }
+.bin { position: relative; width: 92px; height: 130px; border: 3px solid #5b6b61; border-top-width: 8px; border-radius: 6px 6px 16px 16px; overflow: hidden; flex: none; background: #f6f8f4; }
+.bin-fill { position: absolute; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, #5cc48e, #1f8f5a); animation: fillUp 1.1s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes fillUp { from { height: 0 !important; } }
+.bin span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; color: #15201a; text-shadow: 0 0 6px #fff; }
+.big { font-size: 32px; font-weight: 800; letter-spacing: -.02em; } .big small { font-size: 15px; color: var(--ink-3); font-weight: 600; }
+.box-sum { font-size: 15px; }
+.lvl { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; }
+.lvl button { min-height: 52px; border: 1.5px solid var(--line-2); background: #fff; border-radius: 12px; font-size: 17px; font-weight: 700; cursor: pointer; }
+.lvl button.on { border-color: var(--brand); background: var(--brand-soft); color: var(--brand); }
+.chips.reasons { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+.chips.reasons .chip { min-height: 46px; }
+.calc { margin: 12px 0 8px; font-size: 15px; padding: 10px 12px; background: var(--brand-soft); border-radius: 10px; }
+.calc:empty { display: none; }
+.ok-overlay { position: fixed; inset: 0; z-index: 300; pointer-events: none; display: flex; align-items: center; justify-content: center; background: rgba(10, 30, 20, .25); animation: fadeUp .2s ease; }
+.ok-overlay.out { opacity: 0; transition: opacity .35s; }
+.ok-card { background: #fff; border-radius: 18px; padding: 22px 28px; display: flex; flex-direction: column; align-items: center; gap: 4px; box-shadow: 0 20px 60px rgba(0,0,0,.2); }
+.ok-card b { font-size: 24px; } .ok-card span { color: var(--ink-2); font-size: 14px; }
+.ok-check { width: 64px; height: 64px; }
+.ok-check circle { fill: none; stroke: var(--s3); stroke-width: 3; stroke-dasharray: 160; stroke-dashoffset: 160; animation: dash .5s ease forwards; }
+.ok-check path { fill: none; stroke: var(--s3); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 40; stroke-dashoffset: 40; animation: dash .35s .45s ease forwards; }
+@keyframes dash { to { stroke-dashoffset: 0; } }
+
+/* сканер */
+.scan-wrap { max-width: 480px; }
+.scan-box { position: relative; aspect-ratio: 1; border-radius: 18px; overflow: hidden; background: #0d1a14; }
+.scan-box video, .scan-box #scanLib { width: 100%; height: 100%; object-fit: cover; display: block; }
+.scan-box.off { aspect-ratio: 2.4; }
+.scan-box.off video, .scan-box.off .scan-line { display: none; }
+.scan-frame { position: absolute; inset: 14%; border-radius: 16px; box-shadow: 0 0 0 999px rgba(0,0,0,.35); pointer-events: none; }
+.scan-frame::before, .scan-frame::after, .scan-frame i::before, .scan-frame i::after { content: ""; position: absolute; width: 34px; height: 34px; border: 4px solid #5cf2a6; }
+.scan-frame::before { top: 0; left: 0; border-right: 0; border-bottom: 0; border-radius: 14px 0 0 0; } .scan-frame::after { top: 0; right: 0; border-left: 0; border-bottom: 0; border-radius: 0 14px 0 0; }
+.scan-frame i::before { bottom: 0; left: 0; border-right: 0; border-top: 0; border-radius: 0 0 0 14px; } .scan-frame i::after { bottom: 0; right: 0; border-left: 0; border-top: 0; border-radius: 0 0 14px 0; }
+.scan-line { position: absolute; left: 16%; right: 16%; height: 3px; background: linear-gradient(90deg, transparent, #5cf2a6, transparent); box-shadow: 0 0 14px #5cf2a6; top: 16%; animation: scan 2s ease-in-out infinite alternate; }
+@keyframes scan { to { top: 82%; } }
+.scan-box.hit .scan-frame::before, .scan-box.hit .scan-frame::after, .scan-box.hit .scan-frame i::before, .scan-box.hit .scan-frame i::after { border-color: #fff; }
+.scan-box.hit { box-shadow: 0 0 0 4px var(--s3); }
+
+/* QR A4 */
+.qr-a4 { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; }
+.qr-code { font-size: 18px !important; letter-spacing: .04em; }
+@media print { .qr-a4 { grid-template-columns: repeat(3, 1fr); gap: 6mm; } .qr-a4 .qr-card { height: 64mm; padding: 3mm; } .qr-a4 .qr-img svg { max-width: 40mm; } }
+
+/* акции */
+.offer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-bottom: 14px; }
+.offer { position: relative; background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 6px; box-shadow: var(--shadow); }
+.offer .tag { position: absolute; top: 10px; right: 10px; background: var(--s2); color: #fff; font-weight: 800; font-size: 12px; padding: 2px 8px; border-radius: 99px; }
+.offer .price s { color: var(--ink-3); } .offer .price b { font-size: 22px; color: var(--brand); }
+.booking { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.booking .code { font: 800 22px/1 ui-monospace, Menlo, monospace; background: var(--brand-soft); color: var(--brand); padding: 8px 10px; border-radius: 10px; margin-left: auto; letter-spacing: .06em; }
+
+/* рейтинг */
+.lb-row { display: flex; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); }
+.lb-row.mine { background: var(--brand-soft); border-radius: 10px; padding: 9px 8px; }
+.lb-row .pos { width: 28px; text-align: center; font-size: 18px; flex: none; }
+.lb-row .pts { font-size: 18px; min-width: 56px; text-align: right; }
+.badges { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.badge { font-size: 11.5px; background: #fff7e0; border: 1px solid #f2dc9a; color: #6e4b00; padding: 2px 8px; border-radius: 99px; white-space: nowrap; }
+.badge.sm { padding: 1px 5px; }
+.avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--brand); color: #fff; font-weight: 800; font-size: 20px; display: flex; align-items: center; justify-content: center; }
+.confetti { position: fixed; inset: 0; pointer-events: none; z-index: 400; }
+
+/* логин: плавающие листья, пульс логотипа */
+.float-bg { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+.float-bg span { position: absolute; left: var(--x); bottom: -40px; font-size: calc(22px * var(--s)); opacity: .55; animation: floatUp var(--d) linear infinite; animation-delay: calc(var(--w) * -1); }
+@keyframes floatUp { from { transform: translateY(0) rotate(0); } to { transform: translateY(-115vh) rotate(260deg); } }
+.login { position: relative; z-index: 1; }
+.top .logo svg { animation: pulse 2.6s ease-in-out infinite; }
+@keyframes pulse { 50% { transform: scale(1.12); } }
+
+@media (max-width: 860px) {
+  .g3x { grid-template-columns: 1fr; }
+  .bnav { overflow-x: auto; }
+  .bnav a { min-width: 64px; }
+  .box-hero { gap: 12px; }
+  .bin { width: 72px; height: 104px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .float-bg { display: none; }
+}
 </style>
 </head>
 <body>
@@ -225,29 +371,85 @@ dialog .dh { padding: 16px 18px 0; } dialog .db { padding: 12px 18px; } dialog .
 <div id="toast" role="status"></div>
 <script>window.ECO_FORCE_LOCAL=true;
 /*
+ * EcoWaste АТУ — ЕДИНЫЙ ФАЙЛ КОЭФФИЦИЕНТОВ И ДОПУЩЕНИЙ.
+ * Все значения здесь ориентировочные («шамамен / примерно»), их можно поправить без изменения кода.
+ * CO₂: UK DEFRA/BEIS «Greenhouse gas reporting: conversion factors 2024», раздел Waste disposal,
+ *      значения взяты из файла команды «Виды отходов и CO₂» (кг CO₂-экв на 1 тонну).
+ * Стоимость: допущение команды (себестоимость продуктов, ₸ за 1 кг), уточнить у бухгалтерии столовых.
+ */
+(function (root) {
+  'use strict';
+  const C = {
+    co2Source: 'UK DEFRA/BEIS GHG conversion factors 2024 (Waste disposal), файл «Виды отходов и CO₂»',
+
+    // Способы утилизации (иерархия: 1 — лучше). co2 — кг CO₂-экв на 1 т; null — зависит от вида отхода (ТБО)
+    methods: [
+      { code: 'DONATE', name: 'Передача: фудшеринг / скидка студентам', kind: 'prevent', co2: 0, rank: 1 },
+      { code: 'FEED', name: 'Передача на корм животным', kind: 'compost', co2: 8.88, rank: 2, note: 'нет фактора DEFRA, допущение: как компост' },
+      { code: 'RECYCLE', name: 'Сдача вторсырья на переработку', kind: 'recycling', co2: 6.41, rank: 3 },
+      { code: 'OIL', name: 'Сдача масла спецорганизации (биодизель)', kind: 'recycling', co2: 6.41, rank: 3 },
+      { code: 'AD', name: 'Анаэробное сбраживание (биогаз)', kind: 'compost', co2: 8.88, rank: 4 },
+      { code: 'COMPOST', name: 'Компостирование', kind: 'compost', co2: 8.88, rank: 4 },
+      { code: 'TBO', name: 'Вывоз ТБО на полигон', kind: 'landfill', co2: null, rank: 5 }
+    ],
+
+    // Виды отходов из файла: категория, CO₂ при вывозе ТБО (кг/т), рекомендуемый способ, пригодность к переработке
+    wasteTypes: {
+      'Пищевые отходы из зала': { cat: 'Органические', tbo: 700.21, best: 'AD', recyclable: true },
+      'Остатки нереализованной продукции': { cat: 'Органические', tbo: 700.21, best: 'DONATE', recyclable: true },
+      'Остатки еды': { cat: 'Органические', tbo: 700.21, best: 'COMPOST', recyclable: true },
+      'Очистки овощей': { cat: 'Органические', tbo: 700.21, best: 'COMPOST', recyclable: true },
+      'Отходы фруктов и овощей': { cat: 'Органические', tbo: 700.21, best: 'COMPOST', recyclable: true },
+      'Обрезки мясопродуктов': { cat: 'Органические', tbo: 700.21, best: 'AD', recyclable: true },
+      'Мясные кости': { cat: 'Органические', tbo: 700.21, best: 'AD', recyclable: true },
+      'Рыбные кости': { cat: 'Органические', tbo: 700.21, best: 'AD', recyclable: true },
+      'Яичная скорлупа': { cat: 'Органические', tbo: 700.21, best: 'COMPOST', recyclable: true },
+      'Кофейный жмых': { cat: 'Органические', tbo: 700.21, best: 'COMPOST', recyclable: true },
+      'Отходы образцов хлебобулочных изделий': { cat: 'Органические', tbo: 700.21, best: 'COMPOST', recyclable: true },
+      'Отходы образцов кондитерских изделий': { cat: 'Органические', tbo: 700.21, best: 'COMPOST', recyclable: true },
+      'Сахароза': { cat: 'Органические', tbo: 700.21, best: 'AD', recyclable: true },
+      'Отработанное масло': { cat: 'Специальные', tbo: 700.21, best: 'OIL', recyclable: true, density: 0.92 },
+      'Картонная тара': { cat: 'Вторсырьё', tbo: 1164.39, best: 'RECYCLE', recyclable: true },
+      'ПЭТ-бутылка 1,0 л (растительное масло)': { cat: 'Вторсырьё', tbo: 8.88, best: 'RECYCLE', recyclable: true },
+      'Стеклобутылка': { cat: 'Вторсырьё', tbo: 8.88, best: 'RECYCLE', recyclable: true },
+      'Алюминиевые банки': { cat: 'Вторсырьё', tbo: 8.88, best: 'RECYCLE', recyclable: true },
+      'Упаковочные отходы': { cat: 'Смешанные', tbo: 1164.39, best: 'RECYCLE', recyclable: true }
+    },
+    defaultType: { cat: 'Органические', tbo: 700.21, best: 'COMPOST', recyclable: true },
+
+    // Себестоимость потерь, ₸ за 1 кг (по классу отхода) — ДОПУЩЕНИЕ
+    costPerKg: { plate: 1200, unsold: 1800, peel: 250, trim: 1600, bones: 300, shell: 50, organic: 600, oil: 950, coffee: 0, pack: 0, other: 500 },
+    disposalPerKg: 15,          // вывоз ТБО, ₸/кг — допущение
+    dishCostShare: 0.45,        // себестоимость блюда ≈ 45% цены — допущение
+    treeKgPerYear: 22,          // 1 взрослое дерево поглощает ≈ 22 кг CO₂ в год — ориентир
+
+    reasons: {
+      unsold: 'Мало продано',
+      expired: 'Истёк срок годности',
+      plate: 'Осталось на тарелке',
+      prep_error: 'Ошибка приготовления',
+      tech: 'Технологические отходы'
+    },
+
+    goalPct: 20,                // цель: снизить отходы на 20% к базовому периоду
+    baseline: { from: '2026-09-01', to: '2026-09-30' }, // базовый период (первый учебный месяц до пилота)
+    challengePct: 20,           // недельный челлендж Zero Waste: −20% к средней неделе базового периода
+    forecastBuffer: 1.05,       // запас к прогнозу спроса
+    pointsPerPortion: 10        // очки студенту за спасённую порцию
+  };
+  if (typeof module !== 'undefined' && module.exports) module.exports = C; else root.ECO_CONFIG = C;
+})(typeof self !== 'undefined' ? self : this);
+</script>
+<script>/*
  * EcoWaste ATU — бизнес-логика (общая для сервера Node.js и демо-режима в браузере).
  * Вся проверка прав выполняется здесь, на стороне «сервера»: UI только отображает.
  */
 (function (root) {
   'use strict';
+  const CFG = (typeof module !== 'undefined' && module.exports) ? require('./config.js') : root.ECO_CONFIG;
 
-  const ROLES = ['resp', 'reviewer', 'admin', 'mgmt'];
-  const STATUSES = ['draft', 'submitted', 'in_review', 'accepted', 'returned'];
+  const ROLES = ['resp', 'reviewer', 'admin', 'mgmt', 'student'];
   const EDITABLE = ['draft', 'returned'];
-
-  // Коэффициенты выбросов, кг CO2e на 1 кг отходов.
-  // Источник: UK DESNZ/DEFRA «Greenhouse gas reporting: conversion factors 2024», раздел Waste disposal:
-  //  - органика (food & garden) на полигон: 655.99 кг CO2e/т  -> 0.656
-  //  - пищевые отходы, компостирование / анаэробное сбраживание: 8.88 кг CO2e/т -> 0.0089
-  //  - неорганические отходы на полигон (стекло, пластик, металл): ≈ 8.9 кг CO2e/т -> 0.0089
-  //  - переработка (open/closed loop), типовое значение: ≈ 21.3 кг CO2e/т -> 0.0213
-  const CO2 = {
-    organic_landfill: 0.656,
-    organic_compost: 0.0089,
-    inert_landfill: 0.0089,
-    recycling: 0.0213,
-    source: 'UK DESNZ/DEFRA GHG Conversion Factors 2024 (Waste disposal)'
-  };
 
   // ---------- утилиты ----------
   const pad = n => String(n).padStart(2, '0');
@@ -261,6 +463,9 @@ dialog .dh { padding: 16px 18px 0; } dialog .db { padding: 12px 18px; } dialog .
     while (mm < 1) { mm += 12; y--; }
     return y + '-' + pad(mm);
   }
+  function dayAdd(d, k) { const x = new Date(d + 'T12:00:00'); x.setDate(x.getDate() + k); return ymd(x); }
+  const weekday = d => new Date(d + 'T12:00:00').getDay();
+  function weekStart(d) { const wd = (weekday(d) + 6) % 7; return dayAdd(d, -wd); } // понедельник
   function monthsOfPeriod(type, year, idx) {
     if (type === 'month') return [year + '-' + pad(idx)];
     if (type === 'quarter') return [0, 1, 2].map(i => year + '-' + pad((idx - 1) * 3 + 1 + i));
@@ -273,7 +478,6 @@ dialog .dh { padding: 16px 18px 0; } dialog .db { padding: 12px 18px; } dialog .
   }
   const fail = (code, msg, extra) => { throw new ApiError(code, msg, extra); };
 
-  // ---------- детерминированный генератор для демо-данных ----------
   function rng(seed) {
     return function () {
       seed |= 0; seed = seed + 0x6D2B79F5 | 0;
@@ -283,112 +487,210 @@ dialog .dh { padding: 16px 18px 0; } dialog .db { padding: 12px 18px; } dialog .
     };
   }
 
-  // ---------- демо-данные ----------
+  // =====================================================================
+  //  ДЕМО-ДАННЫЕ: 12 июня — вчера (12 ноября 2026), детерминированно
+  // =====================================================================
   function buildSeed(hashPw, today) {
-    const db = { orgs: [], users: [], wasteTypes: [], methods: [], reports: [], entries: [], history: [], sessions: {}, seq: 1, settings: { anomalyPct: 30, dueDay: 5 } };
+    const db = { orgs: [], users: [], wasteTypes: [], methods: [], reports: [], entries: [], history: [], dishes: [], dishLogs: [],
+      containers: [], containerEvents: [], offers: [], sessions: {}, seq: 1, rev: 1, settings: { anomalyPct: 30, dueDay: 5 } };
     const id = () => db.seq++;
-
-    const M = {};
-    [
-      ['tbo', 'Вывоз ТБО', 'landfill'],
-      ['bin', 'Вывоз ТБО (мусорный бак)', 'landfill'],
-      ['sep', 'Раздельный сбор → переработка', 'recycling'],
-      ['comp', 'Компостирование', 'compost'],
-      ['oil', 'Сдача на переработку (биотопливо)', 'recycling'],
-      ['feed', 'Передача на корм животным', 'compost']
-    ].forEach(([k, name, kind]) => { const m = { id: id(), name, kind, active: true }; M[k] = m.id; db.methods.push(m); });
-
-    // tag — класс отхода для правил рекомендаций; organic — органика; recyclable — пригоден к переработке
-    const T = (name, unit, method, tag, organic, recyclable, base, extra) => Object.assign({ name, unit, method: M[method], tag, organic, recyclable, base }, extra || {});
-    const canteenTypes = k => [
-      T('Очистки овощей', 'кг', 'tbo', 'peel', true, true, 9 * k),
-      T('Обрезки мясопродуктов', 'кг', 'tbo', 'trim', true, false, 3.2 * k),
-      T('Пищевые отходы из зала', 'кг', 'tbo', 'plate', true, false, 12 * k),
-      T('Остатки нереализованной продукции', 'кг', 'tbo', 'unsold', true, false, 5.5 * k),
-      T('Отработанное масло', 'л', 'bin', 'oil', true, true, 1.6 * k, { density: 0.92, every: 3 }),
-      T('Картонная тара', 'кг', 'tbo', 'pack', false, true, 4 * k)
-    ];
-    const orgDefs = [
-      { name: 'Кафедра ТПП', type: 'Кафедра', building: 'Корпус 1, лаб. 214', lab: true, resp: ['Ахметова Динара', 'tpp@atu.kz'],
-        types: [T('Упаковочные отходы', 'кг', 'tbo', 'pack', false, true, 1.2), T('Мясные кости', 'кг', 'tbo', 'bones', true, false, 2.4), T('Рыбные кости', 'кг', 'tbo', 'bones', true, false, 0.9)] },
-      { name: 'Кафедра ТХиПП', type: 'Кафедра', building: 'Корпус 2, лаб. 118', lab: true, resp: ['Сейткали Арман', 'thpp@atu.kz'],
-        types: [T('Яичная скорлупа', 'кг', 'tbo', 'shell', true, true, 0.6), T('Сахароза', 'кг', 'tbo', 'organic', true, false, 0.4),
-          T('ПЭТ-бутылка 1,0 л (растительное масло)', 'кг', 'tbo', 'pack', false, true, 0.25), T('Стеклобутылка', 'кг', 'tbo', 'pack', false, true, 0.8),
-          T('Отходы образцов хлебобулочных изделий', 'кг', 'tbo', 'unsold', true, false, 1.5), T('Отходы образцов кондитерских изделий', 'кг', 'tbo', 'unsold', true, false, 1.1),
-          T('Отходы фруктов и овощей', 'кг', 'tbo', 'peel', true, true, 1.3), T('Алюминиевые банки', 'кг', 'tbo', 'pack', false, true, 0.2)] },
-      { name: 'Учебно-гостиничный комплекс ATU INN', type: 'Гостиница / общепит', building: 'ул. Толе би, 100', resp: ['Каримова Айгерим', 'inn@atu.kz'], types: canteenTypes(0.55) },
-      { name: 'Кофейня АТУ (ИП «Canella»)', type: 'Кофейня', building: 'Корпус 1, 1 этаж', resp: ['Нурланов Ерлан', 'canella@atu.kz'],
-        types: [T('Кофейный жмых', 'кг', 'bin', 'coffee', true, true, 2.6), T('Картонная тара', 'кг', 'bin', 'pack', false, true, 1.4), T('Остатки еды', 'кг', 'bin', 'plate', true, false, 1.8)] },
-      { name: 'Столовый комплекс корп. 1, 2 (ИП «Искандер»)', type: 'Столовая', building: 'Корпуса 1 и 2', resp: ['Искандеров Тимур', 'iskander@atu.kz'], types: canteenTypes(1) }
-    ];
-
-    const reviewer = { id: id(), name: 'Жумабаева Сауле (эколог)', email: 'reviewer@atu.kz', role: 'reviewer', orgId: null, active: true };
-    const admin = { id: id(), name: 'Администратор системы', email: 'admin@atu.kz', role: 'admin', orgId: null, active: true };
-    const mgmt = { id: id(), name: 'Проректор по АХР', email: 'director@atu.kz', role: 'mgmt', orgId: null, active: true };
-    reviewer.pw = hashPw('review123'); admin.pw = hashPw('admin123'); mgmt.pw = hashPw('mgmt123');
-    db.users.push(reviewer, admin, mgmt);
-
     const r = rng(20261112);
+    const M = {};
+    CFG.methods.forEach(m => { const x = Object.assign({ id: id(), active: true }, m); M[m.code] = x.id; db.methods.push(x); });
+
+    const T = (name, unit, method, tag, organic, base, extra) => Object.assign({ name, unit, method, tag, organic, base }, extra || {});
+    const canteen = k => [
+      T('Очистки овощей', 'кг', 'TBO', 'peel', true, 9 * k),
+      T('Обрезки мясопродуктов', 'кг', 'TBO', 'trim', true, 3.2 * k),
+      T('Пищевые отходы из зала', 'кг', 'TBO', 'plate', true, 12 * k),
+      T('Остатки нереализованной продукции', 'кг', 'TBO', 'unsold', true, 0),
+      T('Отработанное масло', 'л', 'TBO', 'oil', true, 4.5 * k, { every: 3 }),
+      T('Картонная тара', 'кг', 'TBO', 'pack', false, 4 * k)
+    ];
+    // меню (вымышленные блюда; цена и вес порции — допущения для демо)
+    const D = (name, g, price, base, cat, perish) => ({ name, g, price, base, cat, perish: !!perish });
+    const orgDefs = [
+      { key: 'tpp', name: 'Кафедра ТПП', type: 'Кафедра', building: 'Корпус 1, лаб. 214', lab: true, resp: ['Ахметова Динара', 'tpp@atu.kz'],
+        types: [T('Упаковочные отходы', 'кг', 'TBO', 'pack', false, 1.2), T('Мясные кости', 'кг', 'TBO', 'bones', true, 2.4), T('Рыбные кости', 'кг', 'TBO', 'bones', true, 0.9)],
+        boxes: [['Мясные кости', 'Лаборатория 214 — кости', 'шикізат', 20], ['Упаковочные отходы', 'Лаборатория 214 — упаковка', 'вторсырьё', 15]] },
+      { key: 'thpp', name: 'Кафедра ТХиПП', type: 'Кафедра', building: 'Корпус 2, лаб. 118', lab: true, resp: ['Сейткали Арман', 'thpp@atu.kz'],
+        types: [T('Яичная скорлупа', 'кг', 'TBO', 'shell', true, 0.6), T('Сахароза', 'кг', 'TBO', 'organic', true, 0.4),
+          T('ПЭТ-бутылка 1,0 л (растительное масло)', 'кг', 'TBO', 'pack', false, 0.25), T('Стеклобутылка', 'кг', 'TBO', 'pack', false, 0.8),
+          T('Отходы образцов хлебобулочных изделий', 'кг', 'TBO', 'organic', true, 1.5), T('Отходы образцов кондитерских изделий', 'кг', 'TBO', 'organic', true, 1.1),
+          T('Отходы фруктов и овощей', 'кг', 'TBO', 'peel', true, 1.3), T('Алюминиевые банки', 'кг', 'TBO', 'pack', false, 0.2)],
+        boxes: [['Отходы фруктов и овощей', 'Лаборатория 118 — органика', 'шикізат', 15], ['Стеклобутылка', 'Лаборатория 118 — стекло и тара', 'вторсырьё', 15], ['Отходы образцов хлебобулочных изделий', 'Лаборатория 118 — образцы', 'дайын тағам', 15]] },
+      { key: 'inn', name: 'Учебно-гостиничный комплекс ATU INN', type: 'Гостиница / общепит', building: 'ул. Толе би, 100', resp: ['Каримова Айгерим', 'inn@atu.kz'], types: canteen(0.55), sunday: 0.5, pilot: '2026-10-01',
+        dishes: [D('Бешбармак', 350, 2500, 28, 'Горячее'), D('Куырдак', 300, 2200, 22, 'Горячее'), D('Гуляш с гречкой', 320, 1800, 30, 'Горячее'), D('Борщ', 300, 1100, 34, 'Супы'), D('Салат «Цезарь»', 200, 1600, 20, 'Салаты', true), D('Блины с творогом', 150, 900, 26, 'Выпечка', true)],
+        boxes: [['Очистки овощей', 'Кухня ATU INN — органика', 'шикізат', 50], ['Пищевые отходы из зала', 'Ресторан ATU INN — зал', 'тәрелке қалдығы', 60], ['Остатки нереализованной продукции', 'Раздача ATU INN', 'дайын тағам', 40], ['Картонная тара', 'Склад ATU INN — картон', 'вторсырьё', 30]] },
+      { key: 'canella', name: 'Кофейня АТУ (ИП «Canella»)', type: 'Кофейня', building: 'Корпус 1, 1 этаж', resp: ['Нурланов Ерлан', 'canella@atu.kz'], sunday: 0.3, pilot: '2026-10-15',
+        types: [T('Кофейный жмых', 'кг', 'TBO', 'coffee', true, 3.4), T('Картонная тара', 'кг', 'TBO', 'pack', false, 1.4), T('Остатки еды', 'кг', 'TBO', 'plate', true, 1.6), T('Остатки нереализованной продукции', 'кг', 'TBO', 'unsold', true, 0)],
+        dishes: [D('Круассан', 80, 900, 45, 'Выпечка', true), D('Сэндвич с курицей', 200, 1500, 30, 'Закуски', true), D('Чизкейк', 120, 1300, 18, 'Десерты', true), D('Баурсаки', 100, 500, 40, 'Выпечка', true), D('Маффин', 90, 800, 25, 'Десерты', true)],
+        boxes: [['Кофейный жмых', 'Бар кофейни — жмых', 'шикізат', 30], ['Картонная тара', 'Кофейня — стаканы и картон', 'вторсырьё', 25], ['Остатки еды', 'Кофейня — зал', 'тәрелке қалдығы', 20]] },
+      { key: 'isk', name: 'Столовый комплекс корп. 1, 2 (ИП «Искандер»)', type: 'Столовая', building: 'Корпуса 1 и 2', resp: ['Искандеров Тимур', 'iskander@atu.kz'], types: canteen(1), pilot: '2026-09-15',
+        dishes: [D('Плов', 300, 1600, 95, 'Горячее'), D('Лагман', 350, 1500, 75, 'Горячее'), D('Манты (4 шт.)', 280, 1400, 60, 'Горячее'), D('Суп-лапша', 300, 900, 80, 'Супы'), D('Котлета с пюре', 320, 1500, 65, 'Горячее'), D('Салат овощной', 150, 700, 50, 'Салаты', true), D('Самса', 120, 500, 110, 'Выпечка', true)],
+        boxes: [['Очистки овощей', 'Кухня корп. 1 — органика', 'шикізат', 80], ['Пищевые отходы из зала', 'Зал корп. 1 — тарелки', 'тәрелке қалдығы', 100], ['Остатки нереализованной продукции', 'Раздача корп. 2', 'дайын тағам', 50], ['Картонная тара', 'Склад — картон', 'вторсырьё', 40], ['Отработанное масло', 'Кухня — фритюрное масло', 'шикізат', 30]] }
+    ];
+
+    const reviewer = { id: id(), name: 'Жумабаева Сауле (эколог)', email: 'reviewer@atu.kz', role: 'reviewer', orgId: null, active: true, pw: hashPw('review123') };
+    const admin = { id: id(), name: 'Администратор системы', email: 'admin@atu.kz', role: 'admin', orgId: null, active: true, pw: hashPw('admin123') };
+    const mgmt = { id: id(), name: 'Проректор по АХР', email: 'director@atu.kz', role: 'mgmt', orgId: null, active: true, pw: hashPw('mgmt123') };
+    db.users.push(reviewer, admin, mgmt);
+    // студенты (вымышленные)
+    const studentNames = ['Ерасыл Б.', 'Аружан К.', 'Данияр М.', 'Томирис С.', 'Нурбол А.', 'Мадина Ж.', 'Алихан Т.', 'Дильназ О.', 'Санжар Е.', 'Айым Р.', 'Бекзат Н.', 'Камила Д.'];
+    const students = studentNames.map((n, i) => {
+      const u = { id: id(), name: n, email: i === 0 ? 'student@atu.kz' : 'student' + (i + 1) + '@atu.kz', role: 'student', orgId: null, active: true, pw: hashPw('demo123'), group: ['ТПП-23', 'ТХиПП-24', 'ВТ-22', 'ТОП-25'][i % 4] };
+      db.users.push(u); return u;
+    });
+
     const todayStr = ymd(today);
     const curMonth = monthOf(todayStr);
-    const months = [-4, -3, -2, -1, 0].map(k => monthAdd(curMonth, k));
+    const start = monthAdd(curMonth, -5) + '-12'; // 12 июня
+    const months = [-5, -4, -3, -2, -1, 0].map(k => monthAdd(curMonth, k));
+    const closed = new Set(['2026-07-06', '2026-08-31', '2026-10-26']); // выходные по праздникам РК
+    function season(date) {
+      const md = date.slice(5);
+      if (md < '07-01') return 1.1;             // летняя сессия
+      if (md < '08-25') return 0.35;            // каникулы, летняя школа
+      if (md < '09-01') return 0.6;             // подготовка, приёмная кампания
+      if (md < '10-01') return 1.08;            // начало учебного года
+      if (md >= '11-02' && md <= '11-08') return 1.05; // рубежный контроль
+      return 1.03;
+    }
+    const WD = [0, 1.0, 1.05, 1.05, 1.0, 0.9, 0.45];
+    const boxNo = { isk: 1, inn: 6, canella: 10, tpp: 13, thpp: 15 };
+    const lwStart = dayAdd(weekStart(ymd(today)), -7);
 
     orgDefs.forEach((od, oi) => {
-      const org = { id: id(), name: od.name, type: od.type, building: od.building, active: true, created: months[0] + '-01' };
+      const org = { id: id(), name: od.name, type: od.type, building: od.building, active: true, created: start };
       db.orgs.push(org);
       const u = { id: id(), name: od.resp[0], email: od.resp[1], role: 'resp', orgId: org.id, active: true, pw: hashPw('demo123') };
       db.users.push(u);
       const types = od.types.map(t => {
-        const wt = { id: id(), orgId: org.id, name: t.name, unit: t.unit, defaultMethodId: t.method, tag: t.tag, organic: t.organic, recyclable: t.recyclable,
-          density: t.density || 1, maxQty: t.unit === 'л' ? 100 : Math.max(50, Math.ceil(t.base * 8)), active: true };
+        const c = CFG.wasteTypes[t.name] || CFG.defaultType;
+        const wt = { id: id(), orgId: org.id, name: t.name, unit: t.unit, defaultMethodId: M[t.method], tag: t.tag, organic: t.organic, recyclable: c.recyclable,
+          category: c.cat, co2Tbo: c.tbo, bestMethodId: M[c.best], density: c.density || 1, maxQty: t.unit === 'л' ? 100 : Math.max(50, Math.ceil(Math.max(t.base, 3) * 10)), active: true };
         db.wasteTypes.push(wt);
         return Object.assign({}, t, { wt });
       });
+      const typeBy = tag => types.find(x => x.tag === tag);
+      const dishes = (od.dishes || []).map(d => {
+        const x = { id: id(), orgId: org.id, name: d.name, portionG: d.g, price: d.price, category: d.cat, perishable: d.perish, active: true, base: d.base };
+        db.dishes.push(x); return x;
+      });
+      // контейнеры (QR-коробки)
+      const boxes = (od.boxes || []).map(b => {
+        const t = types.find(x => x.name === b[0]);
+        const c = { id: id(), code: 'BOX-' + String(boxNo[od.key]++).padStart(3, '0'), orgId: org.id, name: b[1], category: b[2], capacityKg: b[3], wasteTypeId: t.wt.id, place: od.building, active: true, emptiedAt: start + 'T00:00:00', acc: 0 };
+        db.containers.push(c); return c;
+      });
+      const boxFor = wtId => boxes.find(b => b.wasteTypeId === wtId);
 
-      months.forEach((m, mi) => {
-        const isCur = m === curMonth;
+      const reps = {};
+      months.forEach(m => {
         const rep = { id: id(), orgId: org.id, month: m, status: 'draft', created: m + '-01T08:00:00', submittedAt: null, reviewerId: null, decidedAt: null };
-        db.reports.push(rep);
-        const dim = daysInMonth(m);
-        for (let d = 1; d <= dim; d++) {
-          const date = m + '-' + pad(d);
-          if (date >= todayStr) break; // данные только по вчерашний день
-          const wd = new Date(date + 'T12:00:00').getDay();
-          const mon = Number(m.slice(5));
-          if (od.lab) {
-            // лабораторные занятия по вт и чт; летом (июль-август) занятий почти нет
-            if (!(wd === 2 || wd === 4)) continue;
-            if ((mon === 7 || mon === 8) && r() < 0.85) continue;
-          } else {
-            if (wd === 0) continue; // воскресенье — выходной
-            if ((mon === 7 || mon === 8) && r() < 0.15) continue; // летом меньше посетителей
+        db.reports.push(rep); reps[m] = rep;
+      });
+      const pilotOn = d => od.pilot && d >= od.pilot;
+      const qrOn = d => d >= '2026-10-01';
+      const methodFor = (t, d) => {
+        if (!pilotOn(d)) return M.TBO;
+        if (t.tag === 'peel' || t.tag === 'coffee') return M.COMPOST;
+        if (t.tag === 'trim' || t.tag === 'plate') return M.AD;
+        if (t.tag === 'oil') return M.OIL;
+        if (t.tag === 'pack') return M.RECYCLE;
+        return M.COMPOST;
+      };
+      const push = (t, date, qty, extra) => {
+        if (qty <= 0) return null;
+        const rep = reps[monthOf(date)];
+        const e = Object.assign({ id: id(), reportId: rep.id, orgId: org.id, date, wasteTypeId: t.wt.id, qty: round(qty, t.unit === 'л' ? 1 : 2), methodId: methodFor(t, date), userId: u.id, photo: null,
+          created: date + 'T' + pad(14 + Math.floor(r() * 5)) + ':' + pad(Math.floor(r() * 60)) + ':00', reason: 'tech', source: 'form' }, extra || {});
+        const box = boxFor(t.wt.id);
+        if (box) {
+          e.containerId = box.id;
+          if (qrOn(date)) e.source = 'qr';
+          box.acc += e.qty * (t.wt.density || 1);
+          if (box.acc >= box.capacityKg * (0.8 + r() * 0.2)) {
+            db.containerEvents.push({ id: id(), containerId: box.id, type: 'emptied', at: date + 'T18:30:00', kg: round(box.acc, 1), userId: u.id });
+            box.emptiedAt = date + 'T18:30:00'; box.acc = 0;
           }
-          const dayFactor = (wd === 6 ? 0.55 : 1) * ((mon === 7 || mon === 8) ? 0.8 : 1);
-          types.forEach((t, ti) => {
-            if (t.every && (d + ti) % t.every !== 0) return;
-            if (od.lab && r() < 0.25) return;
-            let q = t.base * dayFactor * (0.75 + r() * 0.5);
-            // «сюжет» для аналитики: рост нереализованной продукции у Искандера в предыдущем месяце
-            if (oi === 4 && t.tag === 'unsold' && mi === 3) q *= 1.55;
-            // кофейня: рост жмыха с началом учебного года
-            if (oi === 3 && t.tag === 'coffee' && mon >= 9) q *= 1.25;
-            q = round(Math.max(0.05, q), t.unit === 'л' ? 1 : 2);
-            db.entries.push({ id: id(), reportId: rep.id, orgId: org.id, date, wasteTypeId: t.wt.id, qty: q, methodId: t.method,
-              userId: u.id, photo: null, created: date + 'T' + pad(10 + Math.floor(r() * 7)) + ':' + pad(Math.floor(r() * 60)) + ':00' });
-          });
         }
-        if (isCur) return;
+        db.entries.push(e); return e;
+      };
+
+      for (let date = start; date < todayStr; date = dayAdd(date, 1)) {
+        const wd = weekday(date);
+        if (closed.has(date)) continue;
+        const s = season(date);
+        if (od.lab) {
+          const md = date.slice(5);
+          const sem = md >= '09-01' || md < '06-30';
+          if (!(wd === 2 || wd === 4) || !sem) continue;
+          types.forEach(t => { if (r() < 0.25) return; push(t, date, t.base * (0.75 + r() * 0.5), { reason: t.tag === 'organic' ? 'unsold' : 'tech' }); });
+          continue;
+        }
+        let wf = WD[wd];
+        if (wd === 0) { if (!od.sunday) continue; wf = od.sunday; }
+        const f = s * wf;
+        // блюда: спрос, выпуск, остатки
+        let soldTotal = 0;
+        dishes.forEach(d => {
+          const demand = Math.max(1, Math.round(d.base * f * (0.85 + r() * 0.3)));
+          const forecastOn = date >= '2026-10-05';
+          const ratio = forecastOn ? 1.06 + r() * 0.07 : 1.12 + r() * 0.14;
+          const prepared = Math.round(demand * ratio + (forecastOn ? 0 : r() * 3));
+          const sold = Math.min(prepared, demand);
+          soldTotal += sold;
+          db.dishLogs.push({ orgId: org.id, date, dishId: d.id, prepared, sold });
+          let unsold = prepared - sold;
+          if (r() < 0.035) { // ошибка приготовления (подгорело, пересолено)
+            const n = 3 + Math.floor(r() * 6);
+            push(typeBy('unsold'), date, n * d.portionG / 1000, { dishId: d.id, portions: n, reason: 'prep_error', methodId: pilotOn(date) ? M.AD : M.TBO });
+          }
+          if (unsold <= 0) return;
+          // с 1 октября часть остатков продаётся студентам со скидкой (раздел «Акции»)
+          if (od.pilot && date >= '2026-10-01') {
+            const offered = Math.ceil(unsold * 0.5);
+            const picked = Math.round(offered * (0.65 + r() * 0.3));
+            const off = { id: id(), orgId: org.id, dishId: d.id, date, title: d.name, portions: offered, price: d.price, discountPrice: Math.round(d.price * 0.5 / 10) * 10,
+              until: date + 'T18:00:00', status: 'closed', bookings: [], created: date + 'T16:00:00', userId: u.id };
+            for (let k = 0; k < picked; k++) { const st = r() < 0.22 ? students[Math.floor(r() * students.length)] : { id: 0 }; off.bookings.push({ userId: st.id, qty: 1, status: 'picked', at: date + 'T16:' + pad(10 + Math.floor(r() * 45)) + ':00', code: 'R' + (1000 + Math.floor(r() * 9000)) }); }
+            db.offers.push(off);
+            if (picked > 0) push(typeBy('unsold'), date, picked * d.portionG / 1000, { dishId: d.id, portions: picked, reason: 'unsold', methodId: M.DONATE, source: 'offer', offerId: off.id });
+            unsold -= picked;
+          }
+          if (unsold <= 0) return;
+          const expired = d.perishable && r() < 0.4;
+          push(typeBy('unsold'), date, unsold * d.portionG / 1000, { dishId: d.id, portions: unsold, reason: expired ? 'expired' : 'unsold' });
+        });
+        // прочие отходы
+        types.forEach((t, ti) => {
+          if (t.tag === 'unsold') return;
+          if (t.every && (Number(date.slice(8)) + ti) % t.every !== 0) return;
+          let q;
+          if (t.tag === 'plate') q = soldTotal * (od.key === 'canella' ? 0.012 : 0.042) * (0.85 + r() * 0.3) * (date >= '2026-10-15' && od.key === 'isk' ? 0.85 : 1);
+          if (t.tag === 'plate' && od.key === 'isk' && date >= lwStart && date < weekStart(todayStr)) q *= 1.35; // всплеск для демо отклонений
+          else if (t.tag === 'coffee') q = t.base * f * (0.8 + r() * 0.4);
+          else q = t.base * f * (0.75 + r() * 0.5);
+          push(t, date, q, { reason: t.tag === 'plate' ? 'plate' : 'tech' });
+        });
+      }
+      boxes.forEach(b => { delete b.acc; });
+      if (od.pilot) types.forEach(t => { t.wt.defaultMethodId = methodFor(t, todayStr); });
+
+      // статусы отчётов
+      months.forEach((m, mi) => {
+        const rep = reps[m];
+        if (m === curMonth) return;
         const next = monthAdd(m, 1);
         const H = (from, to, uid, comment, day, hh) => db.history.push({ id: id(), reportId: rep.id, from, to, userId: uid, comment: comment || '', at: next + '-' + pad(day) + 'T' + hh });
-        // последний закрытый месяц: Кафедра ТХиПП не сдала, ATU INN отправил, но проверка не начата
-        const lastClosed = mi === 3;
-        if (lastClosed && oi === 1) return;
+        const lastClosed = mi === months.length - 2;
+        if (lastClosed && od.key === 'thpp') return;
         H('draft', 'submitted', u.id, '', 2 + (oi % 3), '17:10:00');
-        rep.submittedAt = next + '-' + pad(2 + (oi % 3)) + 'T17:10:00';
-        rep.status = 'submitted';
-        if (lastClosed && oi === 2) return;
+        rep.submittedAt = next + '-' + pad(2 + (oi % 3)) + 'T17:10:00'; rep.status = 'submitted';
+        if (lastClosed && od.key === 'inn') return;
         H('submitted', 'in_review', reviewer.id, '', 4 + (oi % 2), '09:30:00');
-        if (mi === 1 && oi === 3) {
+        if (mi === 2 && od.key === 'canella') {
           H('in_review', 'returned', reviewer.id, 'Не указан способ утилизации картонной тары за 2 дня — проверьте записи.', 4 + (oi % 2), '09:45:00');
           H('returned', 'submitted', u.id, 'Исправлено', 5 + (oi % 2), '11:20:00');
           H('submitted', 'in_review', reviewer.id, '', 6, '10:00:00');
@@ -396,34 +698,60 @@ dialog .dh { padding: 16px 18px 0; } dialog .db { padding: 12px 18px; } dialog .
         H('in_review', 'accepted', reviewer.id, '', 6 + (oi % 2), '10:15:00');
         rep.status = 'accepted'; rep.reviewerId = reviewer.id; rep.decidedAt = next + '-' + pad(6 + (oi % 2)) + 'T10:15:00';
       });
+
+      // открытые акции на сегодня (для демо бронирования)
+      if (od.key === 'isk' || od.key === 'canella') {
+        dishes.slice(0, od.key === 'isk' ? 3 : 2).forEach((d, i) => {
+          db.offers.push({ id: id(), orgId: org.id, dishId: d.id, date: todayStr, title: d.name, portions: 4 + i * 2, price: d.price, discountPrice: Math.round(d.price * 0.5 / 10) * 10,
+            until: todayStr + 'T18:00:00', status: 'open', bookings: i === 0 ? [{ userId: students[3].id, qty: 1, status: 'booked', at: todayStr + 'T10:05:00', code: 'R4821' }] : [], created: todayStr + 'T09:30:00', userId: u.id });
+        });
+      }
     });
     return db;
   }
 
-  // ---------- ядро ----------
+  // =====================================================================
+  //  ЯДРО
+  // =====================================================================
   function createCore(opts) {
     const { load, save, hashPw, verifyPw, genToken } = opts;
     const nowFn = opts.now || (() => new Date());
     let db = load();
-    if (!db) { db = buildSeed(hashPw, nowFn()); save(db); }
+    if (!db || !db.containers) { db = buildSeed(hashPw, nowFn()); save(db); }
 
     const today = () => ymd(nowFn());
     const stamp = () => { const d = nowFn(); return ymd(d) + 'T' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds()); };
     const nid = () => db.seq++;
+    let idx = null; // индексы по id (пересобираются при изменении массивов)
+    function index() {
+      if (idx && idx.n === db.seq) return idx;
+      idx = { n: db.seq, wt: new Map(db.wasteTypes.map(x => [x.id, x])), m: new Map(db.methods.map(x => [x.id, x])), o: new Map(db.orgs.map(x => [x.id, x])),
+        u: new Map(db.users.map(x => [x.id, x])), d: new Map(db.dishes.map(x => [x.id, x])), c: new Map(db.containers.map(x => [x.id, x])), r: new Map(db.reports.map(x => [x.id, x])) };
+      return idx;
+    }
     const byId = (arr, i) => arr.find(x => x.id === Number(i));
-    const org = i => byId(db.orgs, i);
-    const wt = i => byId(db.wasteTypes, i);
-    const meth = i => byId(db.methods, i);
-    const userName = i => { const u = byId(db.users, i); return u ? u.name : '—'; };
-    const pubUser = u => u && ({ id: u.id, name: u.name, email: u.email, role: u.role, orgId: u.orgId, active: u.active, orgName: u.orgId ? (org(u.orgId) || {}).name : null });
+    const org = i => index().o.get(Number(i));
+    const wt = i => index().wt.get(Number(i));
+    const meth = i => index().m.get(Number(i));
+    const dish = i => index().d.get(Number(i));
+    const userName = i => { const u = index().u.get(Number(i)); return u ? u.name : '—'; };
+    const methodByCode = c => db.methods.find(m => m.code === c);
+    const pubUser = u => u && ({ id: u.id, name: u.name, email: u.email, role: u.role, orgId: u.orgId, active: u.active, group: u.group, orgName: u.orgId ? (org(u.orgId) || {}).name : null });
     const kgEq = e => { const t = wt(e.wasteTypeId); return e.qty * (t && t.unit === 'л' ? (t.density || 1) : 1); };
-    function co2Of(e) {
-      const t = wt(e.wasteTypeId), m = meth(e.methodId);
-      const kg = kgEq(e);
-      if (!m || !t) return 0;
-      if (m.kind === 'recycling') return kg * CO2.recycling;
-      if (m.kind === 'compost') return kg * CO2.organic_compost;
-      return kg * (t.organic ? CO2.organic_landfill : CO2.inert_landfill);
+
+    // ---- экономика и CO₂ (коэффициенты — в config.js) ----
+    function co2PerT(e) { const t = wt(e.wasteTypeId), m = meth(e.methodId); if (!t || !m) return 0; return m.co2 == null ? (t.co2Tbo || 700.21) : m.co2; }
+    const co2Of = e => kgEq(e) / 1000 * co2PerT(e);
+    const co2Saved = e => { const t = wt(e.wasteTypeId); return Math.max(0, kgEq(e) / 1000 * ((t && t.co2Tbo || 700.21) - co2PerT(e))); };
+    function costPerKg(e) {
+      const d = e.dishId ? dish(e.dishId) : null;
+      if (d) return d.price * CFG.dishCostShare / (d.portionG / 1000);
+      const t = wt(e.wasteTypeId); return CFG.costPerKg[(t && t.tag) || 'other'] != null ? CFG.costPerKg[t.tag] : CFG.costPerKg.other;
+    }
+    function costOf(e) {
+      const m = meth(e.methodId);
+      if (m && m.code === 'DONATE') return 0; // продано со скидкой / передано — потеря предотвращена
+      return kgEq(e) * costPerKg(e) + (m && m.kind === 'landfill' ? kgEq(e) * CFG.disposalPerKg : 0);
     }
 
     function need(ctx, roles) {
@@ -433,20 +761,17 @@ dialog .dh { padding: 16px 18px 0; } dialog .db { padding: 12px 18px; } dialog .
     function canSeeOrg(ctx, orgId) {
       if (ctx.user.role === 'resp' && ctx.user.orgId !== Number(orgId)) fail(403, 'Доступ только к данным своей организации');
     }
-    function audit(rep, from, to, ctx, comment) {
-      db.history.push({ id: nid(), reportId: rep.id, from, to, userId: ctx.user.id, comment: comment || '', at: stamp() });
-    }
+    function audit(rep, from, to, ctx, comment) { db.history.push({ id: nid(), reportId: rep.id, from, to, userId: ctx.user.id, comment: comment || '', at: stamp() }); }
     function getReport(orgId, month, create) {
       let rep = db.reports.find(r => r.orgId === Number(orgId) && r.month === month);
-      if (!rep && create) {
-        rep = { id: nid(), orgId: Number(orgId), month, status: 'draft', created: stamp(), submittedAt: null, reviewerId: null, decidedAt: null };
-        db.reports.push(rep);
-      }
+      if (!rep && create) { rep = { id: nid(), orgId: Number(orgId), month, status: 'draft', created: stamp(), submittedAt: null, reviewerId: null, decidedAt: null }; db.reports.push(rep); }
       return rep;
     }
     function entryView(e) {
-      const t = wt(e.wasteTypeId) || {}, m = meth(e.methodId) || {};
-      return Object.assign({}, e, { typeName: t.name, unit: t.unit, methodName: m.name, userName: userName(e.userId), orgName: (org(e.orgId) || {}).name, kg: round(kgEq(e), 3), co2: round(co2Of(e), 3) });
+      const t = wt(e.wasteTypeId) || {}, m = meth(e.methodId) || {}, d = e.dishId ? dish(e.dishId) : null;
+      return Object.assign({}, e, { typeName: t.name, unit: t.unit, methodName: m.name, methodCode: m.code, userName: userName(e.userId), orgName: (org(e.orgId) || {}).name,
+        dishName: d ? d.name : null, reasonName: CFG.reasons[e.reason] || '', kg: round(kgEq(e), 3), co2: round(co2Of(e), 3), cost: Math.round(costOf(e)),
+        boxCode: e.containerId ? (index().c.get(e.containerId) || {}).code : null });
     }
     function reportView(rep) {
       const ents = db.entries.filter(e => e.reportId === rep.id);
@@ -454,10 +779,8 @@ dialog .dh { padding: 16px 18px 0; } dialog .db { padding: 12px 18px; } dialog .
       return Object.assign({}, rep, { orgName: (org(rep.orgId) || {}).name, entryCount: ents.length, totalKg: round(total, 1), reviewerName: rep.reviewerId ? userName(rep.reviewerId) : null,
         lastComment: (db.history.filter(h => h.reportId === rep.id && h.to === 'returned').slice(-1)[0] || {}).comment || null });
     }
-    function acceptedEntries() {
-      const ok = new Set(db.reports.filter(r => r.status === 'accepted').map(r => r.id));
-      return db.entries.filter(e => ok.has(e.reportId));
-    }
+    function acceptedSet() { return new Set(db.reports.filter(r => r.status === 'accepted').map(r => r.id)); }
+    function acceptedEntries() { const ok = acceptedSet(); return db.entries.filter(e => ok.has(e.reportId)); }
     function validateEntry(ctx, rep, a, selfId) {
       const errors = [];
       const t = wt(a.wasteTypeId);
@@ -471,78 +794,164 @@ dialog .dh { padding: 16px 18px 0; } dialog .db { padding: 12px 18px; } dialog .
         if (a.date > today()) errors.push('Дата не может быть в будущем');
         if (monthOf(a.date) !== rep.month) errors.push('Дата должна относиться к отчётному месяцу ' + rep.month);
       }
+      if (a.dishId && (!dish(a.dishId) || dish(a.dishId).orgId !== rep.orgId)) errors.push('Блюдо не найдено');
       if (errors.length) fail(422, errors.join('. '), { errors });
       const warnings = [];
-      const dup = db.entries.find(e => e.id !== selfId && e.reportId === rep.id && e.date === a.date && e.wasteTypeId === t.id && Math.abs(e.qty - q) < 1e-9);
+      const dup = db.entries.find(e => e.id !== selfId && e.reportId === rep.id && e.date === a.date && e.wasteTypeId === t.id && Math.abs(e.qty - q) < 1e-9 && (e.dishId || null) === (Number(a.dishId) || null));
       if (dup) warnings.push(`Похоже на дубль: ${a.date} уже есть запись «${t.name}» ${q} ${t.unit}`);
-      const hist = db.entries.filter(e => e.wasteTypeId === t.id && e.id !== selfId);
+      const hist = db.entries.filter(e => e.wasteTypeId === t.id && e.id !== selfId).slice(-60);
       if (hist.length >= 5) {
         const avg = hist.reduce((s, e) => s + e.qty, 0) / hist.length;
         if (q > avg * 3) warnings.push(`Значение в ${round(q / avg, 1)} раза выше среднего (${round(avg, 1)} ${t.unit}) — проверьте ввод`);
       }
       return { q, t, warnings };
     }
-
-    // агрегирование для отчётов/аналитики
+    function defaultReason(t) { return { plate: 'plate', unsold: 'unsold' }[t.tag] || 'tech'; }
     function aggregate(entries, keyFn) {
       const map = {};
-      entries.forEach(e => { const k = keyFn(e); if (!map[k]) map[k] = { kg: 0, co2: 0, n: 0 }; map[k].kg += kgEq(e); map[k].co2 += co2Of(e); map[k].n++; });
+      entries.forEach(e => { const k = keyFn(e); if (!map[k]) map[k] = { kg: 0, co2: 0, cost: 0, saved: 0, n: 0 }; const x = map[k]; x.kg += kgEq(e); x.co2 += co2Of(e); x.cost += costOf(e); x.saved += co2Saved(e); x.n++; });
       return map;
     }
+
+    // ---- контейнеры ----
+    function boxState(c) {
+      const ents = db.entries.filter(e => e.containerId === c.id);
+      const cur = ents.filter(e => e.created > c.emptiedAt);
+      const curKg = cur.reduce((s, e) => s + kgEq(e), 0);
+      const t = wt(c.wasteTypeId) || {};
+      const lastEmptied = db.containerEvents.filter(x => x.containerId === c.id && x.type === 'emptied').slice(-1)[0];
+      const fill = c.capacityKg ? Math.min(100, Math.round(curKg / c.capacityKg * 100)) : 0;
+      return Object.assign({}, c, { orgName: (org(c.orgId) || {}).name, typeName: t.name, unit: t.unit, currentKg: round(curKg, 1), fillPct: fill,
+        status: !c.active ? 'inactive' : fill >= 100 ? 'full' : (lastEmptied && lastEmptied.at === c.emptiedAt && curKg === 0 ? 'emptied' : 'active'),
+        currentCost: Math.round(cur.reduce((s, e) => s + costOf(e), 0)), currentCo2: round(cur.reduce((s, e) => s + co2Of(e), 0), 1),
+        totalKg: round(ents.reduce((s, e) => s + kgEq(e), 0), 1), totalCost: Math.round(ents.reduce((s, e) => s + costOf(e), 0)), totalCo2: round(ents.reduce((s, e) => s + co2Of(e), 0), 1),
+        logs: ents.length, lastAt: ents.length ? ents[ents.length - 1].created : null });
+    }
+    function boxByCode(code) { return db.containers.find(c => c.code.toUpperCase() === String(code || '').trim().toUpperCase()); }
 
     function recommendations(orgIds) {
       const cur = monthOf(today());
       const ms = [monthAdd(cur, -3), monthAdd(cur, -2), monthAdd(cur, -1)];
       const ents = acceptedEntries().filter(e => orgIds.includes(e.orgId) && ms.includes(monthOf(e.date)));
       const out = [];
+      const avgOrg = db.methods.find(m => m.code === 'COMPOST').co2;
       orgIds.forEach(oid => {
         const o = org(oid); if (!o) return;
         const oe = ents.filter(e => e.orgId === oid);
         const total = oe.reduce((s, e) => s + kgEq(e), 0);
         if (!total) return;
         const byTag = {};
-        oe.forEach(e => { const t = wt(e.wasteTypeId); const m = meth(e.methodId); const k = t.tag; if (!byTag[k]) byTag[k] = { kg: 0, landfill: 0 }; byTag[k].kg += kgEq(e); if (m.kind === 'landfill') byTag[k].landfill += kgEq(e); });
-        const perYear = kg => round(kg / 3 * 12 / 1000, 2); // т/год
+        oe.forEach(e => { const t = wt(e.wasteTypeId); const m = meth(e.methodId); const k = t.tag; if (!byTag[k]) byTag[k] = { kg: 0, landfill: 0, cost: 0 }; byTag[k].kg += kgEq(e); byTag[k].cost += costOf(e); if (m.kind === 'landfill') byTag[k].landfill += kgEq(e); });
+        const perYear = kg => round(kg / 3 * 12 / 1000, 2);
         const orgLandfill = oe.filter(e => wt(e.wasteTypeId).organic && meth(e.methodId).kind === 'landfill').reduce((s, e) => s + kgEq(e), 0);
-        const save = orgLandfill * (CO2.organic_landfill - CO2.organic_compost);
-        if (orgLandfill / total > 0.5 && save / 3 * 12 > 200) {
-          out.push({ impact: save, orgId: oid, orgName: o.name, level: 'high', title: 'Органика уходит на полигон',
-            text: `${Math.round(orgLandfill / total * 100)}% массы — органические отходы, вывозимые как ТБО. Переход на компостирование/биогаз сократит выбросы примерно на ${perYear(save)} т CO₂-экв. в год.` });
-        }
-        if (byTag.unsold && byTag.unsold.kg / total > 0.15) out.push({ impact: byTag.unsold.kg, orgId: oid, orgName: o.name, level: 'high', title: 'Много нереализованной продукции',
-          text: `Нереализованная продукция — ${Math.round(byTag.unsold.kg / total * 100)}% отходов (${perYear(byTag.unsold.kg)} т/год). Рекомендуем планировать объём выпуска по фактическим продажам за аналогичный день недели, вечерние скидки после 15:00 и передачу излишков в фудшеринг.` });
+        const save = orgLandfill / 1000 * (700.21 - avgOrg);
+        if (orgLandfill / total > 0.4 && save / 3 * 12 > 200) out.push({ impact: save * 5, orgId: oid, orgName: o.name, level: 'high', title: 'Органика уходит на полигон',
+          text: `${Math.round(orgLandfill / total * 100)}% массы — органика, вывозимая как ТБО. Компост/биогаз сократит выбросы примерно на ${perYear(save)} т CO₂-экв. в год.` });
+        if (byTag.unsold && byTag.unsold.kg / total > 0.12) out.push({ impact: byTag.unsold.cost / 100, orgId: oid, orgName: o.name, level: 'high', title: 'Нереализованная продукция',
+          text: `${Math.round(byTag.unsold.kg / total * 100)}% отходов — непроданные блюда (≈ ${Math.round(byTag.unsold.cost / 3 * 12 / 1e6 * 10) / 10} млн ₸/год, примерно). Готовьте по прогнозу спроса и выставляйте остатки в «Акции» со скидкой.` });
         if (byTag.plate && byTag.plate.kg / total > 0.25) out.push({ impact: byTag.plate.kg * 0.5, orgId: oid, orgName: o.name, level: 'mid', title: 'Высокие остатки с тарелок',
-          text: `Отходы из зала — ${Math.round(byTag.plate.kg / total * 100)}%. Помогут «половинные» порции гарниров, опрос о непопулярных блюдах и самостоятельный выбор гарнира.` });
-        if (byTag.oil && byTag.oil.landfill > 0) out.push({ impact: byTag.oil.landfill, orgId: oid, orgName: o.name, level: 'mid', title: 'Отработанное масло — в контейнер',
-          text: `${Math.round(byTag.oil.landfill / 3 * 12)} кг/год масла вывозится как ТБО. Заключите договор со сборщиком на переработку в биотопливо — это источник дохода, а не затрат.` });
+          text: `Отходы из зала — ${Math.round(byTag.plate.kg / total * 100)}%. Помогут «половинные» порции гарниров и опрос о непопулярных блюдах.` });
+        if (byTag.oil && byTag.oil.landfill > 0) out.push({ impact: byTag.oil.landfill, orgId: oid, orgName: o.name, level: 'mid', title: 'Масло — в контейнер ТБО',
+          text: `${Math.round(byTag.oil.landfill / 3 * 12)} кг/год масла вывозится как ТБО. Сдавайте его спецорганизации на биодизель.` });
         if (byTag.coffee && byTag.coffee.landfill > 0) out.push({ impact: byTag.coffee.landfill, orgId: oid, orgName: o.name, level: 'low', title: 'Кофейный жмых — ценное сырьё',
-          text: 'Жмых можно передавать на компост ботаническому саду/агрокафедре или раздавать гостям как удобрение.' });
-        if (byTag.pack && byTag.pack.landfill > 20) out.push({ impact: byTag.pack.landfill * 0.5, orgId: oid, orgName: o.name, level: 'low', title: 'Вторсырьё в общем контейнере',
-          text: `${Math.round(byTag.pack.landfill / 3 * 12)} кг/год тары (картон, ПЭТ, стекло, алюминий) можно сдавать в раздельный сбор.` });
+          text: 'Жмых хорошо компостируется: передавайте его агрокафедре или раздавайте гостям как удобрение.' });
+        if (byTag.pack && byTag.pack.landfill > 20) out.push({ impact: byTag.pack.landfill * 0.8, orgId: oid, orgName: o.name, level: 'low', title: 'Вторсырьё в общем контейнере',
+          text: `${Math.round(byTag.pack.landfill / 3 * 12)} кг/год тары (картон, ПЭТ, стекло) можно сдавать на переработку — картон на полигоне даёт 1 164 кг CO₂ на тонну.` });
       });
       return out.sort((a, b) => b.impact - a.impact);
     }
-
+    // отклонения: последняя полная неделя к средней за 4 предыдущие недели (устойчиво к сезонности)
     function anomalies(orgIds, pct) {
-      const cur = monthOf(today());
-      const last = monthAdd(cur, -1);
-      const prev = [monthAdd(cur, -4), monthAdd(cur, -3), monthAdd(cur, -2)];
-      const ents = acceptedEntries().filter(e => orgIds.includes(e.orgId));
-      const agg = aggregate(ents, e => e.orgId + '|' + e.wasteTypeId + '|' + monthOf(e.date));
+      const ws = weekStart(today());
+      const last = dayAdd(ws, -7);
+      const prev = [-14, -21, -28, -35].map(k => dayAdd(ws, k));
+      const ents = db.entries.filter(e => orgIds.includes(e.orgId) && e.date >= prev[3] && e.date < ws);
+      const agg = aggregate(ents, e => e.wasteTypeId + '|' + weekStart(e.date));
       const out = [];
       db.wasteTypes.filter(t => orgIds.includes(t.orgId)).forEach(t => {
-        const lastV = (agg[t.orgId + '|' + t.id + '|' + last] || {}).kg || 0;
-        const prevVals = prev.map(m => (agg[t.orgId + '|' + t.id + '|' + m] || {}).kg || 0).filter(v => v > 0);
-        if (!prevVals.length || !lastV) return;
-        const avg = prevVals.reduce((a, b) => a + b, 0) / prevVals.length;
+        const lastV = (agg[t.id + '|' + last] || {}).kg || 0;
+        const prevVals = prev.map(w => (agg[t.id + '|' + w] || {}).kg || 0).filter(v => v > 0);
+        if (prevVals.length < 3 || !lastV) return;
+        const avg = prevVals.reduce((x, y) => x + y, 0) / prevVals.length;
         const d = (lastV - avg) / avg * 100;
-        if (d > pct && lastV - avg > 2) out.push({ orgId: t.orgId, orgName: org(t.orgId).name, typeName: t.name, month: last, value: round(lastV, 1), avg: round(avg, 1), pct: Math.round(d) });
+        if (d > pct && lastV - avg > 2) out.push({ orgId: t.orgId, orgName: org(t.orgId).name, typeName: t.name, week: last, value: round(lastV, 1), avg: round(avg, 1), pct: Math.round(d) });
       });
-      return out.sort((a, b) => b.pct - a.pct);
+      return out.sort((x, y) => y.pct - x.pct);
+    }
+
+    // ---- прогноз ----
+    function forecastFor(orgId) {
+      let day = dayAdd(today(), 1);
+      if (weekday(day) === 0 && !db.dishLogs.some(l => l.orgId === orgId && weekday(l.date) === 0)) day = dayAdd(day, 1);
+      const wd = weekday(day);
+      const logs = db.dishLogs.filter(l => l.orgId === orgId && weekday(l.date) === wd && l.date >= dayAdd(today(), -28));
+      return { date: day, rows: db.dishes.filter(d => d.orgId === orgId && d.active).map(d => {
+        const ls = logs.filter(l => l.dishId === d.id);
+        if (!ls.length) return null;
+        const avgSold = ls.reduce((s, l) => s + l.sold, 0) / ls.length;
+        const avgPrep = ls.reduce((s, l) => s + l.prepared, 0) / ls.length;
+        const rec = Math.ceil(avgSold * CFG.forecastBuffer);
+        const savePortions = Math.max(0, Math.round(avgPrep - rec));
+        return { dishId: d.id, name: d.name, weeks: ls.length, avgSold: round(avgSold, 1), avgPrepared: round(avgPrep, 1), recommend: rec, savePortions,
+          saveCost: Math.round(savePortions * d.price * CFG.dishCostShare) };
+      }).filter(Boolean) };
+    }
+
+    // ---- геймификация ----
+    function gameState() {
+      const t = today();
+      const ws = weekStart(t);
+      const prevWs = dayAdd(ws, -7);
+      const base = CFG.baseline;
+      const baseDays = {};
+      db.entries.forEach(e => { if (e.date >= base.from && e.date <= base.to) baseDays[e.orgId + '|' + weekStart(e.date)] = true; });
+      const orgs = db.orgs.filter(o => o.active).map(o => {
+        const oe = db.entries.filter(e => e.orgId === o.id);
+        const baseKg = oe.filter(e => e.date >= base.from && e.date <= base.to && meth(e.methodId).code !== 'DONATE').reduce((s, e) => s + kgEq(e), 0);
+        const baseWeeks = Math.max(1, Object.keys(baseDays).filter(k => k.startsWith(o.id + '|')).length);
+        const baseWeek = baseKg / baseWeeks;
+        const wkKg = ws0 => oe.filter(e => e.date >= ws0 && e.date < dayAdd(ws0, 7) && meth(e.methodId).code !== 'DONATE').reduce((s, e) => s + kgEq(e), 0);
+        const daysPassed = Math.max(1, Math.min(7, (new Date(t + 'T12:00:00') - new Date(ws + 'T12:00:00')) / 864e5));
+        const cur = wkKg(ws), last = (wkKg(prevWs) + wkKg(dayAdd(ws, -14)) + wkKg(dayAdd(ws, -21)) + wkKg(dayAdd(ws, -28))) / 4;
+        const curProj = cur / daysPassed * 6; // рабочая неделя ≈ 6 дней
+        const lastRed = baseWeek ? (baseWeek - last) / baseWeek * 100 : 0;
+        const curRed = baseWeek ? (baseWeek - curProj) / baseWeek * 100 : 0;
+        const rescued = db.offers.filter(of => of.orgId === o.id).reduce((s, of) => s + of.bookings.filter(b => b.status === 'picked').reduce((a, b) => a + b.qty, 0), 0);
+        const lastMonth = monthAdd(monthOf(t), -1);
+        const lm = oe.filter(e => monthOf(e.date) === lastMonth);
+        const lmOrg = lm.filter(e => wt(e.wasteTypeId).organic);
+        const compostShare = lmOrg.length ? lmOrg.filter(e => meth(e.methodId).kind !== 'landfill').reduce((s, e) => s + kgEq(e), 0) / Math.max(1, lmOrg.reduce((s, e) => s + kgEq(e), 0)) : 0;
+        const qrLogs = oe.filter(e => e.source === 'qr').length;
+        const badges = [];
+        if (qrLogs > 0) badges.push({ key: 'qr', icon: '📱', name: 'QR-старт', desc: 'Первые записи через QR-коробки' });
+        if (compostShare >= 0.5) badges.push({ key: 'compost', icon: '♻️', name: 'Компостер', desc: '≥ 50% органики — не на полигон' });
+        if (rescued >= 50) badges.push({ key: 'rescue', icon: '🍱', name: 'Спаситель еды', desc: '50+ порций продано студентам со скидкой' });
+        if (lastRed >= 20) badges.push({ key: 'minus20', icon: '📉', name: '−20%', desc: 'Последние 4 недели — на 20%+ ниже базы' });
+        return { orgId: o.id, name: o.name, baseWeek: round(baseWeek, 1), lastWeek: round(last, 1), curWeek: round(cur, 1), lastRed: round(lastRed, 1), curRed: round(curRed, 1), rescued, compostShare: Math.round(compostShare * 100), badges,
+          score: Math.round(Math.max(0, lastRed) * 10 + rescued * 2 + compostShare * 300 + badges.length * 50) };
+      }).sort((a, b) => b.score - a.score);
+      if (orgs[0]) orgs[0].badges.unshift({ key: 'champ', icon: '🏆', name: 'Чемпион недели', desc: 'Лучший результат рейтинга' });
+      const stu = db.users.filter(u => u.role === 'student').map(u => {
+        let n = 0, booked = 0;
+        db.offers.forEach(of => of.bookings.forEach(b => { if (b.userId === u.id) { if (b.status === 'picked') n += b.qty; else if (b.status === 'booked') booked += b.qty; } }));
+        const badges = [];
+        if (n >= 1) badges.push({ key: 's1', icon: '🌱', name: 'Первое спасение', desc: 'Забрал первую порцию' });
+        if (n >= 5) badges.push({ key: 's5', icon: '🥗', name: '5 порций', desc: 'Спас 5 порций' });
+        if (n >= 20) badges.push({ key: 's20', icon: '🦸', name: 'Эко-герой', desc: 'Спас 20+ порций' });
+        return { userId: u.id, name: u.name, group: u.group, portions: n, booked, points: n * CFG.pointsPerPortion, co2: round(n * 0.3 * 0.70021, 1), badges };
+      }).sort((a, b) => b.points - a.points);
+      // челлендж кампуса на текущую неделю
+      const camBase = orgs.reduce((s, o) => s + o.baseWeek, 0), camCur = orgs.reduce((s, o) => s + o.curWeek, 0);
+      const daysPassed = Math.max(1, Math.min(7, (new Date(t + 'T12:00:00') - new Date(ws + 'T12:00:00')) / 864e5));
+      const target = camBase * (1 - CFG.challengePct / 100);
+      return { weekStart: ws, weekEnd: dayAdd(ws, 6), daysLeft: 7 - Math.floor(daysPassed), orgs, students: stu,
+        challenge: { pct: CFG.challengePct, base: round(camBase, 1), target: round(target, 1), current: round(camCur, 1), projected: round(camCur / daysPassed * 6, 1),
+          reduction: round(camBase ? (camBase - camCur / daysPassed * 6) / camBase * 100 : 0, 1) } };
     }
 
     const api = {
-      // ---------- аутентификация ----------
+      // ---------- служебное ----------
+      rev() { return { rev: db.rev || 1 }; },
       login(ctx, { email, password }) {
         const u = db.users.find(x => x.email.toLowerCase() === String(email || '').trim().toLowerCase());
         if (!u || !u.active || !verifyPw(String(password || ''), u.pw)) fail(401, 'Неверный e-mail или пароль');
@@ -556,13 +965,14 @@ dialog .dh { padding: 16px 18px 0; } dialog .db { padding: 12px 18px; } dialog .
         const u = ctx.user;
         const orgs = u.role === 'resp' ? db.orgs.filter(o => o.id === u.orgId) : db.orgs;
         const types = db.wasteTypes.filter(t => u.role !== 'resp' || t.orgId === u.orgId);
-        return { user: pubUser(u), today: today(), orgs, methods: db.methods, wasteTypes: types, settings: db.settings, co2: CO2,
+        return { user: pubUser(u), today: today(), orgs, methods: db.methods, wasteTypes: types, settings: db.settings, config: CFG,
+          dishes: db.dishes.filter(d => u.role !== 'resp' || d.orgId === u.orgId),
           users: u.role === 'admin' ? db.users.map(pubUser) : undefined };
       },
 
       // ---------- формы ----------
       getForm(ctx, { orgId, month }) {
-        need(ctx);
+        need(ctx, ['resp', 'reviewer', 'admin', 'mgmt']);
         orgId = Number(orgId || ctx.user.orgId); month = month || monthOf(today());
         canSeeOrg(ctx, orgId);
         if (!org(orgId)) fail(404, 'Организация не найдена');
@@ -572,7 +982,7 @@ dialog .dh { padding: 16px 18px 0; } dialog .db { padding: 12px 18px; } dialog .
         const history = db.history.filter(h => h.reportId === rep.id).map(h => Object.assign({}, h, { userName: userName(h.userId) }));
         const prevRep = getReport(orgId, monthAdd(month, -1), false);
         const due = monthAdd(month, 1) + '-' + pad(db.settings.dueDay);
-        return { report: reportView(rep), entries, history, types: db.wasteTypes.filter(t => t.orgId === orgId), due,
+        return { report: reportView(rep), entries, history, types: db.wasteTypes.filter(t => t.orgId === orgId), dishes: db.dishes.filter(d => d.orgId === orgId && d.active), due,
           prevReport: prevRep ? { month: prevRep.month, status: prevRep.status } : null };
       },
       addEntry(ctx, a) {
@@ -582,8 +992,10 @@ dialog .dh { padding: 16px 18px 0; } dialog .db { padding: 12px 18px; } dialog .
         if (!EDITABLE.includes(rep.status)) fail(409, 'Отчёт отправлен или принят — редактирование заблокировано');
         const { q, t, warnings } = validateEntry(ctx, rep, a, null);
         if (warnings.length && !a.force) return { needConfirm: true, warnings };
+        const d = a.dishId ? dish(a.dishId) : null;
         const e = { id: nid(), reportId: rep.id, orgId: rep.orgId, date: a.date, wasteTypeId: t.id, qty: round(q, 3), methodId: Number(a.methodId), userId: ctx.user.id,
-          photo: typeof a.photo === 'string' && a.photo.startsWith('data:image/') && a.photo.length < 400000 ? a.photo : null, created: stamp() };
+          photo: typeof a.photo === 'string' && a.photo.startsWith('data:image/') && a.photo.length < 400000 ? a.photo : null, created: stamp(),
+          reason: CFG.reasons[a.reason] ? a.reason : defaultReason(t), dishId: d ? d.id : null, portions: d ? Math.max(1, Math.round(q * 1000 / d.portionG)) : null, source: 'form' };
         db.entries.push(e);
         return { entry: entryView(e), warnings };
       },
@@ -593,9 +1005,10 @@ dialog .dh { padding: 16px 18px 0; } dialog .db { padding: 12px 18px; } dialog .
         const rep = byId(db.reports, e.reportId);
         canSeeOrg(ctx, rep.orgId);
         if (!EDITABLE.includes(rep.status)) fail(409, 'Отчёт заблокирован для редактирования');
-        const { q, t, warnings } = validateEntry(ctx, rep, a, e.id);
+        const { q, t, warnings } = validateEntry(ctx, rep, Object.assign({ dishId: e.dishId }, a), e.id);
         if (warnings.length && !a.force) return { needConfirm: true, warnings };
         Object.assign(e, { date: a.date, wasteTypeId: t.id, qty: round(q, 3), methodId: Number(a.methodId), userId: ctx.user.id });
+        if (a.reason && CFG.reasons[a.reason]) e.reason = a.reason;
         if (a.photo === null || (typeof a.photo === 'string' && a.photo.startsWith('data:image/'))) e.photo = a.photo;
         return { entry: entryView(e) };
       },
@@ -616,8 +1029,9 @@ dialog .dh { padding: 16px 18px 0; } dialog .db { padding: 12px 18px; } dialog .
         if (name.length < 2) fail(422, 'Введите наименование отхода');
         if (db.wasteTypes.find(t => t.orgId === orgId && t.name.toLowerCase() === name.toLowerCase())) fail(422, 'Такой вид отхода уже есть в справочнике');
         const unit = a.unit === 'л' ? 'л' : 'кг';
-        const t = { id: nid(), orgId, name, unit, defaultMethodId: Number(a.methodId) || db.methods[0].id, tag: a.tag || 'other', organic: !!a.organic, recyclable: !!a.recyclable,
-          density: unit === 'л' ? 0.95 : 1, maxQty: Number(a.maxQty) > 0 ? Number(a.maxQty) : (unit === 'л' ? 100 : 200), active: true, createdBy: ctx.user.id };
+        const c = CFG.wasteTypes[name] || (a.organic ? CFG.defaultType : { cat: 'Вторсырьё', tbo: 8.88, best: 'RECYCLE', recyclable: !!a.recyclable });
+        const t = { id: nid(), orgId, name, unit, defaultMethodId: Number(a.methodId) || methodByCode('TBO').id, tag: a.tag || (a.organic ? 'organic' : 'other'), organic: !!a.organic, recyclable: !!a.recyclable,
+          category: c.cat, co2Tbo: c.tbo, bestMethodId: methodByCode(c.best).id, density: unit === 'л' ? 0.95 : 1, maxQty: Number(a.maxQty) > 0 ? Number(a.maxQty) : (unit === 'л' ? 100 : 200), active: true, createdBy: ctx.user.id };
         db.wasteTypes.push(t);
         return { type: t };
       },
@@ -634,7 +1048,7 @@ dialog .dh { padding: 16px 18px 0; } dialog .db { padding: 12px 18px; } dialog .
         return { report: reportView(rep) };
       },
       listReports(ctx, a) {
-        need(ctx);
+        need(ctx, ['resp', 'reviewer', 'admin', 'mgmt']);
         let reps = db.reports.slice();
         if (ctx.user.role === 'resp') reps = reps.filter(r => r.orgId === ctx.user.orgId);
         if (a && a.status) reps = reps.filter(r => a.status.split(',').includes(r.status));
@@ -643,12 +1057,10 @@ dialog .dh { padding: 16px 18px 0; } dialog .db { padding: 12px 18px; } dialog .
         return reps.sort((x, y) => y.month.localeCompare(x.month) || (x.submittedAt || '').localeCompare(y.submittedAt || '')).map(reportView);
       },
       openReport(ctx, { reportId }) {
-        need(ctx);
+        need(ctx, ['resp', 'reviewer', 'admin', 'mgmt']);
         const rep = byId(db.reports, reportId) || fail(404, 'Отчёт не найден');
         canSeeOrg(ctx, rep.orgId);
-        if (ctx.user.role === 'reviewer' && rep.status === 'submitted') {
-          audit(rep, 'submitted', 'in_review', ctx, ''); rep.status = 'in_review'; rep.reviewerId = ctx.user.id;
-        }
+        if (ctx.user.role === 'reviewer' && rep.status === 'submitted') { audit(rep, 'submitted', 'in_review', ctx, ''); rep.status = 'in_review'; rep.reviewerId = ctx.user.id; }
         return api.getForm(ctx, { orgId: rep.orgId, month: rep.month });
       },
       decide(ctx, { reportId, decision, comment }) {
@@ -675,34 +1087,32 @@ dialog .dh { padding: 16px 18px 0; } dialog .db { padding: 12px 18px; } dialog .
         if (a.typeName) ents = ents.filter(e => wt(e.wasteTypeId).name === a.typeName);
         if (a.methodId) ents = ents.filter(e => e.methodId === Number(a.methodId));
         ents = ents.sort((x, y) => y.date.localeCompare(x.date) || x.orgId - y.orgId);
-        const totalKg = ents.reduce((s, e) => s + kgEq(e), 0), co2 = ents.reduce((s, e) => s + co2Of(e), 0);
+        const totalKg = ents.reduce((s, e) => s + kgEq(e), 0), co2 = ents.reduce((s, e) => s + co2Of(e), 0), cost = ents.reduce((s, e) => s + costOf(e), 0);
         const limit = Number(a.limit) || 300;
-        return { total: ents.length, totalKg: round(totalKg, 1), co2: round(co2, 1), rows: (a.all ? ents : ents.slice(0, limit)).map(e => { const v = entryView(e); delete v.photo; v.hasPhoto = !!e.photo; return v; }) };
+        return { total: ents.length, totalKg: round(totalKg, 1), co2: round(co2, 1), cost: Math.round(cost), rows: (a.all ? ents : ents.slice(0, limit)).map(e => { const v = entryView(e); delete v.photo; v.hasPhoto = !!e.photo; return v; }) };
       },
-      summary(ctx, { period, year, index }) {
+      summary(ctx, { period, year, index: ix }) {
         need(ctx, ['reviewer', 'admin', 'mgmt']);
-        year = Number(year); index = Number(index) || 1;
-        const months = monthsOfPeriod(period, year, index);
+        year = Number(year); ix = Number(ix) || 1;
+        const months = monthsOfPeriod(period, year, ix);
         const set = new Set(months);
         const ents = acceptedEntries().filter(e => set.has(monthOf(e.date)));
         const rows = [];
         db.orgs.forEach(o => {
           const oe = ents.filter(e => e.orgId === o.id);
-          const types = db.wasteTypes.filter(t => t.orgId === o.id);
-          types.forEach(t => {
+          db.wasteTypes.filter(t => t.orgId === o.id).forEach(t => {
             const te = oe.filter(e => e.wasteTypeId === t.id);
             if (!te.length) return;
             const byMonth = months.map(m => round(te.filter(e => monthOf(e.date) === m).reduce((s, e) => s + e.qty, 0), 2));
-            const qty = te.reduce((s, e) => s + e.qty, 0);
             const methods = [...new Set(te.map(e => (meth(e.methodId) || {}).name))].join('; ');
-            rows.push({ orgId: o.id, orgName: o.name, typeName: t.name, unit: t.unit, recyclable: t.recyclable, byMonth, qty: round(qty, 2),
-              kg: round(te.reduce((s, e) => s + kgEq(e), 0), 2), co2: round(te.reduce((s, e) => s + co2Of(e), 0), 2), methods, n: te.length });
+            rows.push({ orgId: o.id, orgName: o.name, typeName: t.name, unit: t.unit, recyclable: t.recyclable, byMonth, qty: round(te.reduce((s, e) => s + e.qty, 0), 2),
+              kg: round(te.reduce((s, e) => s + kgEq(e), 0), 2), co2: round(te.reduce((s, e) => s + co2Of(e), 0), 2), cost: Math.round(te.reduce((s, e) => s + costOf(e), 0)), methods, n: te.length });
           });
         });
         const status = db.orgs.filter(o => o.active).map(o => ({ orgName: o.name, months: months.map(m => { const r = getReport(o.id, m, false); return r ? r.status : 'none'; }) }));
         const totalKg = rows.reduce((s, r) => s + r.kg, 0);
-        return { period, year, index, months, rows, status, totalKg: round(totalKg, 1), co2: round(rows.reduce((s, r) => s + r.co2, 0), 1),
-          recyclableKg: round(rows.filter(r => r.recyclable).reduce((s, r) => s + r.kg, 0), 1), generated: stamp(), co2Source: CO2.source };
+        return { period, year, index: ix, months, rows, status, totalKg: round(totalKg, 1), co2: round(rows.reduce((s, r) => s + r.co2, 0), 1), cost: rows.reduce((s, r) => s + r.cost, 0),
+          recyclableKg: round(rows.filter(r => r.recyclable).reduce((s, r) => s + r.kg, 0), 1), generated: stamp(), co2Source: CFG.co2Source };
       },
       missing(ctx, { month }) {
         need(ctx, ['reviewer', 'admin', 'mgmt']);
@@ -710,52 +1120,229 @@ dialog .dh { padding: 16px 18px 0; } dialog .db { padding: 12px 18px; } dialog .
         const due = monthAdd(month, 1) + '-' + pad(db.settings.dueDay);
         return { month, due, overdue: today() > due, rows: db.orgs.filter(o => o.active).map(o => { const r = getReport(o.id, month, false); return { orgId: o.id, orgName: o.name, status: r ? r.status : 'none', reportId: r ? r.id : null }; }).filter(x => x.status !== 'accepted') };
       },
-      dashboard(ctx, a) {
+
+      // ---------- аналитика ----------
+      // scope: 'all' — все записи (оперативно, включая черновики), 'accepted' — только принятые отчёты
+      analytics(ctx, a) {
         need(ctx);
+        a = a || {};
         let orgIds = db.orgs.map(o => o.id);
         if (ctx.user.role === 'resp') orgIds = [ctx.user.orgId];
-        else if (a && a.orgId) orgIds = [Number(a.orgId)];
-        const cur = monthOf(today());
-        const months = Array.from({ length: 5 }, (_, i) => monthAdd(cur, i - 4));
-        const ents = acceptedEntries().filter(e => orgIds.includes(e.orgId) && months.includes(monthOf(e.date)));
-        const byOrgMonth = aggregate(ents, e => e.orgId + '|' + monthOf(e.date));
-        const byMonth = aggregate(ents, e => monthOf(e.date));
-        const byType = aggregate(ents, e => wt(e.wasteTypeId).name);
+        else if (a.orgId) orgIds = [Number(a.orgId)];
+        const t = today();
+        const to = a.to || dayAdd(t, -0);
+        const from = a.from || dayAdd(t, -90);
+        const gran = a.gran || 'week';
+        const okSet = acceptedSet();
+        let ents = db.entries.filter(e => orgIds.includes(e.orgId) && e.date >= from && e.date <= to);
+        if (a.scope === 'accepted') ents = ents.filter(e => okSet.has(e.reportId));
+        const bucket = d => gran === 'day' ? d : gran === 'week' ? weekStart(d) : monthOf(d);
+        const buckets = [];
+        for (let d = from; d <= to; d = dayAdd(d, 1)) { const b = bucket(d); if (buckets[buckets.length - 1] !== b) buckets.push(b); }
+        const byOB = aggregate(ents, e => e.orgId + '|' + bucket(e.date));
+        const byB = aggregate(ents, e => bucket(e.date));
         const byOrg = aggregate(ents, e => e.orgId);
-        const byMethodKind = aggregate(ents, e => meth(e.methodId).kind);
-        const total = ents.reduce((s, e) => s + kgEq(e), 0);
+        const byType = aggregate(ents, e => wt(e.wasteTypeId).name);
+        const byReason = aggregate(ents, e => e.reason || 'tech');
+        const byMethod = aggregate(ents, e => meth(e.methodId).code);
+        const dishEnts = ents.filter(e => e.dishId && meth(e.methodId).code !== 'DONATE');
+        const byDish = aggregate(dishEnts, e => e.dishId);
+        const portionsByDish = {}; dishEnts.forEach(e => { portionsByDish[e.dishId] = (portionsByDish[e.dishId] || 0) + (e.portions || 0); });
+        const tot = ents.reduce((s, e) => { s.kg += kgEq(e); s.co2 += co2Of(e); s.cost += costOf(e); s.saved += co2Saved(e); return s; }, { kg: 0, co2: 0, cost: 0, saved: 0 });
         const recyclable = ents.filter(e => wt(e.wasteTypeId).recyclable).reduce((s, e) => s + kgEq(e), 0);
-        const recycledActual = ents.filter(e => meth(e.methodId).kind !== 'landfill').reduce((s, e) => s + kgEq(e), 0);
-        const co2 = ents.reduce((s, e) => s + co2Of(e), 0);
-        const orgLandfill = ents.filter(e => wt(e.wasteTypeId).organic && meth(e.methodId).kind === 'landfill').reduce((s, e) => s + kgEq(e), 0);
-        // сравнение периодов: последний закрытый месяц к предыдущему; последний квартал к предыдущему
-        const mLast = monthAdd(cur, -1), mPrev = monthAdd(cur, -2);
-        const qOf = m => { const [y, mm] = m.split('-').map(Number); return { y, q: Math.ceil(mm / 3) }; };
-        const allAcc = acceptedEntries().filter(e => orgIds.includes(e.orgId));
-        const sumMonths = ms => allAcc.filter(e => ms.includes(monthOf(e.date))).reduce((s, e) => s + kgEq(e), 0);
-        const lq = qOf(mLast); // квартал, содержащий последний закрытый месяц
-        let pq = { y: lq.y, q: lq.q - 1 }; if (pq.q < 1) pq = { y: lq.y - 1, q: 4 };
-        const qMonths = (o) => monthsOfPeriod('quarter', o.y, o.q);
+        const diverted = ents.filter(e => meth(e.methodId).kind !== 'landfill').reduce((s, e) => s + kgEq(e), 0);
+        // предыдущий период той же длины
+        const len = Math.round((new Date(to + 'T12:00:00') - new Date(from + 'T12:00:00')) / 864e5) + 1;
+        const pFrom = dayAdd(from, -len), pTo = dayAdd(from, -1);
+        const prev = db.entries.filter(e => orgIds.includes(e.orgId) && e.date >= pFrom && e.date <= pTo && (a.scope !== 'accepted' || okSet.has(e.reportId)));
+        const prevKg = prev.reduce((s, e) => s + kgEq(e), 0), prevCost = prev.reduce((s, e) => s + costOf(e), 0);
+        // цель −20%: средние кг в рабочий день, последние 30 дней к базовому периоду
+        const dayAvg = (f0, t0) => { const es = db.entries.filter(e => orgIds.includes(e.orgId) && e.date >= f0 && e.date <= t0 && meth(e.methodId).code !== 'DONATE'); const days = new Set(es.map(e => e.date)).size; return days ? es.reduce((s, e) => s + kgEq(e), 0) / days : 0; };
+        const baseAvg = dayAvg(CFG.baseline.from, CFG.baseline.to), curAvg = dayAvg(dayAdd(t, -30), dayAdd(t, -1));
+        const reduction = baseAvg ? (baseAvg - curAvg) / baseAvg * 100 : 0;
+        // кампус-лес: сэкономленный CO₂ за всё время по месяцам
+        const allSaved = db.entries.filter(e => orgIds.includes(e.orgId));
+        const savedByMonth = aggregate(allSaved, e => monthOf(e.date));
+        const savedTotal = allSaved.reduce((s, e) => s + co2Saved(e), 0);
         return {
-          months, orgIds,
-          series: orgIds.map(oid => ({ orgId: oid, name: org(oid).name, values: months.map(m => round((byOrgMonth[oid + '|' + m] || {}).kg || 0, 1)) })),
-          monthTotals: months.map(m => round((byMonth[m] || {}).kg || 0, 1)),
-          monthCo2: months.map(m => round((byMonth[m] || {}).co2 || 0, 1)),
-          byType: Object.entries(byType).map(([k, v]) => ({ name: k, kg: round(v.kg, 1) })).sort((x, y) => y.kg - x.kg),
-          byOrg: Object.entries(byOrg).map(([k, v]) => ({ orgId: Number(k), name: org(k).name, kg: round(v.kg, 1), co2: round(v.co2, 1) })).sort((x, y) => y.kg - x.kg),
-          byMethodKind: Object.fromEntries(Object.entries(byMethodKind).map(([k, v]) => [k, round(v.kg, 1)])),
-          kpi: {
-            totalKg: round(total, 1), co2: round(co2, 1), recyclableShare: total ? round(recyclable / total * 100, 1) : 0,
-            recycledShare: total ? round(recycledActual / total * 100, 1) : 0,
-            co2Potential: round(orgLandfill * (CO2.organic_landfill - CO2.organic_compost), 1),
-            mom: { cur: mLast, prev: mPrev, curKg: round(sumMonths([mLast]), 1), prevKg: round(sumMonths([mPrev]), 1) },
-            qoq: { cur: lq.y + ' Q' + lq.q, prev: pq.y + ' Q' + pq.q, curKg: round(sumMonths(qMonths(lq)), 1), prevKg: round(sumMonths(qMonths(pq)), 1), curPartial: lq.q === qOf(cur).q && lq.y === qOf(cur).y }
-          },
-          anomalies: anomalies(orgIds, (a && Number(a.pct)) || db.settings.anomalyPct),
+          from, to, gran, buckets, orgIds,
+          series: orgIds.map(oid => ({ orgId: oid, name: org(oid).name, values: buckets.map(b => round((byOB[oid + '|' + b] || {}).kg || 0, 1)) })),
+          bucketCost: buckets.map(b => Math.round((byB[b] || {}).cost || 0)), bucketCo2: buckets.map(b => round((byB[b] || {}).co2 || 0, 1)),
+          byOrg: Object.entries(byOrg).map(([k, v]) => ({ orgId: Number(k), name: org(k).name, kg: round(v.kg, 1), co2: round(v.co2, 1), cost: Math.round(v.cost) })).sort((x, y) => y.kg - x.kg),
+          byType: Object.entries(byType).map(([k, v]) => ({ name: k, kg: round(v.kg, 1), cost: Math.round(v.cost) })).sort((x, y) => y.kg - x.kg),
+          byReason: Object.entries(byReason).map(([k, v]) => ({ key: k, name: CFG.reasons[k] || k, kg: round(v.kg, 1), cost: Math.round(v.cost) })).sort((x, y) => y.kg - x.kg),
+          byMethod: Object.entries(byMethod).map(([k, v]) => ({ code: k, name: (methodByCode(k) || {}).name, kg: round(v.kg, 1), saved: round(v.saved, 1) })).sort((x, y) => y.kg - x.kg),
+          topDishes: Object.entries(byDish).map(([k, v]) => ({ dishId: Number(k), name: dish(k).name, orgName: org(dish(k).orgId).name, kg: round(v.kg, 1), cost: Math.round(v.cost), portions: portionsByDish[k] || 0 })).sort((x, y) => y.cost - x.cost).slice(0, 5),
+          kpi: { kg: round(tot.kg, 1), co2: round(tot.co2, 1), cost: Math.round(tot.cost), saved: round(tot.saved, 1), trees: round(tot.co2 / CFG.treeKgPerYear, 1),
+            recyclableShare: tot.kg ? round(recyclable / tot.kg * 100, 1) : 0, divertedShare: tot.kg ? round(diverted / tot.kg * 100, 1) : 0,
+            prevKg: round(prevKg, 1), prevCost: Math.round(prevCost), prevFrom: pFrom, prevTo: pTo },
+          goal: { pct: CFG.goalPct, baseAvg: round(baseAvg, 1), curAvg: round(curAvg, 1), reduction: round(reduction, 1), progress: Math.max(0, Math.min(100, round(reduction / CFG.goalPct * 100, 0))) },
+          forest: { savedKg: round(savedTotal, 1), trees: Math.floor(savedTotal / CFG.treeKgPerYear), months: Object.keys(savedByMonth).sort().map(m => ({ month: m, saved: round(savedByMonth[m].saved, 1) })) },
+          anomalies: anomalies(orgIds, db.settings.anomalyPct),
           recommendations: recommendations(orgIds),
-          co2Source: CO2.source
+          forecast: orgIds.length === 1 ? forecastFor(orgIds[0]) : null,
+          boxesTop: db.containers.filter(c => orgIds.includes(c.orgId)).map(boxState).sort((x, y) => y.totalCost - x.totalCost).slice(0, 5),
+          recent: db.entries.filter(e => orgIds.includes(e.orgId)).slice(-6).reverse().map(entryView).map(v => { delete v.photo; return v; }),
+          rev: db.rev, co2Source: CFG.co2Source
         };
       },
+      forecast(ctx, { orgId }) {
+        need(ctx, ['resp', 'reviewer', 'admin', 'mgmt']);
+        orgId = Number(ctx.user.role === 'resp' ? ctx.user.orgId : orgId);
+        canSeeOrg(ctx, orgId);
+        return forecastFor(orgId);
+      },
+
+      // ---------- QR-коробки ----------
+      listBoxes(ctx, a) {
+        need(ctx);
+        let cs = db.containers.slice();
+        if (ctx.user.role === 'resp') cs = cs.filter(c => c.orgId === ctx.user.orgId);
+        else if (a && a.orgId) cs = cs.filter(c => c.orgId === Number(a.orgId));
+        return cs.map(c => { const s = boxState(c); return s; });
+      },
+      getBox(ctx, { code }) {
+        need(ctx);
+        const c = boxByCode(code) || fail(404, 'Коробка с кодом «' + code + '» не найдена');
+        const s = boxState(c);
+        const logs = db.entries.filter(e => e.containerId === c.id).slice(-15).reverse().map(entryView).map(v => { delete v.photo; return v; });
+        const events = db.containerEvents.filter(x => x.containerId === c.id).slice(-5).reverse().map(x => Object.assign({}, x, { userName: userName(x.userId) }));
+        const canLog = (ctx.user.role === 'resp' && ctx.user.orgId === c.orgId) || ctx.user.role === 'admin';
+        const t = wt(c.wasteTypeId);
+        return { box: s, logs, events, canLog, type: t, dishes: db.dishes.filter(d => d.orgId === c.orgId && d.active), reasons: CFG.reasons,
+          costPerKg: Math.round(costPerKg({ wasteTypeId: c.wasteTypeId })), co2PerKg: round((meth(t.defaultMethodId).co2 == null ? (t.co2Tbo || 700.21) : meth(t.defaultMethodId).co2) / 1000, 4) };
+      },
+      logBox(ctx, a) {
+        need(ctx, ['resp', 'admin']);
+        const c = boxByCode(a.code) || fail(404, 'Коробка не найдена');
+        if (ctx.user.role === 'resp' && ctx.user.orgId !== c.orgId) fail(403, 'Эта коробка принадлежит другой организации');
+        if (!c.active) fail(409, 'Коробка выведена из эксплуатации');
+        const t = wt(c.wasteTypeId);
+        const st = boxState(c);
+        let kg;
+        if (a.fillPct) {
+          const p = Number(a.fillPct);
+          if (![25, 50, 75, 100].includes(p)) fail(422, 'Уровень заполнения: 25, 50, 75 или 100%');
+          kg = round(c.capacityKg * p / 100 - st.currentKg, 2);
+          if (kg <= 0) fail(422, `В коробке уже ${st.currentKg} кг (≈${st.fillPct}%) — выберите больший уровень или введите вес`);
+        } else kg = Number(String(a.kg).replace(',', '.'));
+        if (!(kg > 0)) fail(422, 'Введите вес больше 0 или выберите уровень заполнения');
+        if (kg > Math.max(t.maxQty, c.capacityKg)) fail(422, `Слишком большое значение: максимум ${Math.max(t.maxQty, c.capacityKg)} кг`);
+        const d = a.dishId ? dish(a.dishId) : null;
+        if (d && d.orgId !== c.orgId) fail(422, 'Блюдо не из этой организации');
+        const date = today();
+        const rep = getReport(c.orgId, monthOf(date), true);
+        if (!EDITABLE.includes(rep.status)) fail(409, 'Отчёт организации за этот месяц уже отправлен — запись через QR недоступна');
+        const qty = t.unit === 'л' ? round(kg / (t.density || 1), 1) : round(kg, 2);
+        const e = { id: nid(), reportId: rep.id, orgId: c.orgId, date, wasteTypeId: t.id, qty, methodId: t.defaultMethodId, userId: ctx.user.id, photo: null, created: stamp(),
+          reason: CFG.reasons[a.reason] ? a.reason : defaultReason(t), dishId: d ? d.id : null, portions: d ? Math.max(1, Math.round(kg * 1000 / d.portionG)) : null,
+          containerId: c.id, source: 'qr', fillPct: a.fillPct ? Number(a.fillPct) : null };
+        db.entries.push(e);
+        return { entry: entryView(e), box: boxState(c) };
+      },
+      emptyBox(ctx, { code }) {
+        need(ctx, ['resp', 'admin']);
+        const c = boxByCode(code) || fail(404, 'Коробка не найдена');
+        if (ctx.user.role === 'resp' && ctx.user.orgId !== c.orgId) fail(403, 'Эта коробка принадлежит другой организации');
+        const s = boxState(c);
+        db.containerEvents.push({ id: nid(), containerId: c.id, type: 'emptied', at: stamp(), kg: s.currentKg, userId: ctx.user.id });
+        c.emptiedAt = stamp();
+        return { box: boxState(c) };
+      },
+      saveBox(ctx, a) {
+        need(ctx, ['admin']);
+        const o = org(a.orgId) || fail(422, 'Выберите организацию');
+        const t = wt(a.wasteTypeId); if (!t || t.orgId !== o.id) fail(422, 'Выберите вид отхода этой организации');
+        const name = String(a.name || '').trim(); if (name.length < 2) fail(422, 'Введите название / место коробки');
+        const cap = Number(a.capacityKg); if (!(cap > 0 && cap <= 1000)) fail(422, 'Вместимость: от 1 до 1000 кг');
+        let c = a.id ? byId(db.containers, a.id) : null;
+        if (!c) {
+          const n = db.containers.reduce((m, x) => Math.max(m, Number(x.code.replace(/\D/g, '')) || 0), 0) + 1;
+          c = { id: nid(), code: 'BOX-' + String(n).padStart(3, '0'), emptiedAt: stamp(), active: true };
+          db.containers.push(c);
+        }
+        Object.assign(c, { orgId: o.id, name, category: a.category || 'шикізат', capacityKg: cap, wasteTypeId: t.id, place: a.place || o.building, active: a.active !== false });
+        return { box: boxState(c) };
+      },
+
+      // ---------- акции: остатки со скидкой студентам ----------
+      listOffers(ctx, a) {
+        need(ctx);
+        const t = today();
+        db.offers.forEach(of => { if (of.status === 'open' && of.until < stamp()) of.status = 'closed'; });
+        let offs = db.offers.filter(of => of.date >= dayAdd(t, -(a && a.days ? a.days : 0)));
+        if (ctx.user.role === 'resp') offs = offs.filter(of => of.orgId === ctx.user.orgId);
+        return offs.slice().reverse().map(of => {
+          const booked = of.bookings.filter(b => b.status !== 'cancelled').reduce((s, b) => s + b.qty, 0);
+          const mine = ctx.user.role === 'student' ? of.bookings.filter(b => b.userId === ctx.user.id && b.status !== 'cancelled') : undefined;
+          const d = dish(of.dishId) || {};
+          return Object.assign({}, of, { orgName: org(of.orgId).name, left: of.portions - booked, booked, portionG: d.portionG, mine,
+            bookings: ['resp', 'admin'].includes(ctx.user.role) ? of.bookings.map(b => Object.assign({}, b, { userName: userName(b.userId) })) : undefined });
+        });
+      },
+      createOffer(ctx, a) {
+        need(ctx, ['resp', 'admin']);
+        const d = dish(a.dishId) || fail(422, 'Выберите блюдо');
+        if (ctx.user.role === 'resp' && d.orgId !== ctx.user.orgId) fail(403, 'Блюдо другой организации');
+        const n = Number(a.portions); if (!(n >= 1 && n <= 200)) fail(422, 'Количество порций: от 1 до 200');
+        const price = Math.round(Number(a.discountPrice) || d.price * 0.5);
+        if (price >= d.price) fail(422, 'Цена со скидкой должна быть ниже обычной');
+        const until = today() + 'T' + (/^\d{2}:\d{2}$/.test(a.until || '') ? a.until : '18:00') + ':00';
+        const of = { id: nid(), orgId: d.orgId, dishId: d.id, date: today(), title: d.name, portions: n, price: d.price, discountPrice: price, until, status: 'open', bookings: [], created: stamp(), userId: ctx.user.id };
+        db.offers.push(of);
+        return { offer: of };
+      },
+      bookOffer(ctx, { offerId, qty }) {
+        need(ctx, ['student']);
+        const of = byId(db.offers, offerId) || fail(404, 'Акция не найдена');
+        if (of.status !== 'open' || of.until < stamp()) fail(409, 'Акция уже закрыта');
+        qty = Math.max(1, Math.min(3, Number(qty) || 1));
+        const left = of.portions - of.bookings.filter(b => b.status !== 'cancelled').reduce((s, b) => s + b.qty, 0);
+        if (qty > left) fail(409, 'Осталось только ' + left + ' порц.');
+        if (of.bookings.some(b => b.userId === ctx.user.id && b.status === 'booked')) fail(409, 'Вы уже забронировали эту позицию');
+        const b = { userId: ctx.user.id, qty, status: 'booked', at: stamp(), code: 'R' + (1000 + (nid() * 7919) % 9000) };
+        of.bookings.push(b);
+        return { booking: b };
+      },
+      cancelBooking(ctx, { offerId }) {
+        need(ctx, ['student']);
+        const of = byId(db.offers, offerId) || fail(404, 'Акция не найдена');
+        const b = of.bookings.find(x => x.userId === ctx.user.id && x.status === 'booked') || fail(404, 'Бронь не найдена');
+        b.status = 'cancelled';
+        return { ok: true };
+      },
+      pickupBooking(ctx, { offerId, code }) {
+        need(ctx, ['resp', 'admin']);
+        const of = byId(db.offers, offerId) || fail(404, 'Акция не найдена');
+        if (ctx.user.role === 'resp' && of.orgId !== ctx.user.orgId) fail(403, 'Акция другой организации');
+        const b = of.bookings.find(x => x.code === String(code).trim().toUpperCase() && x.status === 'booked') || fail(404, 'Бронь с таким кодом не найдена');
+        b.status = 'picked'; b.pickedAt = stamp();
+        return { booking: b };
+      },
+      closeOffer(ctx, { offerId, leftover, leftMethod }) {
+        need(ctx, ['resp', 'admin']);
+        const of = byId(db.offers, offerId) || fail(404, 'Акция не найдена');
+        if (ctx.user.role === 'resp' && of.orgId !== ctx.user.orgId) fail(403, 'Акция другой организации');
+        if (of.status !== 'open') fail(409, 'Акция уже закрыта');
+        of.status = 'closed';
+        const d = dish(of.dishId);
+        const t = db.wasteTypes.find(x => x.orgId === of.orgId && x.tag === 'unsold');
+        const rep = getReport(of.orgId, monthOf(of.date), true);
+        const picked = of.bookings.filter(b => b.status === 'picked').reduce((s, b) => s + b.qty, 0);
+        const out = { picked };
+        if (t && EDITABLE.includes(rep.status)) {
+          if (picked) db.entries.push({ id: nid(), reportId: rep.id, orgId: of.orgId, date: of.date, wasteTypeId: t.id, qty: round(picked * d.portionG / 1000, 2), methodId: methodByCode('DONATE').id, userId: ctx.user.id, created: stamp(), reason: 'unsold', dishId: d.id, portions: picked, source: 'offer', offerId: of.id });
+          const lo = Math.max(0, Number(leftover) || 0);
+          if (lo) {
+            const m = methodByCode(['FEED', 'COMPOST', 'AD', 'TBO'].includes(leftMethod) ? leftMethod : 'COMPOST');
+            db.entries.push({ id: nid(), reportId: rep.id, orgId: of.orgId, date: of.date, wasteTypeId: t.id, qty: round(lo * d.portionG / 1000, 2), methodId: m.id, userId: ctx.user.id, created: stamp(), reason: 'unsold', dishId: d.id, portions: lo, source: 'offer', offerId: of.id });
+            out.leftover = lo;
+          }
+        }
+        return out;
+      },
+
+      game(ctx) { need(ctx); const g = gameState(); if (ctx.user.role === 'student') g.me = g.students.find(s => s.userId === ctx.user.id); return g; },
 
       // ---------- администрирование ----------
       saveOrg(ctx, a) {
@@ -795,14 +1382,14 @@ dialog .dh { padding: 16px 18px 0; } dialog .db { padding: 12px 18px; } dialog .
         db.wasteTypes = db.wasteTypes.filter(x => x !== t);
         return { ok: true };
       },
-      resetDemo(ctx) {
-        need(ctx, ['admin']);
-        db = buildSeed(hashPw, nowFn());
-        return { ok: true };
-      }
+      resetDemo(ctx) { need(ctx, ['admin']); db = buildSeed(hashPw, nowFn()); return { ok: true }; }
     };
+    // совместимость со старым экраном
+    api.dashboard = (ctx, a) => api.analytics(ctx, a);
 
-    const MUTATING = new Set(['login', 'logout', 'addEntry', 'updateEntry', 'deleteEntry', 'addWasteType', 'submitReport', 'openReport', 'decide', 'saveOrg', 'saveUser', 'saveWasteType', 'deleteWasteType', 'resetDemo', 'getForm']);
+    const MUTATING = new Set(['login', 'logout', 'addEntry', 'updateEntry', 'deleteEntry', 'addWasteType', 'submitReport', 'openReport', 'decide', 'saveOrg', 'saveUser', 'saveWasteType', 'deleteWasteType', 'resetDemo', 'getForm',
+      'logBox', 'emptyBox', 'saveBox', 'createOffer', 'bookOffer', 'cancelBooking', 'pickupBooking', 'closeOffer']);
+    const SILENT = new Set(['login', 'logout', 'getForm']); // не меняют данные для других экранов
 
     function call(method, args, token) {
       if (!Object.prototype.hasOwnProperty.call(api, method)) throw new ApiError(404, 'Неизвестный метод ' + method);
@@ -810,13 +1397,13 @@ dialog .dh { padding: 16px 18px 0; } dialog .db { padding: 12px 18px; } dialog .
       const user = sess ? db.users.find(u => u.id === sess.userId && u.active) : null;
       const ctx = { user, token };
       const res = api[method](ctx, args || {});
-      if (MUTATING.has(method)) save(db);
+      if (MUTATING.has(method)) { idx = null; if (!SILENT.has(method)) db.rev = (db.rev || 1) + 1; save(db); }
       return res;
     }
-    return { call, ApiError, get db() { return db; } };
+    return { call, ApiError, reload() { const d = load(); if (d) db = d; idx = null; }, get db() { return db; } };
   }
 
-  const Core = { createCore, buildSeed, ApiError, CO2, monthAdd, monthsOfPeriod, ymd };
+  const Core = { createCore, buildSeed, ApiError, monthAdd, monthsOfPeriod, ymd, dayAdd, weekStart, CFG };
   if (typeof module !== 'undefined' && module.exports) module.exports = Core;
   else root.Core = Core;
 })(typeof self !== 'undefined' ? self : this);
@@ -2173,7 +2760,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=QR;else root.QR=QR
   // ================= i18n (RU / KZ) =================
   const I18N = {
     ru: {
-      app: 'EcoWaste АТУ', form: 'Учёт', review: 'Проверка', registry: 'Реестр', reports: 'Отчёты', dash: 'Аналитика', admin: 'Админ', logout: 'Выйти',
+      app: 'EcoWaste АТУ', form: 'Учёт', review: 'Проверка', registry: 'Реестр', reports: 'Отчёты', dash: 'Аналитика', admin: 'Админ', boxes: 'QR-коробки', offers: 'Акции', game: 'Рейтинг', r_student: 'Студент', logout: 'Выйти',
       login: 'Вход в систему', email: 'E-mail', password: 'Пароль', enter: 'Войти', demoUsers: 'Демо-пользователи (нажмите, чтобы войти):',
       r_resp: 'Ответственное лицо', r_reviewer: 'Проверяющий', r_admin: 'Администратор', r_mgmt: 'Руководство',
       s_draft: 'Черновик', s_submitted: 'Отправлено', s_in_review: 'На проверке', s_accepted: 'Принято', s_returned: 'Возвращено', s_none: 'Нет отчёта',
@@ -2184,7 +2771,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=QR;else root.QR=QR
       notSubmitted: 'Не сдали отчёт за период', draftSaved: 'черновик сохранён', edit: 'Изменить', del: 'Удалить', noData: 'Нет данных', lang: 'ҚАЗ'
     },
     kz: {
-      app: 'EcoWaste АТУ', form: 'Есеп', review: 'Тексеру', registry: 'Тізілім', reports: 'Есептер', dash: 'Талдау', admin: 'Әкімші', logout: 'Шығу',
+      app: 'EcoWaste АТУ', form: 'Есеп', review: 'Тексеру', registry: 'Тізілім', reports: 'Есептер', dash: 'Талдау', admin: 'Әкімші', boxes: 'QR-қораптар', offers: 'Жеңілдіктер', game: 'Рейтинг', r_student: 'Студент', logout: 'Шығу',
       login: 'Жүйеге кіру', email: 'E-mail', password: 'Құпиясөз', enter: 'Кіру', demoUsers: 'Демо-пайдаланушылар (кіру үшін басыңыз):',
       r_resp: 'Жауапты тұлға', r_reviewer: 'Тексеруші', r_admin: 'Әкімші', r_mgmt: 'Басшылық',
       s_draft: 'Жоба', s_submitted: 'Жіберілді', s_in_review: 'Тексерілуде', s_accepted: 'Қабылданды', s_returned: 'Қайтарылды', s_none: 'Есеп жоқ',
@@ -2247,7 +2834,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=QR;else root.QR=QR
   async function detectMode() {
     if (window.ECO_FORCE_LOCAL) return initLocal();
     try {
-      const r = await fetch('/api/bootstrap', { method: 'POST', body: '{}' });
+      const r = await fetch('/api/rev', { method: 'POST', body: '{}' });
       const ct = r.headers.get('content-type') || '';
       if (!ct.includes('json')) throw new Error('no api');
     } catch (e) { initLocal(); }
@@ -2314,16 +2901,20 @@ if(typeof module!=='undefined'&&module.exports)module.exports=QR;else root.QR=QR
     registry: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>',
     reports: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>',
     dash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>',
+    boxes: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3z"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg>',
+    offers: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>',
+    game: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3a3 3 0 0 1-3 4M7 5H4a3 3 0 0 0 3 4"/></svg>',
     admin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a7 7 0 0 1 14 0v1"/></svg>'
   };
   const LOGO = '<svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="#fff" opacity=".16"/><path d="M9 21c0-7 5-12 14-12 0 9-5 14-12 14-1 0-2-.3-2-.3" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><path d="M9 23c3-5 6-8 10-10" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>';
 
   function navItems() {
     const r = S.user.role;
-    if (r === 'resp') return ['form', 'registry', 'dash'];
-    if (r === 'reviewer') return ['review', 'registry', 'reports', 'dash'];
-    if (r === 'admin') return ['review', 'registry', 'reports', 'dash', 'admin'];
-    return ['dash', 'reports', 'registry'];
+    if (r === 'resp') return ['form', 'boxes', 'offers', 'dash', 'game'];
+    if (r === 'reviewer') return ['review', 'dash', 'boxes', 'registry', 'reports', 'game'];
+    if (r === 'admin') return ['dash', 'review', 'boxes', 'offers', 'registry', 'reports', 'game', 'admin'];
+    if (r === 'student') return ['offers', 'game', 'dash'];
+    return ['dash', 'reports', 'registry', 'boxes', 'game'];
   }
 
   function shell(active, body) {
@@ -2348,16 +2939,18 @@ if(typeof module!=='undefined'&&module.exports)module.exports=QR;else root.QR=QR
   // ================= ВХОД =================
   function viewLogin(err) {
     const demo = [
-      ['iskander@atu.kz', 'demo123', 'Искандеров Тимур', t('r_resp') + ' · Столовая (ИП «Искандер»)'],
+      ['iskander@atu.kz', 'demo123', 'Искандеров Тимур', t('r_resp') + ' (аспаз) · Столовая «Искандер»'],
       ['reviewer@atu.kz', 'review123', 'Жумабаева Сауле', t('r_reviewer')],
       ['admin@atu.kz', 'admin123', 'Администратор', t('r_admin')],
       ['director@atu.kz', 'mgmt123', 'Проректор по АХР', t('r_mgmt')],
+      ['student@atu.kz', 'demo123', 'Ерасыл Б.', t('r_student') + ' · акции и рейтинг'],
       ['canella@atu.kz', 'demo123', 'Нурланов Ерлан', t('r_resp') + ' · Кофейня «Canella»'],
       ['thpp@atu.kz', 'demo123', 'Сейткали Арман', t('r_resp') + ' · Кафедра ТХиПП']
     ];
     $('#app').innerHTML = `
       <header class="top"><div class="logo">${LOGO}<span>${t('app')}</span></div><div class="sp"></div><button class="tb" id="langBtn">${t('lang')}</button></header>
       ${MODE === 'local' ? '<div class="mode-banner">Демо-режим: данные хранятся только в этом браузере.</div>' : ''}
+      <div class="float-bg" aria-hidden="true">${['🍃', '🥕', '🍎', '🌿', '🥖', '🍃', '🍅', '🌱', '🍋', '🍃', '🥬', '🌿'].map((x, i) => `<span style="--x:${(i * 83) % 100}%;--d:${14 + (i % 5) * 3}s;--w:${(i * 1.7) % 9}s;--s:${0.9 + (i % 3) * 0.35}">${x}</span>`).join('')}</div>
       <main><div class="login">
         <div class="card">
           <h1>${t('login')}</h1>
@@ -2446,6 +3039,11 @@ if(typeof module!=='undefined'&&module.exports)module.exports=QR;else root.QR=QR
                 <label class="f"><span>${t('method')}</span><select class="in" id="method">${S.methods.filter(m => m.active).map(m => `<option value="${m.id}" ${Number(draft.methodId) === m.id ? 'selected' : ''}>${esc(m.name)}</option>`).join('')}</select></label>
               </div>
             </div>
+            <div class="grid g2" style="margin-top:10px;gap:10px">
+              <label class="f"><span>Причина</span><select class="in" id="reason">${Object.entries(S.config.reasons).map(([k, v]) => `<option value="${k}" ${draft.reason === k ? 'selected' : ''}>${esc(v)}</option>`).join('')}</select></label>
+              ${(F.dishes || []).length ? `<label class="f" id="dishWrap"><span>Блюдо (для непроданного)</span><select class="in" id="dish"><option value="">—</option>${F.dishes.map(d => `<option value="${d.id}" ${Number(draft.dishId) === d.id ? 'selected' : ''}>${esc(d.name)} · ${d.portionG} г</option>`).join('')}</select></label>` : ''}
+            </div>
+            <div class="calc small" id="fCalc"></div>
             <div class="row" style="margin-top:10px">
               <label class="btn" style="flex:none">📷 ${t('photo')}<input type="file" accept="image/*" capture="environment" id="photo" hidden></label>
               <span id="photoPrev">${draft.photo ? `<img class="photo-prev" src="${draft.photo}">` : ''}</span>
@@ -2491,6 +3089,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=QR;else root.QR=QR
     $('#monSel').onchange = e => { formMonth = e.target.value; location.hash = '#/form?month=' + formMonth; };
     $('#dayPick').onchange = e => { location.hash = '#/form?month=' + formMonth + '&day=' + e.target.value; };
     bindEntryActions(main, F, editable);
+    if (isCur && (F.dishes || []).length) api('forecast', {}).then(fc => { const h = forecastHtml(fc); if (h && $('#entryCard')) $('#entryCard').insertAdjacentHTML('beforebegin', h); }).catch(() => {});
     if (!editable) return;
 
     const D = Object.assign({}, draft);
@@ -2499,13 +3098,31 @@ if(typeof module!=='undefined'&&module.exports)module.exports=QR;else root.QR=QR
       $$('#chips .chip').forEach(c => c.classList.remove('on')); b.classList.add('on');
       D.wasteTypeId = Number(b.dataset.id);
       const ty = typeById(D.wasteTypeId);
+      const rs = { plate: 'plate', unsold: 'unsold' }[ty.tag] || 'tech'; $('#reason').value = rs; D.reason = rs;
+      if ($('#dishWrap')) $('#dishWrap').style.display = ty.tag === 'unsold' ? '' : 'none';
+      fCalc();
       $('#unitTag').textContent = ty.unit;
       if (ty.defaultMethodId) { $('#method').value = ty.defaultMethodId; D.methodId = ty.defaultMethodId; }
       persist(); $('#qty').focus();
     });
-    $('#qty').oninput = e => { D.qty = e.target.value; persist(); };
+    function fCalc() {
+      const ty = typeById(D.wasteTypeId); const el = $('#fCalc'); if (!el) return;
+      const q = Number(String($('#qty').value).replace(',', '.')) || 0;
+      if (!ty || !q) { el.innerHTML = ''; return; }
+      const kg = q * (ty.unit === 'л' ? (ty.density || 1) : 1);
+      const d = $('#dish') && $('#dish').value ? (F.dishes || []).find(x => x.id === Number($('#dish').value)) : null;
+      const m = S.methods.find(x => x.id === Number($('#method').value)) || {};
+      const perKg = d ? d.price * S.config.dishCostShare / (d.portionG / 1000) : (S.config.costPerKg[ty.tag] != null ? S.config.costPerKg[ty.tag] : S.config.costPerKg.other);
+      const cost = m.code === 'DONATE' ? 0 : kg * perKg + (m.kind === 'landfill' ? kg * S.config.disposalPerKg : 0);
+      const co2 = kg / 1000 * (m.co2 == null ? (ty.co2Tbo || 700.21) : m.co2);
+      el.innerHTML = `≈ <b>${money(cost)}</b> потерь · ${fmt(co2, 1)} кг CO₂ <span class="approx">шамамен</span>`;
+    }
+    $('#qty').oninput = e => { D.qty = e.target.value; persist(); fCalc(); };
+    $('#reason').onchange = e => { D.reason = e.target.value; persist(); };
+    if ($('#dish')) $('#dish').onchange = e => { D.dishId = Number(e.target.value) || null; persist(); fCalc(); };
+    if ($('#dishWrap')) { const ty0 = typeById(D.wasteTypeId); $('#dishWrap').style.display = ty0 && ty0.tag === 'unsold' ? '' : 'none'; }
     $('#date').onchange = e => { D.date = e.target.value; persist(); };
-    $('#method').onchange = e => { D.methodId = Number(e.target.value); persist(); };
+    $('#method').onchange = e => { D.methodId = Number(e.target.value); persist(); fCalc(); };
     if (!D.methodId) D.methodId = Number($('#method').value);
     $('#photo').onchange = async e => {
       const f = e.target.files[0]; if (!f) return;
@@ -2516,7 +3133,9 @@ if(typeof module!=='undefined'&&module.exports)module.exports=QR;else root.QR=QR
     if (fromQr) setTimeout(() => { const q = $('#qty'); if (q) { q.focus(); q.scrollIntoView({ block: 'center' }); } }, 50);
     $('#qty').onkeydown = e => { if (e.key === 'Enter') $('#saveBtn').click(); };
     $('#saveBtn').onclick = async () => {
-      const body = { reportId: rep.id, wasteTypeId: D.wasteTypeId, qty: $('#qty').value, methodId: Number($('#method').value), date: $('#date').value, photo: D.photo || null };
+      const ty = typeById(D.wasteTypeId);
+      const body = { reportId: rep.id, wasteTypeId: D.wasteTypeId, qty: $('#qty').value, methodId: Number($('#method').value), date: $('#date').value, photo: D.photo || null, reason: $('#reason').value,
+        dishId: ty && ty.tag === 'unsold' && $('#dish') && $('#dish').value ? Number($('#dish').value) : undefined };
       const fe = $('#formErr'); fe.innerHTML = '';
       try {
         let r = await api('addEntry', body);
@@ -2526,6 +3145,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=QR;else root.QR=QR
           r = await api('addEntry', Object.assign(body, { force: true }));
         }
         store.set(draftKey, { date: body.date, methodId: body.methodId });
+        successOverlay('+' + fmt(r.entry.qty, 2) + ' ' + r.entry.unit, r.entry.typeName + ' · ≈ ' + money(r.entry.cost));
         toast('✓ Сохранено: ' + r.entry.typeName + ' — ' + fmt(r.entry.qty, 2) + ' ' + r.entry.unit);
         route();
       } catch (e) { fe.innerHTML = errorBox(e); }
@@ -2809,93 +3429,495 @@ if(typeof module!=='undefined'&&module.exports)module.exports=QR;else root.QR=QR
   }
 
   // ================= АНАЛИТИКА =================
-  let dashOrg = '';
-  async function viewDash() {
-    const main = shell('dash', '<div class="muted">…</div>');
-    let D;
-    try { D = await api('dashboard', { orgId: dashOrg || undefined }); } catch (e) { main.innerHTML = errorBox(e); return; }
-    const k = D.kpi;
-    const delta = (a, b) => b ? Math.round((a - b) / b * 100) : 0;
-    const dm = delta(k.mom.curKg, k.mom.prevKg), dq = delta(k.qoq.curKg, k.qoq.prevKg);
-    const dTxt = (d) => `<span class="delta ${d > 0 ? 'up' : 'down'}">${d > 0 ? '▲' : '▼'} ${Math.abs(d)}%</span>`;
-    const colors = ['var(--s1)', 'var(--s2)', 'var(--s3)', 'var(--s4)', 'var(--s5)'];
-    const orgColor = id => colors[S.orgs.findIndex(o => o.id === id) % 5];
-    main.innerHTML = `
-      <div class="page-head"><div><h1>Аналитика</h1><div class="muted small">Последние 5 месяцев · только принятые отчёты</div></div><div class="sp"></div>
-        ${S.user.role !== 'resp' ? `<select class="in" id="dOrg" style="width:auto"><option value="">Все организации</option>${S.orgs.map(o => `<option value="${o.id}" ${String(o.id) === String(dashOrg) ? 'selected' : ''}>${esc(o.name)}</option>`).join('')}</select>` : ''}</div>
-      <div class="grid g4" style="margin-bottom:14px">
-        <div class="kpi"><div class="l">Масса отходов, 5 мес.</div><div class="v">${fmt(k.totalKg / 1000, 2)}<small>т</small></div><div class="d">${monthName(k.mom.cur)}: ${fmt(k.mom.curKg, 0)} кг ${dTxt(dm)} к пред. месяцу</div></div>
-        <div class="kpi"><div class="l">Квартал к кварталу</div><div class="v">${fmt(k.qoq.curKg / 1000, 2)}<small>т</small></div><div class="d">${k.qoq.cur}${k.qoq.curPartial ? ' (неполный)' : ''} vs ${k.qoq.prev}: ${fmt(k.qoq.prevKg / 1000, 2)} т ${k.qoq.curPartial ? '' : dTxt(dq)}</div></div>
-        <div class="kpi"><div class="l">Пригодно к переработке</div><div class="v">${fmt(k.recyclableShare)}<small>%</small></div><div class="meter"><i style="width:${k.recyclableShare}%"></i></div><div class="d">фактически переработано: ${fmt(k.recycledShare)}%</div></div>
-        <div class="kpi"><div class="l">CO₂-эквивалент</div><div class="v">${fmt(k.co2 / 1000, 2)}<small>т</small></div><div class="d">можно сократить на ${fmt(k.co2Potential / 1000, 2)} т при компостировании органики</div></div>
-      </div>
-      <div class="grid g2">
-        <div class="card"><h2>Динамика массы отходов по месяцам, кг-экв.</h2>
-          ${D.series.length > 1 ? `<div class="legend">${D.series.map(s => `<span><i style="background:${orgColor(s.orgId)}"></i>${esc(shortOrg(s.name))}</span>`).join('')}</div>` : ''}
-          <div class="chart" id="c1"></div>
-          <details class="small"><summary class="muted">Таблица данных</summary><div class="tw"><table class="t"><tr><th>${t('org')}</th>${D.months.map(m => `<th class="r">${monthShort(m)}</th>`).join('')}</tr>${D.series.map(s => `<tr><td>${esc(shortOrg(s.name))}</td>${s.values.map(v => `<td class="r">${fmt(v, 0)}</td>`).join('')}</tr>`).join('')}</table></div></details>
-        </div>
-        <div class="card"><h2>Структура по видам отходов, кг-экв.</h2><div class="chart" id="c2"></div></div>
-        <div class="card"><h2>Сравнение организаций, кг-экв.</h2><div class="chart" id="c3"></div></div>
-        <div class="card"><h2>CO₂-эквивалент по месяцам, кг</h2><div class="chart" id="c4"></div><p class="small muted">Коэффициенты: ${esc(D.co2Source)}; органика на полигоне — 0,656 кг CO₂-экв./кг, компост — 0,009.</p></div>
-      </div>
-      <div class="grid g2">
-        <div class="card"><h2>⚠ Отклонения (рост &gt; ${S.settings.anomalyPct || 30}% к среднему за 3 мес.)</h2>
-          ${D.anomalies.length ? `<div class="tw"><table class="t"><tr><th>${t('org')}</th><th>Вид отхода</th><th class="r">${monthShort(D.anomalies[0].month)}</th><th class="r">Среднее</th><th class="r">Рост</th></tr>
-            ${D.anomalies.slice(0, 8).map(a => `<tr><td class="small">${esc(shortOrg(a.orgName))}</td><td>${esc(a.typeName)}</td><td class="r">${fmt(a.value)}</td><td class="r">${fmt(a.avg)}</td><td class="r"><b style="color:var(--bad)">+${a.pct}%</b></td></tr>`).join('')}</table></div>` : '<p class="muted">Отклонений не выявлено</p>'}
-        </div>
-        <div class="card"><h2>💡 Рекомендации по сокращению отходов</h2>
-          ${D.recommendations.length ? D.recommendations.slice(0, 7).map(r => `<div class="rec ${r.level}"><span class="o">${esc(shortOrg(r.orgName))}</span><b>${esc(r.title)}</b><span class="small">${esc(r.text)}</span></div>`).join('') : '<p class="muted">Недостаточно данных</p>'}
-          <p class="small muted">Правила основаны на структуре отходов за последние 3 закрытых месяца (ЦУР 12.3 — сокращение пищевых потерь).</p>
-        </div>
-      </div>`;
-    if ($('#dOrg')) $('#dOrg').onchange = e => { dashOrg = e.target.value; viewDash(); };
-    $('#c1').innerHTML = stackedBars(D.months.map(monthShort), D.series.map(s => ({ name: shortOrg(s.name), color: orgColor(s.orgId), values: s.values })), 'кг');
-    $('#c2').innerHTML = hBars(D.byType.slice(0, 10).map(x => ({ label: x.name, value: x.kg, tip: `${x.name}: ${fmt(x.kg)} кг (${fmt(x.kg / (k.totalKg || 1) * 100)}%)` })), 'var(--s1)');
-    $('#c3').innerHTML = hBars(D.byOrg.map(x => ({ label: shortOrg(x.name), value: x.kg, color: orgColor(x.orgId), tip: `${x.name}\n${fmt(x.kg)} кг · CO₂ ${fmt(x.co2)} кг` })));
-    $('#c4').innerHTML = stackedBars(D.months.map(monthShort), [{ name: 'CO₂-экв.', color: 'var(--s3)', values: D.monthCo2 }], 'кг CO₂');
+  // ================= АНИМАЦИИ И ОБЩИЕ ВИДЖЕТЫ =================
+  const REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const money = x => fmt(Math.round(x), 0) + ' ₸';
+  function countUp(root) {
+    $$('[data-count]', root).forEach(el => {
+      const to = Number(el.dataset.count), d = Number(el.dataset.dec || 0), suf = el.dataset.suf || '';
+      if (REDUCED || !isFinite(to)) { el.textContent = fmt(to, d) + suf; return; }
+      const t0 = performance.now(), dur = 900;
+      const step = now => { const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3); el.textContent = fmt(to * e, d) + suf; if (k < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    });
   }
-  const shortOrg = n => n.replace('Учебно-гостиничный комплекс ', '').replace('Столовый комплекс корп. 1, 2 ', 'Столовая ').replace('Кофейня АТУ ', 'Кофейня ');
+  const cnt = (v, d, suf) => `<span data-count="${v}" data-dec="${d || 0}" data-suf="${suf || ''}">${fmt(v, d || 0)}${suf || ''}</span>`;
+  function ring(pct, label, sub, color) {
+    const r = 46, c = 2 * Math.PI * r, p = Math.max(0, Math.min(100, pct));
+    return `<div class="ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="${r}" class="ring-bg"/><circle cx="60" cy="60" r="${r}" class="ring-fg" style="stroke:${color || 'var(--s3)'};stroke-dasharray:${c};stroke-dashoffset:${c}" data-off="${c * (1 - p / 100)}"/></svg>
+      <div class="ring-t"><b>${label}</b><span>${sub || ''}</span></div></div>`;
+  }
+  function animateRings(root) { requestAnimationFrame(() => setTimeout(() => $$('.ring-fg', root).forEach(el => { el.style.strokeDashoffset = el.dataset.off; }), 60)); }
+  function confetti() {
+    if (REDUCED) return;
+    const cv = document.createElement('canvas'); cv.className = 'confetti'; document.body.appendChild(cv);
+    const W = cv.width = innerWidth, H = cv.height = innerHeight, g = cv.getContext('2d');
+    const cols = ['#2a78d6', '#eb6834', '#1baf7a', '#eda100', '#e87ba4', '#0f6b45'];
+    const ps = Array.from({ length: 140 }, () => ({ x: W / 2 + (Math.random() - .5) * 120, y: H * 0.35, vx: (Math.random() - .5) * 14, vy: -Math.random() * 14 - 4, s: 4 + Math.random() * 6, c: cols[Math.floor(Math.random() * cols.length)], r: Math.random() * 6, vr: (Math.random() - .5) * .4 }));
+    let f = 0;
+    (function loop() { g.clearRect(0, 0, W, H); ps.forEach(p => { p.vy += 0.35; p.x += p.vx; p.y += p.vy; p.r += p.vr; g.save(); g.translate(p.x, p.y); g.rotate(p.r); g.fillStyle = p.c; g.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); g.restore(); }); if (++f < 140) requestAnimationFrame(loop); else cv.remove(); })();
+  }
+  function checkBadges(list, key) {
+    const seen = store.get('badges_' + key, null);
+    const now = list.map(b => b.key);
+    if (seen) { const fresh = list.filter(b => !seen.includes(b.key)); if (fresh.length) { confetti(); toast('🎉 Новый бейдж: ' + fresh.map(b => b.icon + ' ' + b.name).join(', '), 4500); } }
+    store.set('badges_' + key, now);
+  }
+  const skeleton = n => `<div class="grid g4">${Array.from({ length: 4 }, () => '<div class="kpi sk"><i></i><i></i></div>').join('')}</div><div class="grid g2">${Array.from({ length: n || 2 }, () => '<div class="card sk" style="height:260px"><i></i><i></i><i></i></div>').join('')}</div>`;
 
-  // ---- SVG-графики ----
+  // «Кампус орманы»: деревья растут вместе с сэкономленным CO₂
+  function forestSvg(trees, savedKg) {
+    const W = 560, H = 210, shown = Math.min(trees, 60), cols = 15;
+    let g = `<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9f6ee"/><stop offset="1" stop-color="#f7fbf5"/></linearGradient></defs>
+      <rect width="${W}" height="${H}" rx="14" fill="url(#sky)"/><circle cx="500" cy="40" r="20" fill="#fde7a8"/>
+      <path d="M0 ${H - 34} Q ${W / 4} ${H - 52} ${W / 2} ${H - 38} T ${W} ${H - 40} V ${H} H 0 Z" fill="#cfe8d6"/><path d="M0 ${H - 18} Q ${W / 3} ${H - 30} ${W * 0.66} ${H - 20} T ${W} ${H - 22} V ${H} H 0 Z" fill="#b5dcc2"/>`;
+    for (let i = 0; i < shown; i++) {
+      const row = Math.floor(i / cols), col = i % cols;
+      const x = 22 + col * ((W - 44) / (cols - 1)) + (row % 2 ? 14 : 0) + (((i * 37) % 11) - 5);
+      const y = H - 26 - row * 22 + (((i * 53) % 7) - 3);
+      const s = 0.8 + ((i * 29) % 5) / 10 - row * 0.06;
+      const fill = ['#1f8f5a', '#2a9d64', '#167a4c', '#3aa86f'][i % 4];
+      g += `<g class="tree" style="--d:${(i * 0.035).toFixed(2)}s;transform-origin:${x}px ${y}px"><rect x="${x - 1.6 * s}" y="${y - 10 * s}" width="${3.2 * s}" height="${10 * s}" fill="#7a5a3a"/><path d="M${x} ${y - 38 * s} L${x + 12 * s} ${y - 10 * s} L${x - 12 * s} ${y - 10 * s} Z" fill="${fill}"/><path d="M${x} ${y - 46 * s} L${x + 9 * s} ${y - 24 * s} L${x - 9 * s} ${y - 24 * s} Z" fill="${fill}"/></g>`;
+    }
+    if (!trees) g += `<text x="${W / 2}" y="${H / 2}" text-anchor="middle" class="lbl">Первое дерево вырастет после 22 кг сэкономленного CO₂</text>`;
+    return `<svg viewBox="0 0 ${W} ${H}" class="forest" role="img" aria-label="Кампус орманы: ${trees} деревьев">${g}</svg>`;
+  }
+
+  // ---- SVG-графики (с анимацией роста) ----
   function niceMax(v) { if (v <= 0) return 1; const p = Math.pow(10, Math.floor(Math.log10(v))); const n = v / p; return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10) * p; }
   function stackedBars(labels, series, unit) {
-    const W = 560, H = 240, L = 48, B = 26, T = 18, R = 8;
+    const W = 560, H = 240, L = 52, B = 26, T = 18, R = 8;
     const totals = labels.map((_, i) => series.reduce((s, x) => s + (x.values[i] || 0), 0));
     const max = niceMax(Math.max.apply(null, totals.concat([1])));
-    const bw = (W - L - R) / labels.length, barW = Math.min(46, bw * 0.6);
+    const bw = (W - L - R) / labels.length, barW = Math.max(3, Math.min(42, bw * 0.62));
     const y = v => T + (H - T - B) * (1 - v / max);
+    const every = Math.ceil(labels.length / 12);
     let g = '';
     for (let i = 0; i <= 4; i++) { const v = max * i / 4; g += `<line class="gl" x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${L - 6}" y="${y(v) + 4}" text-anchor="end">${fmt(v, 0)}</text>`; }
     labels.forEach((lab, i) => {
-      const cx = L + bw * i + bw / 2; let acc = 0;
+      const cx = L + bw * i + bw / 2; let acc = 0; let bars = '';
       series.forEach((s, si) => {
         const v = s.values[i] || 0; if (!v) return;
         const y0 = y(acc), y1 = y(acc + v); acc += v;
-        const top = si === series.length - 1 || !series.slice(si + 1).some(z => z.values[i]);
-        const h = Math.max(0, y0 - y1 - (top ? 0 : 2));
-        g += `<rect x="${cx - barW / 2}" y="${y1}" width="${barW}" height="${h}" rx="${top ? 4 : 0}" fill="${s.color}" data-tip="${esc(s.name)} · ${lab}\n${fmt(v)} ${unit}"/>`;
-        if (top) g += `<rect x="${cx - barW / 2}" y="${y1 + 4}" width="${barW}" height="${Math.max(0, h - 4)}" fill="${s.color}" pointer-events="none"/>`;
+        const top = !series.slice(si + 1).some(z => z.values[i]);
+        const h = Math.max(0, y0 - y1 - (top ? 0 : 1.5));
+        bars += `<rect x="${cx - barW / 2}" y="${y1}" width="${barW}" height="${h}" rx="${top ? Math.min(4, barW / 3) : 0}" fill="${s.color}" data-tip="${esc(s.name)} · ${lab}\n${fmt(v)} ${unit}"/>`;
+        if (top && h > 4) bars += `<rect x="${cx - barW / 2}" y="${y1 + 4}" width="${barW}" height="${h - 4}" fill="${s.color}" pointer-events="none"/>`;
       });
-      if (totals[i]) g += `<text class="val" x="${cx}" y="${y(totals[i]) - 5}" text-anchor="middle">${fmt(totals[i], 0)}</text>`;
-      g += `<text class="ax" x="${cx}" y="${H - 8}" text-anchor="middle">${lab}</text>`;
+      g += `<g class="grow" style="--d:${(i * 0.025).toFixed(3)}s">${bars}</g>`;
+      if (totals[i] && labels.length <= 14) g += `<text class="val" x="${cx}" y="${y(totals[i]) - 5}" text-anchor="middle">${fmt(totals[i], 0)}</text>`;
+      if (i % every === 0) g += `<text class="ax" x="${cx}" y="${H - 8}" text-anchor="middle">${lab}</text>`;
     });
     g += `<line x1="${L}" x2="${W - R}" y1="${y(0)}" y2="${y(0)}" stroke="#c9cbc3"/>`;
     return `<svg viewBox="0 0 ${W} ${H}" role="img">${g}</svg>`;
   }
-  function hBars(items, color) {
+  function lineChart(labels, values, unit, color) {
+    const W = 560, H = 200, L = 60, B = 26, T = 14, R = 10;
+    const max = niceMax(Math.max.apply(null, values.concat([1])));
+    const x = i => L + (W - L - R) * (labels.length < 2 ? 0.5 : i / (labels.length - 1)), y = v => T + (H - T - B) * (1 - v / max);
+    const every = Math.ceil(labels.length / 10);
+    let g = '';
+    for (let i = 0; i <= 4; i++) { const v = max * i / 4; g += `<line class="gl" x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${L - 6}" y="${y(v) + 4}" text-anchor="end">${fmt(v, 0)}</text>`; }
+    const pts = values.map((v, i) => x(i) + ',' + y(v)).join(' ');
+    g += `<polygon points="${x(0)},${y(0)} ${pts} ${x(values.length - 1)},${y(0)}" fill="${color}" opacity=".10"/>`;
+    g += `<polyline class="draw" points="${pts}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" pathLength="1"/>`;
+    values.forEach((v, i) => { g += `<circle cx="${x(i)}" cy="${y(v)}" r="9" fill="transparent" data-tip="${labels[i]}\n${fmt(v, 0)} ${unit}"/>`; if (labels.length <= 14) g += `<circle cx="${x(i)}" cy="${y(v)}" r="3" fill="${color}" pointer-events="none"/>`; if (i % every === 0) g += `<text class="ax" x="${x(i)}" y="${H - 8}" text-anchor="middle">${labels[i]}</text>`; });
+    return `<svg viewBox="0 0 ${W} ${H}" role="img">${g}</svg>`;
+  }
+  function hBars(items, color, unit) {
     if (!items.length) return `<p class="muted">${t('noData')}</p>`;
-    const W = 560, rowH = 26, L = 190, R = 60, H = items.length * rowH + 6;
+    const W = 560, rowH = 28, L = 200, R = 80, H = items.length * rowH + 6;
     const max = Math.max.apply(null, items.map(i => i.value).concat([1]));
     let g = '';
     items.forEach((it, i) => {
       const y = 3 + i * rowH, w = Math.max(2, (W - L - R) * it.value / max);
       const lab = it.label.length > 30 ? it.label.slice(0, 29) + '…' : it.label;
       g += `<text class="lbl" x="${L - 8}" y="${y + rowH / 2 + 4}" text-anchor="end">${esc(lab)}</text>`;
-      g += `<g data-tip="${esc(it.tip || it.label + ': ' + fmt(it.value))}"><rect x="${L - 2}" y="${y}" width="${W - L}" height="${rowH}" fill="transparent"/><rect x="${L}" y="${y + 5}" width="${w}" height="${rowH - 10}" rx="4" fill="${it.color || color}"/></g>`;
-      g += `<text class="val" x="${L + w + 6}" y="${y + rowH / 2 + 4}">${fmt(it.value, 0)}</text>`;
+      g += `<g data-tip="${esc(it.tip || it.label + ': ' + fmt(it.value))}"><rect x="${L - 2}" y="${y}" width="${W - L}" height="${rowH}" fill="transparent"/><rect class="growx" style="--d:${(i * 0.05).toFixed(2)}s" x="${L}" y="${y + 6}" width="${w}" height="${rowH - 12}" rx="4" fill="${it.color || color}"/></g>`;
+      g += `<text class="val" x="${L + w + 6}" y="${y + rowH / 2 + 4}">${it.text || fmt(it.value, 0) + (unit ? ' ' + unit : '')}</text>`;
     });
     return `<svg viewBox="0 0 ${W} ${H}" role="img">${g}</svg>`;
+  }
+  const shortOrg = n => String(n || '').replace('Учебно-гостиничный комплекс ', '').replace('Столовый комплекс корп. 1, 2 ', 'Столовая ').replace('Кофейня АТУ ', 'Кофейня ');
+  const ORG_COLORS = ['var(--s1)', 'var(--s2)', 'var(--s3)', 'var(--s4)', 'var(--s5)', '#008300', '#6250d6', '#e34948'];
+  const orgColor = id => ORG_COLORS[Math.max(0, S.orgs.findIndex(o => o.id === id)) % ORG_COLORS.length];
+  function bucketLabel(b, gran) {
+    if (gran === 'month') return monthShort(b);
+    return b.slice(8, 10) + '.' + b.slice(5, 7);
+  }
+
+  // ================= АНАЛИТИКА (дашборд) =================
+  let dashF = null;
+  async function viewDash(silent) {
+    if (!dashF) dashF = { preset: '90', gran: 'week', orgId: '' };
+    const main = silent ? $('#main') : shell('dash', skeleton(4));
+    const today = S.today;
+    const presets = { '7': ['7 дней', -6, 'day'], '30': ['30 дней', -29, 'day'], '90': ['90 дней', -89, 'week'], 'all': ['Весь период', null, 'month'] };
+    const p = presets[dashF.preset];
+    const from = p[1] == null ? '2026-06-12' : window.Core.dayAdd(today, p[1]);
+    let D;
+    try { D = await api('analytics', { from, to: today, gran: dashF.gran, orgId: dashF.orgId || undefined }); } catch (e) { main.innerHTML = errorBox(e); return; }
+    if (silent && D.rev === viewDash._rev) return;
+    viewDash._rev = D.rev;
+    const k = D.kpi;
+    const dPct = k.prevKg ? Math.round((k.kg - k.prevKg) / k.prevKg * 100) : null;
+    const dTxt = d => d == null ? '<span class="muted">нет данных за прошлый период</span>' : `<span class="delta ${d > 0 ? 'up' : 'down'}">${d > 0 ? '▲' : '▼'} ${Math.abs(d)}%</span> к прошлому периоду`;
+    const labels = D.buckets.map(b => bucketLabel(b, D.gran));
+    const g = D.goal;
+    const scrollY = window.scrollY;
+    main.innerHTML = `
+      <div class="page-head"><div><h1>Аналитика ${S.user.role === 'resp' ? '' : '<span class="live" title="Обновляется автоматически">● LIVE</span>'}</h1>
+        <div class="muted small">Оперативные данные всех записей (включая черновики) · ₸ и CO₂ — <b>шамамен / примерно</b>, коэффициенты в config.js</div></div></div>
+      <div class="card filters-row no-print">
+        <div class="seg">${Object.entries(presets).map(([key, v]) => `<button class="${dashF.preset === key ? 'on' : ''}" data-preset="${key}">${v[0]}</button>`).join('')}</div>
+        <div class="seg">${[['day', 'День'], ['week', 'Неделя'], ['month', 'Месяц']].map(([key, l]) => `<button class="${dashF.gran === key ? 'on' : ''}" data-gran="${key}">${l}</button>`).join('')}</div>
+        ${S.user.role !== 'resp' ? `<select class="in" id="dOrg" style="width:auto;min-height:36px"><option value="">Все организации</option>${S.orgs.map(o => `<option value="${o.id}" ${String(o.id) === String(dashF.orgId) ? 'selected' : ''}>${esc(shortOrg(o.name))}</option>`).join('')}</select>` : ''}
+        <span class="small muted">${fdate(D.from)} — ${fdate(D.to)}</span>
+      </div>
+      <div class="grid g4" style="margin-bottom:14px">
+        <div class="kpi lift"><div class="l">⚖ Масса отходов</div><div class="v">${cnt(k.kg, 0)}<small>кг</small></div><div class="d">${dTxt(dPct)}</div></div>
+        <div class="kpi lift"><div class="l">💸 Потери, ₸ <span class="approx">≈ шамамен</span></div><div class="v">${cnt(Math.round(k.cost / 1000), 0)}<small>тыс. ₸</small></div><div class="d">себестоимость продуктов + вывоз ТБО</div></div>
+        <div class="kpi lift"><div class="l">🌫 CO₂-экв. <span class="approx">≈</span></div><div class="v">${cnt(k.co2, 0)}<small>кг</small></div><div class="d">из них не допущено: <b>${fmt(k.saved, 0)} кг</b></div></div>
+        <div class="kpi lift"><div class="l">🌳 Эквивалент в деревьях <span class="approx">≈</span></div><div class="v">${cnt(k.trees, 0)}<small>деревьев</small></div><div class="d">столько деревьев поглощают этот CO₂ за год (≈${S.config.treeKgPerYear} кг/дерево)</div></div>
+      </div>
+      <div class="grid g3x">
+        <div class="card lift center"><h2>Цель: −${g.pct}% отходов</h2>${ring(g.progress, (g.reduction > 0 ? '−' : '+') + fmt(Math.abs(g.reduction), 0) + '%', g.reduction >= g.pct ? 'цель достигнута ✓' : 'к базе (сентябрь)', g.reduction >= g.pct ? 'var(--s3)' : 'var(--s4)')}
+          <div class="small muted">Среднее в рабочий день: было ${fmt(g.baseAvg, 0)} кг → сейчас ${fmt(g.curAvg, 0)} кг (последние 30 дней)</div></div>
+        <div class="card lift span2"><div class="row"><h2 style="margin:0">🌳 Кампус орманы</h2><div style="flex:1"></div><span class="small"><b>${cnt(D.forest.trees, 0)}</b> деревьев · ${fmt(D.forest.savedKg, 0)} кг CO₂ не допущено</span></div>
+          ${forestSvg(D.forest.trees, D.forest.savedKg)}
+          <div class="small muted">Каждые ${S.config.treeKgPerYear} кг CO₂, которые не ушли в атмосферу благодаря компосту, биогазу, переработке и продаже остатков студентам, — одно новое дерево (≈ годовое поглощение одного дерева).</div></div>
+      </div>
+      <div class="grid g2">
+        <div class="card"><h2>Динамика отходов, кг · по ${D.gran === 'day' ? 'дням' : D.gran === 'week' ? 'неделям' : 'месяцам'}</h2>
+          ${D.series.length > 1 ? `<div class="legend">${D.series.map(s => `<span><i style="background:${orgColor(s.orgId)}"></i>${esc(shortOrg(s.name))}</span>`).join('')}</div>` : ''}
+          <div class="chart" id="c1"></div></div>
+        <div class="card"><h2>Потери, ₸ ≈ · по ${D.gran === 'day' ? 'дням' : D.gran === 'week' ? 'неделям' : 'месяцам'}</h2><div class="chart" id="c2"></div></div>
+        <div class="card"><h2>🍽 ТОП-5 блюд по потерям</h2><div class="chart" id="c3"></div><p class="small muted">Непроданные, просроченные и испорченные порции (без проданных студентам со скидкой).</p></div>
+        <div class="card"><h2>Причины отходов</h2><div class="chart" id="c4"></div></div>
+        ${D.series.length > 1 ? `<div class="card"><h2>Сравнение организаций, кг</h2><div class="chart" id="c5"></div></div>` : ''}
+        <div class="card"><h2>Куда уходят отходы</h2><div class="chart" id="c6"></div><p class="small muted">Не на полигон: <b>${fmt(k.divertedShare, 0)}%</b> массы. CO₂: ${esc(D.co2Source)}.</p></div>
+      </div>
+      ${D.forecast ? forecastHtml(D.forecast) : ''}
+      <div class="grid g2">
+        <div class="card"><div class="row"><h2 style="margin:0">📦 QR-коробки: ТОП-5 по потерям</h2><div style="flex:1"></div><a href="#/boxes" class="small">все коробки →</a></div>
+          <div class="tw" style="margin-top:8px"><table class="t"><tr><th>Код</th><th>Коробка</th><th>Заполнение</th><th class="r">Потери ≈</th></tr>
+          ${D.boxesTop.map(b => `<tr class="click" data-box="${b.code}"><td><b>${b.code}</b></td><td class="small">${esc(b.name)}</td><td>${fillBar(b.fillPct)}</td><td class="r">${money(b.totalCost)}</td></tr>`).join('')}</table></div></div>
+        <div class="card"><h2>⚡ Последние записи <span class="live">● LIVE</span></h2><div id="feed">${D.recent.map(e => `<div class="feed-i ${viewDash._seen && !viewDash._seen.includes(e.id) ? 'new' : ''}"><b>${esc(e.typeName)}${e.dishName ? ' · ' + esc(e.dishName) : ''}</b> — ${fmt(e.qty, 1)} ${e.unit} <span class="muted small">${esc(shortOrg(e.orgName))} · ${e.source === 'qr' ? '📱 ' + (e.boxCode || 'QR') : e.source === 'offer' ? '🍱 акция' : '✍ форма'} · ${fdate(e.created)}</span></div>`).join('')}</div></div>
+      </div>
+      <div class="grid g2">
+        <div class="card"><h2>⚠ Отклонения: прошлая неделя к среднему за 4 недели (рост &gt; ${S.settings.anomalyPct || 30}%)</h2>
+          ${D.anomalies.length ? `<div class="tw"><table class="t"><tr><th>${t('org')}</th><th>Вид отхода</th><th class="r">нед. ${fdate(D.anomalies[0].week).slice(0, 5)}</th><th class="r">Среднее</th><th class="r">Рост</th></tr>
+            ${D.anomalies.slice(0, 6).map(a => `<tr><td class="small">${esc(shortOrg(a.orgName))}</td><td>${esc(a.typeName)}</td><td class="r">${fmt(a.value)}</td><td class="r">${fmt(a.avg)}</td><td class="r"><b style="color:var(--bad)">+${a.pct}%</b></td></tr>`).join('')}</table></div>` : '<p class="muted">Отклонений не выявлено</p>'}</div>
+        <div class="card"><h2>💡 Рекомендации</h2>
+          ${D.recommendations.slice(0, 6).map(r => `<div class="rec ${r.level}"><span class="o">${esc(shortOrg(r.orgName))}</span><b>${esc(r.title)}</b><span class="small">${esc(r.text)}</span></div>`).join('') || '<p class="muted">Недостаточно данных</p>'}</div>
+      </div>`;
+    viewDash._seen = D.recent.map(e => e.id);
+    $('#c1').innerHTML = stackedBars(labels, D.series.map(s => ({ name: shortOrg(s.name), color: orgColor(s.orgId), values: s.values })), 'кг');
+    $('#c2').innerHTML = lineChart(labels, D.bucketCost, '₸', 'var(--s2)');
+    $('#c3').innerHTML = hBars(D.topDishes.map(x => ({ label: x.name, value: x.cost, text: money(x.cost), tip: `${x.name} (${shortOrg(x.orgName)})\n${fmt(x.portions, 0)} порций · ${fmt(x.kg)} кг · ≈${money(x.cost)}` })), 'var(--s2)');
+    $('#c4').innerHTML = hBars(D.byReason.map(x => ({ label: x.name, value: x.kg, tip: `${x.name}: ${fmt(x.kg)} кг · ≈${money(x.cost)}` })), 'var(--s1)', 'кг');
+    if ($('#c5')) $('#c5').innerHTML = hBars(D.byOrg.map(x => ({ label: shortOrg(x.name), value: x.kg, color: orgColor(x.orgId), tip: `${x.name}\n${fmt(x.kg)} кг · ≈${money(x.cost)} · CO₂ ${fmt(x.co2)} кг` })), null, 'кг');
+    $('#c6').innerHTML = hBars(D.byMethod.map(x => ({ label: x.name, value: x.kg, color: x.code === 'TBO' ? '#9aa39c' : 'var(--s3)', tip: `${x.name}: ${fmt(x.kg)} кг · CO₂ не допущено ${fmt(x.saved)} кг` })), null, 'кг');
+    $$('[data-preset]').forEach(b => b.onclick = () => { dashF.preset = b.dataset.preset; dashF.gran = presets[dashF.preset][2]; viewDash(); });
+    $$('[data-gran]').forEach(b => b.onclick = () => { dashF.gran = b.dataset.gran; viewDash(); });
+    if ($('#dOrg')) $('#dOrg').onchange = e => { dashF.orgId = e.target.value; viewDash(); };
+    $$('[data-box]').forEach(tr => tr.onclick = () => go('#/box/' + tr.dataset.box));
+    if (silent) { window.scrollTo(0, scrollY); $$('.grow,.growx,.draw,.tree', main).forEach(el => el.style.animation = 'none'); } else countUp(main);
+    if (silent) $$('[data-count]', main).forEach(el => { el.textContent = fmt(Number(el.dataset.count), Number(el.dataset.dec || 0)) + (el.dataset.suf || ''); });
+    animateRings(main);
+    if (g.reduction >= g.pct && !silent) { const key = 'goal_' + (dashF.orgId || 'all'); if (!store.get(key, false)) { store.set(key, true); setTimeout(confetti, 600); } }
+  }
+  function forecastHtml(F) {
+    if (!F || !F.rows.length) return '';
+    const save = F.rows.reduce((s, r) => s + r.saveCost, 0);
+    return `<div class="card forecast"><div class="row"><h2 style="margin:0">🔮 Прогноз на ${fdate(F.date)} (${['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'][new Date(F.date + 'T12:00:00').getDay()]})</h2><div style="flex:1"></div><span class="small muted">среднее продаж за последние 4 таких же дня недели × ${S.config.forecastBuffer}</span></div>
+      <div class="fc-grid">${F.rows.map(r => `<div class="fc"><span>${esc(r.name)}</span><b>${r.recommend}</b><small>порций приготовить</small>${r.savePortions ? `<em>−${r.savePortions} к обычному выпуску</em>` : '<em class="ok">как обычно</em>'}</div>`).join('')}</div>
+      ${save ? `<div class="small" style="margin-top:8px">Если готовить по прогнозу: ≈ <b>${money(save)}</b> меньше потерь за день (примерно).</div>` : ''}</div>`;
+  }
+  const fillBar = p => `<div class="fill"><i style="width:${p}%;background:${p >= 100 ? 'var(--bad)' : p >= 75 ? 'var(--s4)' : 'var(--s3)'}"></i><span>${p}%</span></div>`;
+
+  // ================= QR-КОРОБКИ =================
+  const BOX_ST = { active: ['Активна', 'submitted'], full: ['Полная', 'returned'], emptied: ['Освобождена', 'accepted'], inactive: ['Отключена', 'draft'] };
+  const boxSt = s => `<span class="st ${BOX_ST[s][1]}">${BOX_ST[s][0]}</span>`;
+  async function viewBoxes(silent) {
+    const main = silent ? $('#main') : shell('boxes', skeleton(1));
+    let L;
+    try { L = await api('listBoxes', {}); } catch (e) { main.innerHTML = errorBox(e); return; }
+    const sig = JSON.stringify(L.map(b => [b.currentKg, b.status]));
+    if (silent && sig === viewBoxes._sig) return; viewBoxes._sig = sig;
+    const isAdmin = S.user.role === 'admin';
+    const top = L.slice().sort((a, b) => b.totalCost - a.totalCost).slice(0, 5);
+    main.innerHTML = `
+      <div class="page-head"><div><h1>QR-коробки <span class="live">● LIVE</span></h1><div class="muted small">Контейнеры для отходов с QR-кодами: сканируйте → введите вес → потери считаются автоматически</div></div><div class="sp"></div>
+        <a class="btn primary" href="#/scan">📷 Сканировать</a><a class="btn" href="#/boxes-print">🖨 QR для печати</a>${isAdmin ? '<button class="btn" id="addBox">+ Коробка</button>' : ''}</div>
+      <div class="card no-print"><form id="codeF" class="row"><input class="in" name="code" placeholder="Код коробки, например BOX-001" style="max-width:260px;text-transform:uppercase"><button class="btn">Открыть</button></form></div>
+      <div class="grid g2">
+        <div class="card span-all"><div class="tw"><table class="t"><tr><th>Код</th><th>Коробка</th>${S.user.role !== 'resp' ? '<th>Организация</th>' : ''}<th>Вид отхода</th><th>Заполнение</th><th class="r">Сейчас</th><th class="r">Потери (всего) ≈</th><th>Статус</th><th></th></tr>
+          ${L.map(b => `<tr class="click" data-code="${b.code}"><td><b>${b.code}</b></td><td>${esc(b.name)}</td>${S.user.role !== 'resp' ? `<td class="small">${esc(shortOrg(b.orgName))}</td>` : ''}<td class="small">${esc(b.typeName)}</td><td style="min-width:120px">${fillBar(b.fillPct)}</td><td class="r">${fmt(b.currentKg)} / ${b.capacityKg} кг</td><td class="r">${money(b.totalCost)}</td><td>${boxSt(b.status)}</td>
+            <td>${(isAdmin || (S.user.role === 'resp')) && b.currentKg > 0 ? `<button class="btn ghost small" data-empty="${b.code}">Освободить</button>` : ''}</td></tr>`).join('')}</table></div></div>
+      </div>
+      <div class="card"><h2>🏆 ТОП-5 коробок по потерям ≈</h2><div class="chart" id="bTop"></div></div>`;
+    $('#bTop').innerHTML = hBars(top.map(b => ({ label: b.code + ' · ' + b.name, value: b.totalCost, text: money(b.totalCost), color: orgColor(b.orgId), tip: `${b.code} ${b.name}\n${fmt(b.totalKg)} кг за всё время · CO₂ ${fmt(b.totalCo2)} кг` })), null);
+    $$('[data-code]').forEach(tr => tr.onclick = e => { if (e.target.closest('[data-empty]')) return; go('#/box/' + tr.dataset.code); });
+    $$('[data-empty]').forEach(b => b.onclick = () => emptyBox(b.dataset.empty, () => viewBoxes()));
+    $('#codeF').onsubmit = e => { e.preventDefault(); const c = String(new FormData(e.target).get('code')).trim().toUpperCase(); if (c) go('#/box/' + c); };
+    if ($('#addBox')) $('#addBox').onclick = boxDialog;
+  }
+  async function emptyBox(code, done) {
+    if (!await confirmBox('Освободить коробку ' + code + '?', 'Текущий объём обнулится, история записей сохранится.', 'Освободить')) return;
+    try { await api('emptyBox', { code }); toast('Коробка ' + code + ' освобождена'); done && done(); } catch (e) { toast(e.message, 4000); }
+  }
+  async function boxDialog() {
+    await loadBoot();
+    modal(`<div class="dh"><h2>Новая QR-коробка</h2></div><div class="db stack">
+      <label class="f"><span>Организация</span><select class="in" name="orgId">${S.orgs.map(o => `<option value="${o.id}">${esc(o.name)}</option>`).join('')}</select></label>
+      <label class="f"><span>Вид отхода</span><select class="in" name="wasteTypeId"></select></label>
+      <label class="f"><span>Название / место</span><input class="in" name="name" placeholder="например, Зал корп. 2 — тарелки"></label>
+      <div class="grid g2" style="gap:10px"><label class="f"><span>Категория</span><select class="in" name="category"><option>дайын тағам</option><option>тәрелке қалдығы</option><option>шикізат</option><option>вторсырьё</option></select></label>
+      <label class="f"><span>Вместимость, кг</span><input class="in" name="capacityKg" inputmode="decimal" value="50"></label></div><div data-err></div></div>
+      <div class="df"><button class="btn" data-c>${t('cancel')}</button><button class="btn primary" data-s>Создать</button></div>`, d => {
+      const fillT = () => { const oid = Number($('[name=orgId]', d).value); $('[name=wasteTypeId]', d).innerHTML = S.wasteTypes.filter(x => x.orgId === oid && x.active).map(x => `<option value="${x.id}">${esc(x.name)}</option>`).join(''); };
+      $('[name=orgId]', d).onchange = fillT; fillT();
+      $('[data-c]', d).onclick = () => d.close();
+      $('[data-s]', d).onclick = async () => {
+        const v = n => $('[name=' + n + ']', d).value;
+        try { const r = await api('saveBox', { orgId: Number(v('orgId')), wasteTypeId: Number(v('wasteTypeId')), name: v('name'), category: v('category'), capacityKg: Number(v('capacityKg').replace(',', '.')) }); d.close(); toast('Создана ' + r.box.code); viewBoxes(); }
+        catch (e) { $('[data-err]', d).innerHTML = errorBox(e); }
+      };
+    });
+  }
+
+  async function viewBox(code, silent) {
+    const main = silent ? $('#main') : shell('boxes', skeleton(1));
+    let B;
+    try { B = await api('getBox', { code }); } catch (e) { main.innerHTML = `${errorBox(e)}<a class="btn" href="#/scan">📷 Сканировать снова</a> <a class="btn" href="#/boxes">Все коробки</a>`; return; }
+    const sig = B.box.currentKg + '|' + B.logs.length + '|' + B.box.status;
+    if (silent && (sig === viewBox._sig || document.activeElement && document.activeElement.closest && document.activeElement.closest('#boxForm'))) return;
+    viewBox._sig = sig;
+    const b = B.box;
+    const tags = B.type.tag === 'unsold' || B.type.tag === 'plate';
+    const reasons = Object.entries(B.reasons).filter(([k]) => tags ? k !== 'tech' : true);
+    main.innerHTML = `
+      <div class="page-head"><div><a href="#/boxes" class="small">← QR-коробки</a><h1>📦 ${b.code} · ${esc(b.name)}</h1><div class="muted small">${esc(b.orgName)} · ${esc(b.place || '')} · ${esc(b.category)} · ${esc(b.typeName)}</div></div><div class="sp"></div>${boxSt(b.status)}</div>
+      <div class="grid g2">
+        <div class="card box-hero">
+          <div class="bin"><div class="bin-fill" style="height:${b.fillPct}%"></div><span>${b.fillPct}%</span></div>
+          <div class="stack" style="flex:1">
+            <div class="small muted">Сейчас в коробке</div>
+            <div class="big">${cnt(b.currentKg, 1)} <small>/ ${b.capacityKg} кг</small></div>
+            <div class="box-sum">≈ <b>${cnt(b.currentCost, 0, ' ₸')}</b> потерь и ≈ <b>${cnt(b.currentCo2, 1, ' кг')}</b> CO₂ <span class="approx">шамамен</span></div>
+            <div class="small muted">За всё время: ${fmt(b.totalKg)} кг · ≈${money(b.totalCost)} · ${fmt(b.totalCo2)} кг CO₂ · ${b.logs} записей</div>
+            ${B.canLog && b.currentKg > 0 ? `<button class="btn ghost small" id="emptyBtn" style="align-self:flex-start">♻ Отметить «освобождена»</button>` : ''}
+          </div>
+        </div>
+        ${B.canLog ? `<div class="card" id="boxForm"><h2>➕ Добавить отходы</h2>
+          <div class="small muted" style="margin-bottom:6px">Вес (кг) <b>или</b> уровень заполнения коробки</div>
+          <input class="in qty" id="bKg" inputmode="decimal" placeholder="0,0 кг" autocomplete="off">
+          <div class="lvl">${[25, 50, 75, 100].map(p => `<button type="button" data-lvl="${p}">${p}%</button>`).join('')}</div>
+          ${B.dishes.length && tags ? `<label class="f" style="margin-top:10px"><span>Блюдо (необязательно)</span><select class="in" id="bDish"><option value="">— категория «${esc(b.typeName)}» —</option>${B.dishes.map(d => `<option value="${d.id}">${esc(d.name)} · ${d.portionG} г · ${d.price} ₸</option>`).join('')}</select></label>` : ''}
+          <div class="small muted" style="margin:10px 0 6px">Причина</div>
+          <div class="chips reasons">${reasons.map(([k, v], i) => `<button type="button" class="chip ${i === 0 ? 'on' : ''}" data-reason="${k}">${esc(v)}</button>`).join('')}</div>
+          <div class="calc" id="calc">≈ 0 ₸ · 0 кг CO₂</div>
+          <div id="bErr"></div>
+          <button class="btn primary big" id="bSave">Сохранить</button></div>`
+        : `<div class="card"><div class="alert info">Добавлять отходы в эту коробку могут только аспаз (ответственное лицо этой организации) и администратор.</div></div>`}
+      </div>
+      <div class="card"><h2>Последние записи</h2><div class="tw"><table class="t"><tr><th>Время</th><th>Что</th><th class="r">Кол-во</th><th>Причина</th><th class="r">≈ ₸</th><th>Кто</th></tr>
+        ${B.logs.map(e => `<tr><td class="small">${fdate(e.created)}</td><td>${esc(e.dishName || e.typeName)}${e.fillPct ? ` <span class="muted small">(${e.fillPct}%)</span>` : ''}</td><td class="r">${fmt(e.qty, 1)} ${e.unit}</td><td class="small">${esc(e.reasonName)}</td><td class="r">${fmt(e.cost, 0)}</td><td class="small">${esc(e.userName)}</td></tr>`).join('') || `<tr><td colspan="6" class="muted">${t('noData')}</td></tr>`}</table></div>
+        ${B.events.length ? `<p class="small muted">Освобождения: ${B.events.map(x => fdate(x.at) + ' (' + fmt(x.kg) + ' кг)').join(' · ')}</p>` : ''}</div>`;
+    countUp(main);
+    if ($('#emptyBtn')) $('#emptyBtn').onclick = () => emptyBox(b.code, () => viewBox(code));
+    if (!B.canLog) return;
+    let lvl = null, reason = reasons[0][0];
+    const dishSel = $('#bDish');
+    const perKg = () => { const d = dishSel && dishSel.value ? B.dishes.find(x => x.id === Number(dishSel.value)) : null; return d ? d.price * S.config.dishCostShare / (d.portionG / 1000) : B.costPerKg; };
+    const kgNow = () => lvl ? Math.max(0, b.capacityKg * lvl / 100 - b.currentKg) : Number(String($('#bKg').value).replace(',', '.')) || 0;
+    const recalc = () => { const kg = kgNow(); const disp = (S.methods.find(m => m.id === B.type.defaultMethodId) || {}).code === 'TBO' ? S.config.disposalPerKg : 0; $('#calc').innerHTML = `${lvl ? `≈ ${fmt(kg, 1)} кг · ` : ''}≈ <b>${money(kg * (perKg() + disp))}</b> · ${fmt(kg * B.co2PerKg, 1)} кг CO₂ <span class="approx">шамамен</span>`; };
+    $('#bKg').oninput = () => { lvl = null; $$('[data-lvl]').forEach(x => x.classList.remove('on')); recalc(); };
+    $$('[data-lvl]').forEach(x => x.onclick = () => { lvl = Number(x.dataset.lvl); $('#bKg').value = ''; $$('[data-lvl]').forEach(y => y.classList.toggle('on', y === x)); recalc(); });
+    $$('[data-reason]').forEach(x => x.onclick = () => { reason = x.dataset.reason; $$('[data-reason]').forEach(y => y.classList.toggle('on', y === x)); });
+    if (dishSel) dishSel.onchange = recalc;
+    recalc();
+    $('#bSave').onclick = async () => {
+      $('#bErr').innerHTML = '';
+      try {
+        const r = await api('logBox', { code: b.code, kg: lvl ? undefined : $('#bKg').value, fillPct: lvl || undefined, dishId: dishSel && dishSel.value ? Number(dishSel.value) : undefined, reason });
+        successOverlay(`+${fmt(r.entry.qty, 1)} ${r.entry.unit}`, `≈ ${money(r.entry.cost)} · ${fmt(r.entry.co2, 1)} кг CO₂`);
+        viewBox._sig = null; setTimeout(() => viewBox(code), 1300);
+      } catch (e) { $('#bErr').innerHTML = errorBox(e); }
+    };
+  }
+  function successOverlay(title, sub) {
+    const el = document.createElement('div'); el.className = 'ok-overlay';
+    el.innerHTML = `<div class="ok-card"><svg viewBox="0 0 52 52" class="ok-check"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-15"/></svg><b>${esc(title)}</b><span>${esc(sub)}</span></div>`;
+    document.body.appendChild(el); setTimeout(() => el.classList.add('out'), 1100); setTimeout(() => el.remove(), 1500);
+  }
+
+  let html5lib = null;
+  function loadHtml5Qrcode() {
+    if (window.Html5Qrcode) return Promise.resolve();
+    if (html5lib) return html5lib;
+    html5lib = new Promise((res, rej) => { const s = document.createElement('script'); s.src = 'https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js'; s.onload = res; s.onerror = rej; document.head.appendChild(s); });
+    return html5lib;
+  }
+  let scanStop = null;
+  async function viewScan() {
+    const main = shell('boxes', '');
+    main.innerHTML = `<div class="page-head"><div><a href="#/boxes" class="small">← QR-коробки</a><h1>📷 Сканер QR</h1><div class="muted small">Наведите камеру на QR-код коробки</div></div></div>
+      <div class="scan-wrap"><div class="scan-box" id="scanBox"><video id="scanV" playsinline muted></video><div id="scanLib"></div><div class="scan-frame"><i></i></div><div class="scan-line"></div></div>
+      <div id="scanMsg" class="small muted" style="margin:8px 0">Запуск камеры…</div>
+      <div class="card"><h3>Нет камеры или не сканируется?</h3><form id="manF" class="row"><input class="in" name="code" placeholder="BOX-001" style="max-width:200px;text-transform:uppercase" autocomplete="off"><button class="btn primary">Открыть коробку</button></form>
+      <p class="small muted" style="margin-bottom:0">Можно сканировать и обычной камерой телефона — ссылка из QR сразу откроет коробку.</p></div></div>`;
+    $('#manF').onsubmit = e => { e.preventDefault(); const c = String(new FormData(e.target).get('code')).trim().toUpperCase(); if (c) go('#/box/' + c); };
+    const msg = m => { const x = $('#scanMsg'); if (x) x.textContent = m; };
+    const onCode = raw => {
+      const m = String(raw).match(/#\/box\/([A-Za-z0-9-]+)/) || String(raw).match(/^(BOX-\d+)$/i);
+      if (m) { if (scanStop) scanStop(); $('#scanBox').classList.add('hit'); setTimeout(() => go('#/box/' + m[1].toUpperCase()), 350); return true; }
+      const f = String(raw).indexOf('#/'); if (f >= 0) { if (scanStop) scanStop(); go(String(raw).slice(f)); return true; }
+      msg('Это не QR-код EcoWaste: ' + String(raw).slice(0, 50)); return false;
+    };
+    if (window.claude) { msg('Внутри Claude камера недоступна — введите код вручную или откройте сайт с GitHub Pages.'); $('#scanBox').classList.add('off'); return; }
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.isSecureContext) { msg('Камера доступна только по https (GitHub Pages). Введите код вручную.'); $('#scanBox').classList.add('off'); return; }
+    if ('BarcodeDetector' in window) {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+        const v = $('#scanV'); if (!v) { stream.getTracks().forEach(x => x.stop()); return; }
+        v.srcObject = stream; await v.play(); msg('Ищу QR-код…');
+        const det = new window.BarcodeDetector({ formats: ['qr_code'] });
+        let stop = false; scanStop = () => { stop = true; stream.getTracks().forEach(x => x.stop()); scanStop = null; };
+        const tick = async () => { if (stop || !document.body.contains(v)) { if (!stop) scanStop(); return; } try { const c = await det.detect(v); if (c.length && onCode(c[0].rawValue)) return; } catch (e) { /* */ } setTimeout(tick, 200); };
+        tick(); return;
+      } catch (e) { msg('Нет доступа к камере: ' + (e.message || e) + '. Введите код вручную.'); $('#scanBox').classList.add('off'); return; }
+    }
+    try {
+      await loadHtml5Qrcode();
+      $('#scanV').style.display = 'none';
+      const h = new window.Html5Qrcode('scanLib');
+      await h.start({ facingMode: 'environment' }, { fps: 8, qrbox: 220 }, txt => onCode(txt), () => {});
+      msg('Ищу QR-код…');
+      scanStop = () => { h.stop().catch(() => {}); scanStop = null; };
+    } catch (e) { msg('Сканер недоступен. Введите код вручную.'); $('#scanBox').classList.add('off'); }
+  }
+
+  async function viewBoxesPrint() {
+    const main = shell('boxes', '');
+    const L = await api('listBoxes', {});
+    const base = appBase();
+    const byOrg = {}; L.forEach(b => { (byOrg[b.orgName] = byOrg[b.orgName] || []).push(b); });
+    main.innerHTML = `<div class="page-head no-print"><div><a href="#/boxes" class="small">← QR-коробки</a><h1>QR-коды коробок для печати</h1><div class="muted small">A4, сетка 3×4. Ссылка в коде: ${esc(base)}#/box/КОД</div></div><div class="sp"></div>
+      ${window.claude ? '' : '<button class="btn primary" id="prt">🖨 Печать</button>'}</div>
+      ${/^https?:\/\/(localhost|127\.)/.test(base) || window.claude ? '<div class="alert warn no-print">Откройте эту страницу на сайте (GitHub Pages / Render), иначе QR будут вести на неправильный адрес.</div>' : ''}
+      <div class="qr-a4">${L.map((b, i) => `<div class="qr-card"><div class="qr-img">${window.QR.svg(base + '#/box/' + b.code)}</div><b class="qr-code">${b.code}</b><span>${esc(b.name)}</span><span>${esc(shortOrg(b.orgName))} · ${esc(b.typeName)}</span><div class="qr-brand">EcoWaste АТУ · сканируйте камерой</div><button class="btn ghost no-print" data-png="${i}">⬇ PNG</button></div>`).join('')}</div>`;
+    if ($('#prt')) $('#prt').onclick = () => window.print();
+    $$('[data-png]').forEach(x => x.onclick = () => { const b = L[Number(x.dataset.png)]; qrPng({ url: base + '#/box/' + b.code, title: b.code + ' · ' + b.name, sub: shortOrg(b.orgName) + ' · ' + b.typeName }); });
+    void byOrg;
+  }
+
+  // ================= АКЦИИ: остатки со скидкой =================
+  async function viewOffers(silent) {
+    const main = silent ? $('#main') : shell('offers', skeleton(1));
+    let O;
+    try { O = await api('listOffers', { days: S.user.role === 'student' ? 0 : 6 }); } catch (e) { main.innerHTML = errorBox(e); return; }
+    const sig = JSON.stringify(O.map(o => [o.id, o.left, o.status]));
+    if (silent && (sig === viewOffers._sig || (document.activeElement && document.activeElement.tagName === 'INPUT'))) return; viewOffers._sig = sig;
+    const today = O.filter(o => o.date === S.today);
+    const stu = S.user.role === 'student';
+    const timeLeft = o => { const m = Math.round((new Date(o.until) - new Date()) / 60000); return m > 0 ? `до ${o.until.slice(11, 16)}` : 'завершено'; };
+    if (stu) {
+      const mine = today.filter(o => o.mine && o.mine.length);
+      main.innerHTML = `<div class="page-head"><div><h1>🍱 Акции дня <span class="live">● LIVE</span></h1><div class="muted small">Свежие блюда со скидкой 50% в конце дня. Бронируйте — и забирайте по коду.</div></div></div>
+        ${mine.length ? `<div class="card"><h2>Мои брони</h2>${mine.map(o => o.mine.map(b => `<div class="booking ${b.status}"><div><b>${esc(o.title)}</b> × ${b.qty}<div class="small muted">${esc(shortOrg(o.orgName))} · забрать ${timeLeft(o)}</div></div><div class="code">${b.code}</div>${b.status === 'booked' ? `<button class="btn ghost small" data-cancel="${o.id}">Отменить</button>` : '<span class="st accepted">Получено</span>'}</div>`).join('')).join('')}</div>` : ''}
+        <div class="offer-grid">${today.filter(o => o.status === 'open').map(o => `<div class="offer lift"><div class="tag">−${Math.round((1 - o.discountPrice / o.price) * 100)}%</div><b>${esc(o.title)}</b><span class="small muted">${esc(shortOrg(o.orgName))} · ${o.portionG || ''} г</span>
+          <div class="price"><s>${fmt(o.price, 0)} ₸</s> <b>${fmt(o.discountPrice, 0)} ₸</b></div><div class="small">Осталось: <b>${o.left}</b> из ${o.portions} · ${timeLeft(o)}</div>
+          <button class="btn primary" data-book="${o.id}" ${o.left > 0 && !(o.mine && o.mine.some(b => b.status === 'booked')) ? '' : 'disabled'}>${o.mine && o.mine.some(b => b.status === 'booked') ? 'Забронировано ✓' : 'Забронировать'}</button></div>`).join('') || '<div class="card muted">Сейчас акций нет — загляните ближе к 16:00.</div>'}</div>`;
+      $$('[data-book]').forEach(b => b.onclick = async () => { try { const r = await api('bookOffer', { offerId: Number(b.dataset.book), qty: 1 }); successOverlay('Забронировано!', 'Код получения: ' + r.booking.code); viewOffers._sig = null; setTimeout(viewOffers, 1200); } catch (e) { toast(e.message, 4000); } });
+      $$('[data-cancel]').forEach(b => b.onclick = async () => { try { await api('cancelBooking', { offerId: Number(b.dataset.cancel) }); viewOffers(); } catch (e) { toast(e.message); } });
+      return;
+    }
+    const canEdit = ['resp', 'admin'].includes(S.user.role);
+    const dishes = (S.dishes || []).filter(d => S.user.role !== 'resp' || d.orgId === S.user.orgId);
+    main.innerHTML = `<div class="page-head"><div><h1>🍱 Акции: остатки со скидкой <span class="live">● LIVE</span></h1><div class="muted small">В конце дня непроданные блюда выставляются студентам со скидкой. Что не забрали — в компост или на корм животным.</div></div></div>
+      ${canEdit && dishes.length ? `<div class="card"><h2>Выставить остатки</h2><form id="offF" class="filters">
+        <label class="f"><span>Блюдо</span><select class="in" name="dishId">${dishes.map(d => `<option value="${d.id}" data-price="${d.price}">${esc(d.name)} · ${d.price} ₸${S.user.role === 'admin' ? ' · ' + esc(shortOrg((orgById(d.orgId) || {}).name)) : ''}</option>`).join('')}</select></label>
+        <label class="f"><span>Порций</span><input class="in" name="portions" inputmode="numeric" value="5"></label>
+        <label class="f"><span>Цена со скидкой, ₸</span><input class="in" name="discountPrice" inputmode="numeric"></label>
+        <label class="f"><span>Забрать до</span><input class="in" type="time" name="until" value="18:00"></label>
+        <div class="row"><button class="btn primary">Опубликовать</button></div></form></div>` : ''}
+      ${['Сегодня', 'Последние 7 дней'].map((h, hi) => { const list = hi ? O.filter(o => o.date !== S.today).slice(0, 15) : today; return `<div class="card"><h2>${h}</h2>${list.length ? `<div class="tw"><table class="t"><tr><th>Дата</th><th>Блюдо</th>${S.user.role !== 'resp' ? '<th>Организация</th>' : ''}<th class="r">Порций</th><th class="r">Забронировано</th><th class="r">Цена</th><th>Статус</th>${hi ? '' : '<th></th>'}</tr>
+        ${list.map(o => `<tr><td class="small">${fdate(o.date)}</td><td><b>${esc(o.title)}</b>${!hi && o.bookings && o.bookings.length ? `<div class="small muted">${o.bookings.map(b => `${b.code} · ${esc(b.userName)} · ${b.status === 'picked' ? '✓ выдано' : b.status === 'cancelled' ? 'отменено' : 'ждёт'}`).join('<br>')}</div>` : ''}</td>${S.user.role !== 'resp' ? `<td class="small">${esc(shortOrg(o.orgName))}</td>` : ''}<td class="r">${o.portions}</td><td class="r">${o.booked}</td><td class="r">${o.discountPrice} ₸</td><td>${o.status === 'open' ? '<span class="st submitted">Открыта</span>' : '<span class="st draft">Закрыта</span>'}</td>
+          ${hi ? '' : `<td>${canEdit && o.status === 'open' ? `<div class="row" style="gap:4px;flex-wrap:nowrap"><button class="btn small" data-pick="${o.id}">Выдать по коду</button><button class="btn ghost small" data-close="${o.id}" data-left="${o.left}">Закрыть</button></div>` : ''}</td>`}</tr>`).join('')}</table></div>` : `<p class="muted">${t('noData')}</p>`}</div>`; }).join('')}`;
+    const f = $('#offF');
+    if (f) {
+      const setPrice = () => { const o = f.dishId.selectedOptions[0]; f.discountPrice.value = Math.round(Number(o.dataset.price) * 0.5 / 10) * 10; };
+      f.dishId.onchange = setPrice; setPrice();
+      f.onsubmit = async e => { e.preventDefault(); try { await api('createOffer', Object.fromEntries(new FormData(f))); toast('Акция опубликована — студенты видят её сразу'); viewOffers(); } catch (err) { toast(err.message, 4000); } };
+    }
+    $$('[data-pick]').forEach(b => b.onclick = () => modal(`<div class="dh"><h2>Выдача по коду</h2></div><div class="db"><input class="in qty" name="code" placeholder="R1234" style="text-transform:uppercase"><div data-err></div></div><div class="df"><button class="btn" data-c>${t('cancel')}</button><button class="btn primary" data-s>Выдать</button></div>`, d => {
+      $('[data-c]', d).onclick = () => d.close(); $('[name=code]', d).focus();
+      $('[data-s]', d).onclick = async () => { try { await api('pickupBooking', { offerId: Number(b.dataset.pick), code: $('[name=code]', d).value }); d.close(); toast('✓ Выдано'); viewOffers(); } catch (e) { $('[data-err]', d).innerHTML = errorBox(e); } };
+    }));
+    $$('[data-close]').forEach(b => b.onclick = () => modal(`<div class="dh"><h2>Закрыть акцию</h2></div><div class="db stack"><label class="f"><span>Сколько порций осталось (не забрали)?</span><input class="in" name="left" inputmode="numeric" value="${b.dataset.left}"></label>
+      <label class="f"><span>Куда отправить остаток</span><select class="in" name="m"><option value="FEED">Корм животным</option><option value="COMPOST">Компост</option><option value="AD">Биогаз</option><option value="TBO">Вывоз ТБО</option></select></label><p class="small muted">Выданные порции запишутся в журнал как «Передача» (потеря предотвращена), остаток — выбранным способом.</p></div>
+      <div class="df"><button class="btn" data-c>${t('cancel')}</button><button class="btn primary" data-s>Закрыть</button></div>`, d => {
+      $('[data-c]', d).onclick = () => d.close();
+      $('[data-s]', d).onclick = async () => { try { const r = await api('closeOffer', { offerId: Number(b.dataset.close), leftover: Number($('[name=left]', d).value) || 0, leftMethod: $('[name=m]', d).value }); d.close(); toast('Закрыто: выдано ' + r.picked + ' порц.'); viewOffers(); } catch (e) { toast(e.message, 4000); } };
+    }));
+  }
+
+  // ================= РЕЙТИНГ И ЧЕЛЛЕНДЖ =================
+  async function viewGame(silent) {
+    const main = silent ? $('#main') : shell('game', skeleton(2));
+    let G;
+    try { G = await api('game'); } catch (e) { main.innerHTML = errorBox(e); return; }
+    const sig = JSON.stringify([G.challenge.current, G.orgs.map(o => o.score), G.students.slice(0, 5).map(s => s.points)]);
+    if (silent && sig === viewGame._sig) return; viewGame._sig = sig;
+    const c = G.challenge;
+    const prog = c.base ? Math.max(0, Math.min(100, Math.round(c.reduction / c.pct * 100))) : 0;
+    const medal = i => ['🥇', '🥈', '🥉'][i] || (i + 1) + '.';
+    main.innerHTML = `<div class="page-head"><div><h1>🏆 Рейтинг и Zero Waste челлендж</h1><div class="muted small">Неделя ${fdate(G.weekStart)} — ${fdate(G.weekEnd)} · осталось ${G.daysLeft} дн.</div></div></div>
+      <div class="grid g3x">
+        <div class="card lift center"><h2>Zero Waste апта</h2>${ring(prog, (c.reduction > 0 ? '−' : '+') + fmt(Math.abs(c.reduction), 0) + '%', 'цель −' + c.pct + '%', prog >= 100 ? 'var(--s3)' : 'var(--s1)')}
+          <div class="small muted">Прогноз недели кампуса: ${fmt(c.projected, 0)} кг при базе ${fmt(c.base, 0)} кг (цель ≤ ${fmt(c.target, 0)} кг)</div></div>
+        ${G.me ? `<div class="card lift span2 me"><h2>Мой профиль</h2><div class="row"><div class="avatar">${esc(G.me.name.slice(0, 1))}</div><div><b>${esc(G.me.name)}</b><div class="small muted">${esc(G.me.group || '')}</div></div><div style="flex:1"></div><div class="center"><div class="big">${cnt(G.me.points, 0)}</div><span class="small muted">очков</span></div></div>
+          <div class="small" style="margin:8px 0">Спасено порций: <b>${G.me.portions}</b> · ≈ ${fmt(G.me.co2, 1)} кг CO₂ не допущено</div>
+          <div class="badges">${G.me.badges.map(b => `<span class="badge" title="${esc(b.desc)}">${b.icon} ${esc(b.name)}</span>`).join('') || '<span class="muted small">Забронируйте первую порцию в «Акциях», чтобы получить бейдж 🌱</span>'}</div></div>`
+        : `<div class="card lift span2"><h2>Как начисляются очки</h2><ul class="small" style="margin:0;padding-left:18px"><li>Организации: снижение отходов к базе (последние 4 недели), спасённые порции, доля органики не на полигон, бейджи.</li><li>Студенты: ${S.config.pointsPerPortion} очков за каждую забранную порцию из «Акций».</li><li>Челлендж кампуса: −${c.pct}% к средней неделе базового периода.</li></ul></div>`}
+      </div>
+      <div class="grid g2">
+        <div class="card"><h2>Рейтинг организаций</h2>${G.orgs.map((o, i) => `<div class="lb-row"><span class="pos">${medal(i)}</span><div style="flex:1;min-width:0"><b>${esc(shortOrg(o.name))}</b><div class="small muted">−${fmt(Math.max(0, o.lastRed), 0)}% к базе · ${o.rescued} порций спасено · ${o.compostShare}% органики не на полигон</div>
+          <div class="badges">${o.badges.map(b => `<span class="badge" title="${esc(b.desc)}">${b.icon} ${esc(b.name)}</span>`).join('')}</div></div><b class="pts">${cnt(o.score, 0)}</b></div>`).join('')}</div>
+        <div class="card"><h2>Рейтинг студентов</h2>${G.students.slice(0, 10).map((s, i) => `<div class="lb-row ${G.me && G.me.userId === s.userId ? 'mine' : ''}"><span class="pos">${medal(i)}</span><div style="flex:1"><b>${esc(s.name)}</b> <span class="small muted">${esc(s.group || '')}</span><div class="badges">${s.badges.map(b => `<span class="badge sm" title="${esc(b.desc)}">${b.icon}</span>`).join('')}</div></div><span class="small muted">${s.portions} порц.</span><b class="pts">${cnt(s.points, 0)}</b></div>`).join('')}</div>
+      </div>`;
+    if (!silent) countUp(main); else $$('[data-count]', main).forEach(el => { el.textContent = fmt(Number(el.dataset.count), 0); });
+    animateRings(main);
+    if (G.me) checkBadges(G.me.badges, 'u' + G.me.userId);
+    else if (S.user.role === 'resp') { const mine = G.orgs.find(o => o.orgId === S.user.orgId); if (mine) checkBadges(mine.badges, 'o' + mine.orgId); }
+  }
+
+  // ================= REALTIME =================
+  let liveRev = null, liveTimer = null;
+  function startLive() {
+    if (liveTimer) return;
+    const tick = async () => {
+      if (!S.user || document.hidden) return;
+      try {
+        if (MODE === 'local') localCore.reload();
+        const r = await api('rev');
+        if (liveRev != null && r.rev !== liveRev) refreshLive();
+        liveRev = r.rev;
+      } catch (e) { /* сеть */ }
+    };
+    liveTimer = setInterval(tick, 4000); tick();
+    window.addEventListener('storage', e => { if (e.key === 'eco_db' && MODE === 'local') { localCore.reload(); refreshLive(); } });
+  }
+  function refreshLive() {
+    if ($('dialog[open]')) return;
+    const page = location.hash.replace(/^#\/?/, '').split('?')[0].split('/');
+    if (page[0] === 'dash') viewDash(true);
+    else if (page[0] === 'boxes') viewBoxes(true);
+    else if (page[0] === 'box' && page[1]) viewBox(page[1], true);
+    else if (page[0] === 'offers') viewOffers(true);
+    else if (page[0] === 'game') viewGame(true);
   }
 
   // ================= АДМИНИСТРИРОВАНИЕ =================
@@ -3046,6 +4068,8 @@ if(typeof module!=='undefined'&&module.exports)module.exports=QR;else root.QR=QR
 
   // ================= маршрутизация =================
   async function route() {
+    if (scanStop) scanStop();
+    if (S.user) startLive();
     const h = location.hash.replace(/^#\/?/, '');
     const [path, qs] = h.split('?');
     const params = Object.fromEntries(new URLSearchParams(qs || ''));
@@ -3060,6 +4084,9 @@ if(typeof module!=='undefined'&&module.exports)module.exports=QR;else root.QR=QR
     try {
       if (page === 'report' && parts[1]) return await viewReport(parts[1]);
       if (page === 'qr' && ['resp', 'admin', 'reviewer'].includes(S.user.role)) return await viewQr(params);
+      if (page === 'box' && parts[1]) return await viewBox(decodeURIComponent(parts[1]).toUpperCase());
+      if (page === 'scan') return await viewScan();
+      if (page === 'boxes-print' && S.user.role !== 'student') return await viewBoxesPrint();
       if (!allowed.includes(page)) { location.hash = '#/' + allowed[0]; return; }
       if (page === 'form') return await viewForm(params);
       if (page === 'review') return await viewReview();
@@ -3067,6 +4094,9 @@ if(typeof module!=='undefined'&&module.exports)module.exports=QR;else root.QR=QR
       if (page === 'reports') return await viewReports();
       if (page === 'dash') return await viewDash();
       if (page === 'admin') return await viewAdmin();
+      if (page === 'boxes') return await viewBoxes();
+      if (page === 'offers') return await viewOffers();
+      if (page === 'game') return await viewGame();
     } catch (e) {
       if (e.code === 401) { token = null; S.user = null; store.del('token'); return viewLogin(); }
       shell(page, errorBox(e));
