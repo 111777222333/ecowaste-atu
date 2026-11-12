@@ -499,6 +499,11 @@ table.t th { background: rgba(240, 246, 242, .9); }
   .tilting { transform: none !important; }
 }
 @media print { .card, .kpi { backdrop-filter: none; box-shadow: none; background: #fff; } h1 { color: #000; background: none; -webkit-text-fill-color: #000; } }
+
+/* навигация с 2 пунктами (студент): по центру, без пустых мест */
+.bnav.n2 { justify-content: center; gap: 6px; }
+.bnav.n2 a { flex: 0 1 50%; max-width: 220px; }
+@media (min-width: 861px) { .top nav { flex-wrap: nowrap; } }
 </style>
 </head>
 <body>
@@ -1261,7 +1266,7 @@ table.t th { background: rgba(240, 246, 242, .9); }
       // ---------- аналитика ----------
       // scope: 'all' — все записи (оперативно, включая черновики), 'accepted' — только принятые отчёты
       analytics(ctx, a) {
-        need(ctx);
+        need(ctx, ['resp', 'reviewer', 'admin', 'mgmt']); // студентке аналитика жабық (403)
         a = a || {};
         let orgIds = db.orgs.map(o => o.id);
         if (ctx.user.role === 'resp') orgIds = [ctx.user.orgId];
@@ -3067,7 +3072,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=QR;else root.QR=QR
     if (r === 'resp') return ['form', 'boxes', 'offers', 'dash', 'game'];
     if (r === 'reviewer') return ['review', 'dash', 'boxes', 'registry', 'reports', 'game'];
     if (r === 'admin') return ['dash', 'review', 'boxes', 'offers', 'registry', 'reports', 'game', 'admin'];
-    if (r === 'student') return ['offers', 'game', 'dash'];
+    if (r === 'student') return ['offers', 'game']; // студентке «Аналитика» жоқ
     return ['dash', 'reports', 'registry', 'boxes', 'game'];
   }
 
@@ -3082,9 +3087,9 @@ if(typeof module!=='undefined'&&module.exports)module.exports=QR;else root.QR=QR
         <button class="tb" id="langBtn" title="Тіл / Язык">${t('lang')}</button>
         <button class="tb" id="outBtn">${t('logout')}</button>
       </header>
-      ${MODE === 'local' ? '<div class="mode-banner">Демо-режим: данные хранятся только в этом браузере. Для общей работы нескольких пользователей запустите сервер (node server.js).</div>' : ''}
+      ${MODE === 'local' && S.user.role !== 'student' ? '<div class="mode-banner">Демо-режим: данные хранятся только в этом браузере. Для общей работы нескольких пользователей запустите сервер (node server.js).</div>' : ''}
       <main id="main">${body || ''}</main>
-      <nav class="bnav">${items.map(i => `<a href="#/${i}" class="${i === active ? 'on' : ''}">${ICON[i]}<span>${t(i)}</span></a>`).join('')}</nav>`;
+      <nav class="bnav n${items.length}">${items.map(i => `<a href="#/${i}" class="${i === active ? 'on' : ''}">${ICON[i]}<span>${t(i)}</span></a>`).join('')}</nav>`;
     $('#langBtn').onclick = () => { lang = lang === 'ru' ? 'kz' : 'ru'; store.set('lang', lang); route(); };
     $('#outBtn').onclick = async () => { try { await api('logout'); } catch (e) { /* */ } token = null; store.del('token'); location.hash = '#/login'; };
     return $('#main');
@@ -3711,6 +3716,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=QR;else root.QR=QR
   // ================= АНАЛИТИКА (дашборд) =================
   let dashF = null;
   async function viewDash(silent) {
+    if (!S.user || S.user.role === 'student') { go('#/offers'); return; } // рөл тексеру: студентке деректер жүктелмейді
     if (!dashF) dashF = { preset: '90', gran: 'week', orgId: '' };
     const main = silent ? $('#main') : shell('dash', skeleton(4));
     const today = S.today;
@@ -4075,7 +4081,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=QR;else root.QR=QR
   function refreshLive() {
     if ($('dialog[open]')) return;
     const page = location.hash.replace(/^#\/?/, '').split('?')[0].split('/');
-    if (page[0] === 'dash') viewDash(true);
+    if (page[0] === 'dash' && S.user.role !== 'student') viewDash(true);
     else if (page[0] === 'boxes') viewBoxes(true);
     else if (page[0] === 'box' && page[1]) viewBox(page[1], true);
     else if (page[0] === 'offers') viewOffers(true);
@@ -4257,7 +4263,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=QR;else root.QR=QR
       if (page === 'box' && parts[1]) return await viewBox(decodeURIComponent(parts[1]).toUpperCase());
       if (page === 'scan') return await viewScan();
       if (page === 'boxes-print' && S.user.role !== 'student') return await viewBoxesPrint();
-      if (!allowed.includes(page)) { location.hash = '#/' + allowed[0]; return; }
+      if (!allowed.includes(page)) { location.replace('#/' + allowed[0]); return; } // қолжетімсіз бет → рөлдің бастапқы беті (студент: «Акции»)
       if (page === 'form') return await viewForm(params);
       if (page === 'review') return await viewReview();
       if (page === 'registry') return await viewRegistry();
